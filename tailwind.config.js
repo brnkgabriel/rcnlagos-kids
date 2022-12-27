@@ -80,7 +80,7 @@ module.exports = {
       },
       fontFamily: {
         body: ['Poppins, DM Sans, Comic Neue'],
-        black: ['Luckiest Guy, Bowlby One SC']
+        black: ['Helvetica Black, Luckiest Guy, Bowlby One SC']
       },
       scale: {
         98: ".98"

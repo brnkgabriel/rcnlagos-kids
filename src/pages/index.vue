@@ -10,9 +10,9 @@
         <div aria-label="footnote" :class="subline_small">Towards the rebirth of Apostolic Christianity</div>
       </div>
 
-      <div aria-label="title" class="flex flex-col text-center text-white">
-        <div aria-label="top" class="uppercase font-black text-3xl text-shadow tracking-wider">children</div>
-        <div aria-label="bottom" class="uppercase font-black text-3xl text-shadow tracking-wider">department</div>
+      <div aria-label="title" class="flex flex-col text-center text-white font-extrabold">
+        <div aria-label="top" class="uppercase font-body text-shadow text-3xl">children</div>
+        <div aria-label="bottom" class="uppercase font-body text-shadow text-3xl">department</div>
       </div>
 
       <div aria-label="navigation" class="flex flex-col justify-center items-center gap-y-2">
