@@ -1,6 +1,6 @@
 <template>
   <div>
-    students
+    students page
   </div>
 </template>
 <script setup lang="ts">
