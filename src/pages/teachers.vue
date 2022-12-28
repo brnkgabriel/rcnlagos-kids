@@ -1,7 +1,5 @@
 <template>
-  <div>
-    teachers
-  </div>
+  <TeachersComponent />
 </template>
 <script setup lang="ts">
 definePageMeta({

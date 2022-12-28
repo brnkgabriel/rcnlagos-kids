@@ -10,6 +10,7 @@ export interface iTeacher {
   birthday?: string;
   role?: string;
   class?: string;
+  duration?: string;
 }
 
 export interface iStudent {
@@ -25,7 +26,10 @@ export interface iStudent {
   birthday?: string;
   role?: string;
   age?: string;
+  duration?: string;
 }
+
+export interface iCombined extends iStudent, iTeacher {}
 
 export interface iObserver {
   pLabel: string; // parent label
@@ -51,4 +55,11 @@ export interface iUpload {
 export interface iGlobalState {
   fromRoute: string;
   toRoute: string;
+}
+
+export interface iDataApiOptions {
+  column: string;
+  value: string;
+  table: string;
+  update?: any
 }

@@ -37,7 +37,7 @@ export const el = (query: string, parent?: HTMLElement) => parent ? parent.query
 export const position = (idx: number, list: any[]) => idx === list.length - 1 ? "last" : "others"
 
 export const constants = {
-  teachersApiUrl: "/api/g-teachers",
+  dataApiUrl: "/api/g-data",
   imageUploadApiUrl: "/api/p-image",
   monthMap: {
     january: 1,
@@ -86,16 +86,16 @@ export const constants = {
   anonymous: 'anonymous',
   div: 'div',
   whatsappIcon: (student: iStudent | null) => {
-    let number = student ? student?.parentContact : "0"
+    let number = student ? student?.parentsContact : "0"
     // @ts-ignore
     const num = phone(number)
     number = num.slice(1, num.length)
 
-    return `https://api.whatsapp.com/send?phone=${number}&text=Hello%20${student?.prefix} ${student?.firstName}`
+    return `https://api.whatsapp.com/send?phone=${number}&text=Hello%20${student?.firstName}'s dad`
   }
 }
 
-export const studentName = (student: iStudent | null) => student?.lastName ? `${student.prefix} ${student.firstName} ${student.lastName}` : 'Names'
+export const studentName = (student: iStudent | null) => student?.lastName ? `Hello ${student.firstName} ${student.lastName}'s parent` : 'Names'
 
 export const imgSrc = (url: string) => url ? url : '/icons/avatar.svg'
 
@@ -117,7 +117,7 @@ export const minutesToMilliseconds = (minutes: string | undefined) => {
 const startAndEndTimes = (item: iCombined, type: string) => {
   const strDuration = type === constants.students ? item.duration : constants.birthdayMinDuration
   const duration = minutesToMilliseconds(strDuration)
-  const dateStr = type === constants.students ? item.date : item.birthday
+  const dateStr = type === constants.students ? item.birthday : item.birthday
   const dateInstance = new Date(dateStr as string)
   const $mIdx = dateInstance.getMonth()
   const $date = dateInstance.getDate()
@@ -136,17 +136,17 @@ export const reorder = (list: iCombined[], type: string) => {
       prev = list.filter(item => {
         const { eTime } = startAndEndTimes(item, constants.students)
         return Date.now() > eTime
-      }).sort((a, b) => +new Date(a.date as string) - +new Date(b.date as string))
+      }).sort((a, b) => +new Date(a.birthday as string) - +new Date(b.birthday as string))
 
       next = list.filter(item => {
         const { sTime } = startAndEndTimes(item, constants.students)
         return Date.now() < sTime
-      }).sort((a, b) => +new Date(a.date as string) - +new Date(b.date as string))
+      }).sort((a, b) => +new Date(a.birthday as string) - +new Date(b.birthday as string))
 
       live = list.filter(item => {
         const { sTime, eTime } = startAndEndTimes(item, constants.students)
         return Date.now() >= sTime && Date.now() <= eTime
-      }).sort((a, b) => +new Date(a.date as string) - +new Date(b.date as string))
+      }).sort((a, b) => +new Date(a.birthday as string) - +new Date(b.birthday as string))
 
       return { prev, next, live, reordered: [ ...live, ...next, ...prev ] };
     case constants.teachers:
@@ -178,7 +178,7 @@ export const search = (term: string, list: iCombined[]) => {
     student.birthday?.toLowerCase().includes(term) ||
     student.gender?.toLowerCase().includes(term) ||
     student.age?.toLowerCase().includes(term) ||
-    student.parentContact?.toLowerCase().includes(term) ||
+    student.parentsContact?.toLowerCase().includes(term) ||
     student.role?.toLowerCase().includes(term)
   })
 }
