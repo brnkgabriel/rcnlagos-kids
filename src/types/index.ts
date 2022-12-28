@@ -1,15 +1,15 @@
 
-export interface iUi {
-  mainline?: string;
-  subline?: string;
-  grayText?: string;
-  breadcrumb?: string;
-  logo?: string;
-  bottomNavLink?: string;
-  bottomNavLinkIcon?: string;
-  homeNavLink?: string;
-  center?: string;
-  input?: string;
+export interface iTeacher {
+  created_at?: Date;
+  id?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  gender?: string;
+  imageUrl?: string; 
+  birthday?: string;
+  role?: string;
+  class?: string;
 }
 
 export interface iStudent {
@@ -17,33 +17,14 @@ export interface iStudent {
   id?: string;
   firstName?: string;
   lastName?: string;
-  parentContact?: string;
+  parentsContact?: string;
   gender?: string;
+  class?: string;
   imageUrl?: string;
-  imageFile?: string;
   birthday?: string;
   role?: string;
-  prefix?: string;
   age?: string;
 }
-
-export interface iMeeting {
-  created_at?: Date;
-  id?: string;
-  date?: string;
-  desc?: string;
-  ministers?: string;
-  name?: string;
-  duration?: string;
-  type?: string;
-  imageUrl?: string;
-  mediaUrl?: string;
-  mediaType?: string;
-  address?: string;
-  map?: string;
-}
-
-export interface iCombined extends iStudent, iMeeting { }
 
 export interface iObserver {
   pLabel: string; // parent label
