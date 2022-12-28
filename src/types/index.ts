@@ -20,6 +20,7 @@ export interface iStudent {
   parentsContact?: string;
   gender?: string;
   class?: string;
+  email?: string;
   imageUrl?: string;
   birthday?: string;
   role?: string;

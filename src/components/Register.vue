@@ -30,6 +30,11 @@
         </div>
       </div>
       <div class="flex flex-col justify-start w-full">
+        <label for="email" :class="subline_small">Email</label>
+        <input type="email" id="email" name="email" autocomplete="off" :class="input" placeholder="john.doe@gmail.com"
+          v-model="selected.email" required />
+      </div>
+      <div class="flex flex-col justify-start w-full">
         <label for="phoneNumber" :class="subline_small">Parents Contact</label>
         <input type="text" id="parentsContact" name="parentsContact" autocomplete="off" :class="input"
           placeholder="08021116498" v-model="selected.parentsContact" required />
@@ -53,7 +58,7 @@
 <script setup lang="ts">
 import { iStudent, iUpload } from "~~/src/types/index"
 import { Ref } from "vue";
-import CropperModal from "~~/components/CropperModal.vue"; 
+import CropperModal from "~~/components/CropperModal.vue";
 
 const { input, button, subline, mainline_small, subline_small } = useUi()
 const formRef = ref()
