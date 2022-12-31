@@ -54,23 +54,11 @@ body {
   border-radius: 4px;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%);
   height: 380px;
-}
-
-/* .card[data-state="#about"] {
-  height: 430px;
-} */
+} 
 
 .selected[data-state="#about"] .card-main {
   padding-top: 0;
-}
-
-/* .card[data-state="#contact"] {
-  height: 430px;
-}
-
-.card[data-state="#experience"] {
-  height: 430px;
-} */
+} 
 
 .selected.is-active .card-header {
   height: 80px;
@@ -81,13 +69,13 @@ body {
 }
 
 .selected.is-active .card-fullname {
-  bottom: 18px;
-  font-size: 17px;
+  /* bottom: 18px;
+  font-size: 17px; */
 }
 
 .selected.is-active .card-jobtitle {
-  bottom: 16px;
-  font-size: 10px;
+  /* bottom: 16px;
+  font-size: 10px; */
 }
 
 .selected .card-header {
@@ -144,12 +132,12 @@ body {
   flex-direction: column;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0%) scale(1);
   text-align: center;
 }
 .selected.is-active .card-identity {
   text-align: left;
-  transform: translate(-50%,-50%);
+  transform: translate(-45%,-50%) scale(0.9);
 }
 
 .selected .card-fullname {
@@ -162,6 +150,7 @@ body {
 
 .selected .card-jobtitle {
   font-size: 11px;
+  letter-spacing: 1px;
   white-space: nowrap;
   font-weight: 500;
   opacity: .7;
