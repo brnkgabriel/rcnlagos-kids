@@ -79,7 +79,9 @@ module.exports = {
         'dark-overlay': "linear-gradient(195deg,rgba(0,0,0,0.5),rgba(0,0,0,0.5))"
       },
       fontFamily: {
-        body: ['Poppins, DM Sans, Comic Neue'],
+        title: ['Jost'],
+        body: ['Poppins, DM Sans'],
+        comic: ['Comic Neue'],
         black: ['Helvetica Black, Luckiest Guy, Bowlby One SC']
       },
       scale: {

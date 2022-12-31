@@ -1,0 +1,399 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500|Jost:400,500,600&display=swap");
+
+:root {
+  --card-desc: #636b6f;
+  --card-social-svg: #a5b5ce;
+  --card-social-fill: #8797a1;
+  --card-social-bgcolor: rgba(93, 133, 193, 0.05);
+  --card-social-hover: #637faa;
+  --card-button-font-color: #5c5c6d;
+  --card-button-hover-color: #2b2c48;
+  --card-button-border-color: #8a84ff;
+  --card-button-background: linear-gradient(to bottom, rgba(127, 199, 231, 0) 0%, rgba(207, 204, 255, 0.2) 44%, rgba(211, 226, 255, 0.4) 100%);
+  --card-timeline-background: linear-gradient(to top, rgba(134, 214, 243, 0) 0%, rgba(81, 106, 204, 1) 100%);
+  --card-item-after-color: rgba(134, 134, 134, 0.7);
+  --card-item-after-background: linear-gradient(to bottom, #a0aee3 0%, #516acc 100%);
+  --card-item-desc-font-color: #6f6f7b;
+  --card-contact-border-color: #dfe2ec;
+  --contact-me-background: linear-gradient(to right, rgba(83, 200, 239, 0.8) 0%, rgba(81, 106, 204, 0.8) 96%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* 
+body {
+  color: #2b2c48;
+  font-family: Jost, Poppins, sans-serif;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 16px;
+  padding-top: 64px;
+  background-color: #aaa;
+} */
+
+.selected {
+  background-color: #aaa;
+  color: #2b2c48;
+  width: calc(100%);
+  max-width: 340px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  background-color: white;
+  display: flex;
+  transition: .3s;
+  flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%);
+  height: 380px;
+}
+
+/* .card[data-state="#about"] {
+  height: 430px;
+} */
+
+.selected[data-state="#about"] .card-main {
+  padding-top: 0;
+}
+
+/* .card[data-state="#contact"] {
+  height: 430px;
+}
+
+.card[data-state="#experience"] {
+  height: 430px;
+} */
+
+.selected.is-active .card-header {
+  height: 80px;
+}
+
+.selected.is-active .card-cover {
+  height: 100px;
+  top: -50px;
+}
+
+.selected.is-active .card-avatar {
+  transform: none;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.selected.is-active .card-identity {
+  left: 86px;
+  transform: none;
+  text-align: left;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.selected.is-active .card-fullname {
+  bottom: 18px;
+  font-size: 17px;
+}
+
+.selected.is-active .card-jobtitle {
+  bottom: 16px;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+
+.selected .card-header {
+  position: relative;
+  display: flex;
+  height: 150px;
+  flex-shrink: 0;
+  width: 100%;
+  transition: .3s;
+}
+
+.selected .card-header * {
+  transition: .3s;
+}
+
+.selected .card-cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  height: 160px;
+  top: -20%;
+  left: 0;
+  will-change: top;
+  background-size: cover;
+  background-position: center;
+  filter: blur(30px);
+  transform: scale(1.2);
+  transition: .5s;
+  opacity: .7;
+}
+
+.selected .card-avatar {
+  width: 90px;
+  height: 90px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  object-position: center;
+  object-fit: cover;
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+.selected .card-identity {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.selected .card-fullname {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  font-family: Jost;
+}
+
+.selected .card-jobtitle {
+  font-size: 11px;
+  white-space: nowrap;
+  font-weight: 500;
+  opacity: .7;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0;
+}
+
+.selected .card-main {
+  position: relative;
+  flex: 1;
+  display: flex;
+  padding-top: 10px;
+  flex-direction: column;
+}
+
+.selected .card-subtitle {
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 8px;
+  font-family: Jost;
+}
+
+.selected .card-content {
+  padding: 16px;
+}
+
+.selected .card-desc {
+  line-height: 1.6;
+  color: var(--card-desc);
+  font-size: 14px;
+  margin: 0;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+}
+
+.selected .card-social {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  margin-bottom: 30px;
+}
+
+.selected .card-social svg {
+  fill: var(--card-social-svg);
+  width: 16px;
+  display: block;
+  transition: .3s;
+}
+
+.selected .card-social a {
+  color: var(--card-social-fill);
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s;
+  background-color: var(--card-social-bgcolor);
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.selected .card-social a:hover svg {
+  fill: var(--card-social-hover);
+}
+
+.selected .card-social a:last-child {
+  margin-right: 0;
+}
+
+.selected .card-buttons {
+  display: flex;
+  background-color: white;
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+}
+
+.selected .card-buttons button {
+  flex: 1 1 auto;
+  user-select: none;
+  background: 0;
+  font-size: 13px;
+  border: 0;
+  padding: 16px 8px;
+  cursor: pointer;
+  color: var(--card-button-font-color);
+  transition: .3s;
+  font-family: Jost, sans-serif;
+  font-weight: 500;
+  outline: 0;
+  border-bottom: 3px solid transparent;
+}
+
+.selected .card-buttons button.is-active,
+.selected .card-buttons button:hover {
+  color: var(--card-button-hover-color);
+  border-bottom: 3px solid var(--card-button-border-color);
+  background: var(--card-button-background);
+}
+
+.selected .card-section {
+  display: none;
+}
+
+.selected .card-section.is-active {
+  display: block;
+  animation: fadeIn .6s both;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.selected .card-timeline {
+  margin-top: 8px;
+  position: relative;
+  height: 200px;
+  overflow: auto;
+}
+
+.selected .card-timeline::after {
+  background: var(--card-timeline-background);
+  content: "";
+  left: 42px;
+  width: 2px;
+  top: 0;
+  height: 100%;
+  position: absolute;
+}
+
+.selected .card-item {
+  position: relative;
+  padding-left: 60px;
+  padding-right: 20px;
+  padding-bottom: 30px;
+  z-index: 1;
+}
+
+.selected .card-item:last-child {
+  padding-bottom: 5px;
+}
+
+.selected .card-item::after {
+  content: attr(data-year);
+  position: absolute;
+  top: 0;
+  left: 37px;
+  width: 12px;
+  height: 12px;
+  line-height: .6;
+  border: 2px solid white;
+  font-size: 11px;
+  text-indent: -35px;
+  border-radius: 50%;
+  color: var(--card-item-after-color);
+  background: var(--card-item-after-background);
+}
+
+.selected .card-item-title {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.selected .card-item-desc {
+  font-size: 13px;
+  color: var(--card-item-desc-font-color);
+  line-height: 1.5;
+  font-family: "Poppins", sans-serif;
+}
+
+.selected .card-contact-wrapper {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.selected .card-contact {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--card-item-desc-font-color);
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.selected .card-contact svg {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  min-height: 34px;
+  margin-right: 12px;
+  transition: .3s;
+  padding-right: 12px;
+  border-right: 1px solid var(--card-contact-border-color);
+}
+
+.selected .contact-me {
+  border: 0;
+  outline: none;
+  background: var(--contact-me-background);
+  color: white;
+  padding: 12px 16px;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Jost, sans-serif;
+  transition: .3s;
+}

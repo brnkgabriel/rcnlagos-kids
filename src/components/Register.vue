@@ -15,7 +15,7 @@
           <input name="imageFile" id="avatar" type="file" class="hidden" accept="image/*" @change="toCropImage" />
           <img class="rounded-full w-[80px]" :src="imgSrc(selected.imageUrl as string)" alt="avatar" />
         </label>
-        <SwitchComponent left="male" right="female" :value="handleGender" name="gender" :class="subline" />
+        <Switch left="male" right="female" :value="handleGender" name="gender" :class="subline" />
       </div>
       <div aria-label="names" class="flex justify-between items-center gap-x-2">
         <div class="flex flex-col justify-start w-full">

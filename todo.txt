@@ -1,0 +1,1 @@
+- after email sign in, user should enter access pin, parents will enter phone number

@@ -1,5 +1,6 @@
 <template>
   <div class="h-full overflow-auto">
+    <Selected v-selected />
     <div v-if="students.length > 0" v-for="(student, idx) in students" :key="idx">
     {{ student.firstName }} {{ student.lastName }}
     </div>
@@ -8,6 +9,7 @@
 </template>
 <script setup lang="ts">
 import { iDataApiOptions, iStudent } from '../types';
+import { vSelected } from '../helpers/directives';
 
 const students = ref<iStudent[]>([])
 
