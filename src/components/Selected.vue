@@ -112,11 +112,11 @@
           <div class="card-subtitle">GALLERY</div>
           <div class="card-slide-wrapper">
             <div class="card-slide">
-              <img src="/images/kids_678x452.png" alt="kids"/>
+              <img src="https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji.jpg?alt=media&token=23016bb5-686b-44d1-bdf0-24673f06b057" alt="kids"/>
               <div>kids</div>
             </div>
             <div class="card-slide">
-              <img src="/images/prayer_678x452.JPEG" alt="kids"/>
+              <img src="https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji_2.jpg?alt=media&token=b1563976-6568-4282-a3ed-ee458e6cb194" alt="kids"/>
               <div>prayer</div>
             </div>
           </div>
