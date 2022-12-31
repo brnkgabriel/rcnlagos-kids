@@ -24,15 +24,21 @@ const options: iDataApiOptions = {
   value: "",
   update: ""
 }
-const { data, error } = await useLazyFetch(() => constants.dataApiUrl, {
+const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, {
   params: { ...options }
 })
 
 watch(data, () => {
+  console.log("watching data", data.value)
   students.value = data.value as iStudent[]
 })
 
-console.log("expecting error to be", error.value)
+
+onMounted(async () => {
+  await refresh()
+  console.log("on mounted data is", data)
+})
+
 </script>
 <style lang="">
   

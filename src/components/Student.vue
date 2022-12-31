@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white rounded shadow-custom inline-block align-top mx-1 cursor-pointer w-[60px]">
+  <div class="bg-white rounded shadow-custom inline-block align-top mx-1 cursor-pointer w-[80px]">
     <img
-      class="w-full h-[60px] rounded"
+      class="w-full h-[80px] rounded"
       :src="props.student.imageUrl"
       :alt="props.student.firstName + ' ' + props.student.lastName"/>
     <div class="text-center px-2 py-1 font-title w-full overflow-hidden text-ellipsis whitespace-nowrap">{{ props.student.firstName }}</div>
