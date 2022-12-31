@@ -1,11 +1,11 @@
 <template>
   <div class="h-full overflow-auto">
     <Selected v-selected />
-    <div :class="'h-[24px]' + ' ' + subline">
+    <div class="h-[24px] text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50">
       {{ students.length }} {{ pageName }}
     </div>
-    <div v-if="students.length > 0" v-for="(student, idx) in students" :key="idx">
-    {{ student.firstName }} {{ student.lastName }}
+    <div v-if="students.length > 0" class="overflow-y-hidden overflow-x-auto w-full whitespace-nowrap">
+      <Student v-for="(student, idx) in students" :key="idx" :student="student"/>
     </div>
     <div v-else="students.length === 0">Loading...</div>
   </div>
