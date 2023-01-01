@@ -51,7 +51,7 @@ body {
   flex-direction: column;
   border-radius: 4px;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%);
-  height: 380px;
+  height: 326px;
 } 
 
 .selected[data-state="#about"] .card-main {
@@ -173,16 +173,24 @@ body {
 }
 
 .selected .card-content {
+  padding: 0 16px;
+}
+
+.selected #about .card-content {
   padding: 16px;
 }
 
 .selected .card-desc {
   line-height: 1.6;
+  color: #636b6f;
   color: var(--card-desc);
   font-size: 14px;
   margin: 0;
   font-weight: 400;
   font-family: "Poppins", sans-serif;
+  height: 60px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .selected .card-social {
@@ -369,10 +377,11 @@ body {
   font-weight: 500;
   font-family: Jost, sans-serif;
   transition: .3s;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
 
 .selected .card-section#gallery {
-  height: 245px;
+  /* height: 245px; */
 }
 .selected .card-section#gallery .card-content {
   height: 100%;
@@ -385,9 +394,9 @@ body {
 
 .selected .card-slide {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translateX(-50%);
   width: 100%;
   opacity: 0;
 }
