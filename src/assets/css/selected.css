@@ -139,7 +139,6 @@ body {
 .selected.is-active .card-identity {
   transform: translate(-45%,-50%) scale(0.9);
   width: 50%;
-  text-align: left;
 }
 
 .selected .card-fullname {
