@@ -16,7 +16,6 @@
   --card-item-after-background: linear-gradient(to bottom, #a0aee3 0%, #516acc 100%);
   --card-item-desc-font-color: #6f6f7b;
   --card-contact-border-color: #dfe2ec;
-  --contact-me-background: linear-gradient(to right, rgba(83, 200, 239, 0.8) 0%, rgba(81, 106, 204, 0.8) 96%);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 * {
@@ -41,8 +40,7 @@ body {
 .selected {
   background-color: #aaa;
   color: #2b2c48;
-  width: calc(100%);
-  max-width: 340px;
+  width: 100%;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
@@ -73,7 +71,7 @@ body {
   font-size: 17px; */
 }
 
-.selected.is-active .card-jobtitle {
+.selected.is-active .card-birthday {
   /* bottom: 16px;
   font-size: 10px; */
 }
@@ -122,8 +120,10 @@ body {
 }
 
 .selected.is-active .card-avatar {
-  transform: translate(-170%, -13%) scale(0.7);
+  transform: translate(0%, -50%) scale(0.7);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  left: 0%;
+  top: 50%;
 }
 
 .selected .card-identity {
@@ -134,21 +134,29 @@ body {
   left: 50%;
   transform: translate(-50%, 0%) scale(1);
   text-align: center;
+  width: 100%;
 }
 .selected.is-active .card-identity {
-  text-align: left;
   transform: translate(-45%,-50%) scale(0.9);
+  width: 50%;
+  text-align: left;
 }
 
 .selected .card-fullname {
   font-size: 20px;
   font-weight: 700;
-  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
   font-family: Jost;
 }
 
-.selected .card-jobtitle {
+.selected.is-active .card-fullname {
+  
+}
+
+.selected .card-birthday {
   font-size: 11px;
   letter-spacing: 1px;
   white-space: nowrap;
@@ -361,7 +369,6 @@ body {
 .selected .contact-me {
   border: 0;
   outline: none;
-  background: var(--contact-me-background);
   color: white;
   padding: 12px 16px;
   width: 100%;

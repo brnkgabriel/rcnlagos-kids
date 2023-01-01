@@ -1,23 +1,21 @@
 <template>
   <div class="selected" data-state="#about">
     <div class="card-header">
-      <div class="card-cover"
-        style="background-image: url(https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80);">
+      <div class="card-cover" :style="style">
       </div>
       <img
-        src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
+        :src="avatar"
         alt="avatar" class="card-avatar" />
       <div class="card-identity">
-        <h1 class="card-fullname">William Rocheald</h1>
-        <h2 class="card-jobtitle">UI Developer</h2>
+        <h1 class="card-fullname">{{ fullname }}</h1>
+        <h2 class="card-birthday">{{ birthday }}</h2>
       </div>
     </div>
     <div class="card-main">
       <div class="card-section is-active" id="about">
         <div class="card-content">
           <div class="card-subtitle">ABOUT</div>
-          <p class="card-desc">Whatever tattooed stumptown art party sriracha gentrify hashtag intelligentsia readymade
-            shlitz brooklyn disrupt.</p>
+          <p class="card-desc">{{ about }}</p>
         </div>
         <div class="card-social">
           <a href="#"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +91,8 @@
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path
                   d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
-              </svg>(269) 756-9809
+              </svg>
+              <!-- <span>{{ props.student.parentsContact }}</span> -->
             </div>
             <div class="card-contact">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -103,7 +102,7 @@
               </svg>
               william@rocheald.com
             </div>
-            <button class="contact-me">CONTACT PARENT</button>
+            <a class="contact-me bg-rcnblue-200 text-center" :href="'tel:'">CONTACT PARENT</a>
           </div>
         </div>
       </div>
@@ -131,7 +130,17 @@
       </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import { iStudent } from '../types';
+const props = defineProps<{ student: iStudent; }>();
+const avatarPlaceholder = "/icons/avatar.svg"
+
+const fullname = computed(() => props.student.firstName ? `${props.student.firstName} ${props.student.lastName}` : 'Firstname Surname')
+
+const style = computed(() => `background-image: url(${props.student.imageUrl ?? avatarPlaceholder});`)
+const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
+const birthday = computed(() => props.student.birthday ?? `January 1`)
+const about = computed(() => props.student.about ?? `Blessed`)
 </script>
 <style lang="">
   

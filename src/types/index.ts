@@ -8,6 +8,7 @@ export interface iTeacher {
   gender?: string;
   imageUrl?: string; 
   birthday?: string;
+  about?: string;
   role?: string;
   class?: string;
   duration?: string;
@@ -24,6 +25,7 @@ export interface iStudent {
   email?: string;
   imageUrl?: string;
   birthday?: string;
+  about?: string;
   role?: string;
   age?: string;
   duration?: string;
