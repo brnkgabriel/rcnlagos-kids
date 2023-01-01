@@ -59,11 +59,11 @@
           <div class="card-contact-wrapper">
             <div class="card-contact">
               <PhoneIcon class="w-[16px] h-[16px]" />
-              <span>{{ props.student.parentsContact }}</span>
+              <span>{{ phoneNo }}</span>
             </div>
             <div class="card-contact">
               <ChatBubbleLeftRightIcon class="w-[16px] h-[16px]" />
-              <span>{{ props.student.parentsContact }}</span>
+              <span>{{ whatsAppNo }}</span>
             </div>
             <a class="contact-me bg-rcnblue-200 text-center" :href="'tel:' + phone(props.student.parentsContact)">CALL PARENT</a>
           </div>
@@ -75,17 +75,13 @@
             <div aria-label="head">GALLERY</div>
             <div aria-label="stats" class="text-xxs">1 / 2</div>
           </div>
-          <div class="card-slide-wrapper">
-            <div aria-label="controls">
-              <div aria-label="prev"></div>
-              <div aria-label="next"></div>
+          <div class="card-slide-wrapper relative">
+            <div class="controls absolute">
+              <div class="prev absolute"></div>
+              <div class="next absolute"></div>
             </div>
-            <div class="card-slide is-active">
-              <img src="https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji.jpg?alt=media&token=23016bb5-686b-44d1-bdf0-24673f06b057" alt="kids"/>
-            </div>
-            <div class="card-slide">
-              <img src="https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji_2.jpg?alt=media&token=b1563976-6568-4282-a3ed-ee458e6cb194" alt="kids"/>
-            </div>
+            <div class="card-slide is-active" :style="slide1Style"></div>
+            <div class="card-slide" :style="slide2Style"></div>
           </div>
         </div>
       </div>
@@ -109,7 +105,19 @@ const fullname = computed(() => props.student.firstName ? `${props.student.first
 const style = computed(() => `background-image: url(${props.student.imageUrl ?? avatarPlaceholder});`)
 const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
 const birthday = computed(() => props.student.birthday ?? `January 1`)
-const about = computed(() => props.student.about ?? `Blessed`)
+const about = computed(() => props.student.about ?? `Blessed Child`)
+
+const number = (contact: string | undefined, msg: string) => {
+  if (contact && contact.length > 0)
+    return props.student.parentsContact
+  return `${msg} number...`
+}
+
+const phoneNo = computed(() => number(props.student.parentsContact, "Phone"))
+const whatsAppNo = computed(() => number(props.student.parentsContact, "WhatsApp"))
+
+const slide1Style = `background-image: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji.jpg?alt=media&token=23016bb5-686b-44d1-bdf0-24673f06b057);background-repeat:no-repeat;background-size:cover;background-position:center`
+const slide2Style = `background: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji_2.jpg?alt=media&token=b1563976-6568-4282-a3ed-ee458e6cb194);background-repeat:no-repeat;background-size:cover;background-position:center`
 </script>
 <style lang="">
   
