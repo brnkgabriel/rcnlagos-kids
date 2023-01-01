@@ -120,10 +120,8 @@ body {
 }
 
 .selected.is-active .card-avatar {
-  transform: translate(0%, -50%) scale(0.7);
+  transform: translate(calc(-50vw + 4px), -8%) scale(0.7);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-  left: 0%;
-  top: 50%;
 }
 
 .selected .card-identity {
@@ -134,25 +132,19 @@ body {
   left: 50%;
   transform: translate(-50%, 0%) scale(1);
   text-align: center;
-  width: 100%;
+  transform-origin: bottom right;
 }
 .selected.is-active .card-identity {
-  transform: translate(-45%,-50%) scale(0.9);
-  width: 50%;
+  text-align: right;
+  transform: translate(calc(50vw - 100% - 16px),-50%) scale(0.9);
 }
 
 .selected .card-fullname {
   font-size: 20px;
   font-weight: 700;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: center;
   white-space: nowrap;
   font-family: Jost;
-}
-
-.selected.is-active .card-fullname {
-  
 }
 
 .selected .card-birthday {
