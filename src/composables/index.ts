@@ -92,7 +92,7 @@ export const constants = {
     const num = phone(number)
     number = num.slice(1, num.length)
 
-    return `https://api.whatsapp.com/send?phone=${number}&text=Hello%20${student?.firstName}'s dad`
+    return `https://api.whatsapp.com/send?phone=${number}&text=Hello%20${student?.firstName}'s parent`
   }
 }
 
