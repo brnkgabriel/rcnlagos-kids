@@ -57,15 +57,17 @@
         <div class="card-content">
           <div class="card-subtitle">PARENT'S CONTACT</div>
           <div class="card-contact-wrapper">
-            <div class="card-contact">
-              <PhoneIcon class="w-[16px] h-[16px]" />
-              <span>{{ phoneNo }}</span>
+            <div class="contact">
+              <div class="card-contact">
+                <PhoneIcon class="w-[16px] h-[16px]" />
+                <span>{{ phoneNo }}</span>
+              </div>
+              <div class="card-contact">
+                <ChatBubbleLeftRightIcon class="w-[16px] h-[16px]" />
+                <span>{{ whatsAppNo }}</span>
+              </div>
             </div>
-            <div class="card-contact">
-              <ChatBubbleLeftRightIcon class="w-[16px] h-[16px]" />
-              <span>{{ whatsAppNo }}</span>
-            </div>
-            <a class="contact-me bg-rcnblue-200 text-center" :href="'tel:' + phone(props.student.parentsContact)">CALL PARENT</a>
+            <a class="contact-me bg-rcnblue-200 text-center block mt-10" :href="'tel:' + phone(props.student.parentsContact)">CALL PARENT</a>
           </div>
         </div>
       </div>

@@ -16,7 +16,8 @@
   --card-item-after-background: linear-gradient(to bottom, #a0aee3 0%, #516acc 100%);
   --card-item-desc-font-color: #6f6f7b;
   --card-contact-border-color: #dfe2ec;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  --box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  --border-color-500: #282828;
 }
 * {
   box-sizing: border-box;
@@ -188,6 +189,8 @@ body {
   height: 60px;
   overflow-x: hidden;
   overflow-y: auto;
+  height: 56.25vw;
+  max-height: 132px;
 }
 
 /* .selected .card-social {
@@ -253,8 +256,8 @@ body {
 .selected .card-buttons button.is-active,
 .selected .card-buttons button:hover {
   color: var(--card-button-hover-color);
-  border-bottom: 3px solid var(--card-button-border-color);
-  background: var(--card-button-background);
+  border-bottom: 3px solid var(--border-color-500);
+  /* background: var(--card-button-background); */
 }
 .selected .card-section {
   height: calc(56.25vw + 20px);
@@ -341,9 +344,6 @@ body {
 
 .selected .card-contact-wrapper {
   margin-top: 8px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
 }
 
 .selected .card-contact {
@@ -379,7 +379,7 @@ body {
   font-weight: 500;
   font-family: Jost, sans-serif;
   transition: .3s;
-  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  box-shadow: var(--box-shadow)
 }
 
 .selected .card-section#gallery {
@@ -389,7 +389,9 @@ body {
   height: 100%;
 }
 
-.selected .card-slide-wrapper {
+.selected .card-slide-wrapper,
+.selected .card-contact-wrapper,
+.selected .card-timeline {
   position: relative;
   width: 100%;
   height: 56.25vw;
@@ -433,6 +435,32 @@ body {
   height: 100%;
   width: 40px;
   cursor: pointer;
+  z-index: 1;
+}
+
+
+.selected .controls div::before,
+.selected .controls div::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.selected .controls div::before {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow: var(--box-shadow);
+  background-color: rgba(0,0,0,0.6);
+}
+.selected .controls div::after {
+  width: 8px;
+  height: 8px;
+  border: 2px solid white;
+  border-right: unset;
+  border-bottom: unset;
 }
 
 .selected .controls .prev {
@@ -441,4 +469,12 @@ body {
 
 .selected .controls .next {
   right: 0%;
+}
+
+.selected .controls .prev::after {
+  transform: translate(-40%,-50%) rotate(-45deg);
+}
+
+.selected .controls .next::after {
+  transform: translate(-60%,-50%) rotate(135deg);
 }

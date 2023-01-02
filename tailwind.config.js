@@ -19,9 +19,9 @@ module.exports = {
       },
       colors: {
         rcnblue: {
-          100: "#D1C4FC",
-          200: "#9F93C8",
-          500: "#17143D",
+          100: "#cccccc",
+          200: "#777777",
+          500: "#282828",
         },
         rcnorange: {
           500: "#FD6C03"
