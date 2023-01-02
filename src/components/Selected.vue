@@ -1,7 +1,7 @@
 <template>
-  <div class="selected" data-state="#about">
+  <div class="selected" data-state="#about" :style="bgStyle">
     <div class="card-header">
-      <div class="card-cover" :style="style">
+      <div class="card-cover" :style="coverStyle">
       </div>
       <img
         :src="avatar"
@@ -67,7 +67,7 @@
                 <span>{{ whatsAppNo }}</span>
               </a>
             </div>
-            <a class="contact-me bg-rcnblue-200 text-center block mt-10" :href="'tel:' + phone(props.student.parentsContact)">CALL PARENT</a>
+            <a class="contact-me text-center block mt-10" :href="'tel:' + phone(props.student.parentsContact)" :style="ctaStyle">CALL PARENT</a>
           </div>
         </div>
       </div>
@@ -104,7 +104,12 @@ const avatarPlaceholder = "/icons/avatar.svg"
 
 const fullname = computed(() => props.student.firstName ? `${props.student.firstName} ${props.student.lastName}` : 'Firstname Surname')
 
-const style = computed(() => `background-image: url(${props.student.imageUrl ?? avatarPlaceholder});`)
+const coverStyle = computed(() => props.student.email ? `background-color:${color(props.student.email)[700]};` : `bg-blue-600`)
+
+const bgStyle = computed(() => props.student.email ? `background-color:${color(props.student.email)[100]};` : `bg-blue-200`)
+
+const ctaStyle = computed(() => props.student.email ? `background-color:${color(props.student.email)[600]};` : `bg-blue-200`)
+
 const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
 const birthday = computed(() => props.student.birthday ?? `January 1`)
 const about = computed(() => props.student.about ?? `Blessed Child`)

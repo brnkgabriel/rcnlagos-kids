@@ -14,6 +14,13 @@ export interface iTeacher {
   duration?: string;
 }
 
+export interface iColor {
+  100: string;
+  200: string;
+  600: string;
+  700: string;
+}
+
 export interface iStudent {
   created_at?: Date;
   id?: string;

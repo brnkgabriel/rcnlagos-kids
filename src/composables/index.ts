@@ -1,4 +1,4 @@
-import { iCombined, iGlobalState, iStudent } from "../types"
+import { iColor, iCombined, iGlobalState, iStudent } from "../types"
 
 const subline = "text-xs"
 const tiny = "text-xxxs font-bold"
@@ -37,9 +37,147 @@ export const el = (query: string, parent?: HTMLElement) => parent ? parent.query
 
 export const position = (idx: number, list: any[]) => idx === list.length - 1 ? "last" : "others"
 
+export const color = (identifier: string) => {
+  const sum = [...identifier].reduce((acc, cur) => acc += cur.charCodeAt(0), 0)
+  const keys = Object.keys(constants.colorNames)
+  const idx = sum % keys.length
+  const key = keys[idx]
+  // @ts-ignore
+  const colorObj = constants.colorNames[key]
+  console.log("color object is", colorObj)
+  return colorObj
+}
 export const constants = {
   dataApiUrl: "/api/g-data",
   imageUploadApiUrl: "/api/p-image",
+  colorNames: {
+    slate: {
+      100: "#f1f5f9",
+      200: "#e2e8f0",
+      600: "#475569",
+      700: "#334155"
+    },
+    gray: {
+      100: "#f3f4f6",
+      200: "#e5e7eb",
+      600: "#4b5563",
+      700: "#374151"
+    },
+    zinc: {
+      100: "#f4f4f5",
+      200: "#e4e4e7",
+      600: "#52525b",
+      700: "#3f3f46"
+    },
+    stone: {
+      100: "#f5f5f4",
+      200: "#e7e5e4",
+      600: "#57534e",
+      700: "#44403c"
+    },
+    red: {
+      100: "#fee2e2",
+      200: "#fecaca",
+      600: "#dc2626",
+      700: "#b91c1c"
+    },
+    orange: {
+      100: "#ffedd5",
+      200: "#fed7aa",
+      600: "#ea580c",
+      700: "#c2410c"
+    },
+    amber: {
+      100: "#fef3c7",
+      200: "#fde68a",
+      600: "#d97706",
+      700: "#b45309"
+    },
+    yellow: {
+      100: "#fef9c3",
+      200: "#fef08a",
+      600: "#ca8a04",
+      700: "#a16207"
+    },
+    lime: {
+      100: "#ecfccb",
+      200: "#d9f99d",
+      600: "#65a30d",
+      700: "#4d7c0f"
+    },
+    green: {
+      100: "#dcfce7",
+      200: "#bbf7d0",
+      600: "#16a34a",
+      700: "#15803d"
+    },
+    emerald: {
+      100: "#d1fae5",
+      200: "#a7f3d0",
+      600: "#059669",
+      700: "#047857"
+    },
+    teal: {
+      100: "#ccfbf1",
+      200: "#99f6e4",
+      600: "#0d9488",
+      700: "#0f766e"
+    },
+    cyan: {
+      100: "#cffafe",
+      200: "#a5f3fc",
+      600: "#0891b2",
+      700: "#0e7490"
+    },
+    sky: {
+      100: "#e0f2fe",
+      200: "#bae6fd",
+      600: "#0284c7",
+      700: "#0369a1"
+    },
+    blue: {
+      100: "#dbeafe",
+      200: "#bfdbfe",
+      600: "#2563eb",
+      700: "#1d4ed8"
+    },
+    indigo: {
+      100: "#e0e7ff",
+      200: "#c7d2fe",
+      600: "#4f46e5",
+      700: "#4338ca"
+    },
+    violet: {
+      100: "#ede9fe",
+      200: "#ddd6fe",
+      600: "#7c3aed",
+      700: "#6d28d9"
+    },
+    purple: {
+      100: "#f3e8ff",
+      200: "#e9d5ff",
+      600: "#9333ea",
+      700: "#7e22ce"
+    },
+    fuchsia: {
+      100: "#fae8ff",
+      200: "#f5d0fe",
+      600: "#c026d3",
+      700: "#a21caf"
+    },
+    pink: {
+      100: "#fce7f3",
+      200: "#fbcfe8",
+      600: "#db2777",
+      700: "#be185d"
+    },
+    rose: {
+      100: "#ffe4e6",
+      200: "#fecdd3",
+      600: "#e11d48",
+      700: "#be123c"
+    }
+  },
   monthMap: {
     january: 1,
     february: 2,
@@ -123,7 +261,7 @@ const startAndEndTimes = (item: iCombined, type: string) => {
   const $mIdx = dateInstance.getMonth()
   const $date = dateInstance.getDate()
   const $year = new Date().getFullYear()
-  const sTime = +new Date($year,$mIdx, $date)
+  const sTime = +new Date($year, $mIdx, $date)
   const eTime = sTime + duration
   return { sTime, eTime }
 }
@@ -149,7 +287,7 @@ export const reorder = (list: iCombined[], type: string) => {
         return Date.now() >= sTime && Date.now() <= eTime
       }).sort((a, b) => +new Date(a.birthday as string) - +new Date(b.birthday as string))
 
-      return { prev, next, live, reordered: [ ...live, ...next, ...prev ] };
+      return { prev, next, live, reordered: [...live, ...next, ...prev] };
     case constants.teachers:
       prev = list.filter(item => {
         const { eTime } = startAndEndTimes(item, constants.teachers)
@@ -166,7 +304,7 @@ export const reorder = (list: iCombined[], type: string) => {
         return Date.now() >= sTime && Date.now() <= eTime
       }).sort((a, b) => +new Date(a.birthday as string) - +new Date(b.birthday as string))
 
-      return { prev, next, live, reordered: [ ...live, ...next, ...prev ] };
+      return { prev, next, live, reordered: [...live, ...next, ...prev] };
     default:
       break;
   }
@@ -175,12 +313,12 @@ export const reorder = (list: iCombined[], type: string) => {
 export const search = (term: string, list: iCombined[]) => {
   return list.filter(student => {
     return student.firstName?.toLowerCase().includes(term) ||
-    student.lastName?.toLowerCase().includes(term) ||
-    student.birthday?.toLowerCase().includes(term) ||
-    student.gender?.toLowerCase().includes(term) ||
-    student.age?.toLowerCase().includes(term) ||
-    student.parentsContact?.toLowerCase().includes(term) ||
-    student.role?.toLowerCase().includes(term)
+      student.lastName?.toLowerCase().includes(term) ||
+      student.birthday?.toLowerCase().includes(term) ||
+      student.gender?.toLowerCase().includes(term) ||
+      student.age?.toLowerCase().includes(term) ||
+      student.parentsContact?.toLowerCase().includes(term) ||
+      student.role?.toLowerCase().includes(term)
   })
 }
 
@@ -224,14 +362,14 @@ export const fromLocalStorage = (key: string, json?: any) => {
 export const toLocalStorage = (key: string, data: any) => localStorage.setItem(key, JSON.stringify(data))
 
 export const getUser = async (email: string | undefined) => {
-    const supabase = useSupabaseClient()
-    let { data: res, error } = await supabase
+  const supabase = useSupabaseClient()
+  let { data: res, error } = await supabase
     .from(constants.teachers)
     .select("*")
     .eq("email", email)
 
-    if (error) throw error
-    return res
+  if (error) throw error
+  return res
 }
 
 export const useGlobalState = () => {
