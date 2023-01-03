@@ -48,7 +48,7 @@ module.exports = {
       width: {
         'details': 'calc(100% - 150px)',
         'listitemdetails': 'calc(100% - 120px)',
-        'card': 'calc(100% - 32px)'
+        'card': 'calc(100% - 32px)',
       },
       height: {
         '60%' : '60%',
@@ -56,7 +56,8 @@ module.exports = {
         'middle': 'calc(100% - 128px)',
         'listheight': 'calc(100% - 207px)',
         'cardlistheight': 'calc(100% - 28px)',
-        'form': 'calc(100% - 16px)'
+        'form': 'calc(100% - 16px)',
+        'students': 'calc(100% - 24px)'
       },
       spacing: {
         "half": "calc(50% + 1px)"

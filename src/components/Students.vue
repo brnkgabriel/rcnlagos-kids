@@ -1,13 +1,15 @@
 <template>
-  <div class="h-full overflow-auto">
-    <Selected v-selected :student="student" />
-    <div class="h-[24px] text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50">
-      {{ students.length }} {{ pageName }}
+  <div class="h-full overflow-hidden flex flex-col md:flex-row md:gap-x-2">
+    <Selected v-selected :student="student" class="md:w-1/2" />
+    <div class="md:h-full w-full md:w-1/2">
+      <div class="h-[24px] text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50">
+        {{ students.length }} {{ pageName }}
+      </div>
+      <div class="flex flex-wrap gap-2 h-[100px] sm:h-[150px] md:h-students overflow-y-auto overflow-x-hidden">
+        <Student v-for="(student, idx) in students" :key="idx" :student="student" @click="selectStudent(student)" />
+      </div>
     </div>
-    <div v-if="students.length > 0" class="flex flex-wrap gap-2 h-[100px] sm:h-[150px] md:h-[200px] overflow-y-auto overflow-x-hidden">
-      <Student v-for="(student, idx) in students" :key="idx" :student="student" @click="selectStudent(student)"/>
-    </div>
-    <div v-else="students.length === 0">Loading...</div>
+    <div v-if="students.length === 0">Loading...</div>
   </div>
 </template>
 <script setup lang="ts">
