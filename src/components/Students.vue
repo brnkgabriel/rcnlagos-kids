@@ -4,7 +4,7 @@
     <div class="h-[24px] text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50">
       {{ students.length }} {{ pageName }}
     </div>
-    <div v-if="students.length > 0" class="overflow-y-hidden overflow-x-auto w-full whitespace-nowrap">
+    <div v-if="students.length > 0" class="flex flex-wrap gap-2 h-[100px] sm:h-[150px] md:h-[200px] overflow-y-auto overflow-x-hidden">
       <Student v-for="(student, idx) in students" :key="idx" :student="student" @click="selectStudent(student)"/>
     </div>
     <div v-else="students.length === 0">Loading...</div>
