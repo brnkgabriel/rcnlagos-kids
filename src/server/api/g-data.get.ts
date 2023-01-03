@@ -8,7 +8,8 @@ export default defineEventHandler(async (event: H3Event) => {
 
     const options: iDataApiOptions = query as iDataApiOptions
     const response = await api.getData(options)
-    const data: iStudent[] = response as iStudent[]
+    console.log("server options is", options)
+    const data: any[] = response as any[]
     return data
   } catch (error: any) {
     return { error: error.message }

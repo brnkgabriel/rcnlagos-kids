@@ -44,7 +44,6 @@ export const color = (identifier: string) => {
   const key = keys[idx]
   // @ts-ignore
   const colorObj = constants.colorNames[key]
-  console.log("color object is", colorObj)
   return colorObj
 }
 export const constants = {

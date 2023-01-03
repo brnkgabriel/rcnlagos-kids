@@ -3,9 +3,7 @@
     <div class="card-header">
       <div class="card-cover" :style="coverStyle">
       </div>
-      <img
-        :src="avatar"
-        alt="avatar" class="card-avatar" />
+      <img :src="avatar" alt="avatar" class="card-avatar" />
       <div class="card-identity">
         <h1 class="card-fullname">{{ fullname }}</h1>
         <h2 class="card-birthday">{{ birthday }}</h2>
@@ -58,7 +56,7 @@
           <div class="card-subtitle">PARENT'S CONTACT</div>
           <div class="card-contact-wrapper">
             <div class="contact">
-              <a  :href="'tel:' + phone(props.student.parentsContact)" class="card-contact">
+              <a :href="'tel:' + phone(props.student.parentsContact)" class="card-contact">
                 <PhoneIcon class="w-[16px] h-[16px]" />
                 <span>{{ phoneNo }}</span>
               </a>
@@ -67,7 +65,8 @@
                 <span>{{ whatsAppNo }}</span>
               </a>
             </div>
-            <a class="contact-me text-center block mt-10" :href="'tel:' + phone(props.student.parentsContact)" :style="ctaStyle">CALL PARENT</a>
+            <a class="contact-me text-center block mt-10" :href="'tel:' + phone(props.student.parentsContact)"
+              :style="ctaStyle">CALL PARENT</a>
           </div>
         </div>
       </div>
@@ -88,18 +87,21 @@
         </div>
       </div>
     </div>
-      <div class="card-buttons">
-        <button data-section="#about" class="is-active">ABOUT</button>
-        <button data-section="#notes">NOTES</button>
-        <button data-section="#contact">CONTACT</button>
-        <button data-section="#gallery">GALLERY</button>
-      </div>
+    <div class="card-buttons">
+      <button data-section="#about" class="is-active">ABOUT</button>
+      <button data-section="#notes">NOTES</button>
+      <button data-section="#contact">CONTACT</button>
+      <button data-section="#gallery">GALLERY</button>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-import { iStudent } from '../types';
+import { iDataApiOptions, iMedia, iStudent } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
-const props = defineProps<{ student: iStudent; }>();
+const props = defineProps<{
+  student: iStudent;
+  media: iMedia[]
+}>();
 const avatarPlaceholder = "/icons/avatar.svg"
 
 const fullname = computed(() => props.student.firstName ? `${props.student.firstName} ${props.student.lastName}` : 'Firstname Surname')
@@ -114,6 +116,8 @@ const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
 const birthday = computed(() => props.student.birthday ?? `January 1`)
 const about = computed(() => props.student.about ?? `Blessed Child`)
 
+const studentRef = ref<iStudent>(props.student)
+
 const number = (contact: string | undefined, msg: string) => {
   if (contact && contact.length > 0)
     return props.student.parentsContact
@@ -125,6 +129,11 @@ const whatsAppNo = computed(() => number(props.student.parentsContact, "WhatsApp
 
 const slide1Style = `background-image: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji.jpg?alt=media&token=23016bb5-686b-44d1-bdf0-24673f06b057);background-repeat:no-repeat;background-size:cover;background-position:center`
 const slide2Style = `background: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji_2.jpg?alt=media&token=b1563976-6568-4282-a3ed-ee458e6cb194);background-repeat:no-repeat;background-size:cover;background-position:center`
+
+
+onUpdated(() => {
+  console.log("media from onUpdated is", props.media)
+})
 </script>
 <style lang="">
   

@@ -135,6 +135,20 @@ body {
   transform: translate(calc(50vw - 100% - 16px),-50%) scale(0.9);
 }
 
+@media (orientation: landscape) {
+  .selected.is-active .card-avatar {
+    transform: translate(calc(-25vw + 4px), -8%) scale(0.7);
+  }
+  .selected.is-active .card-identity {
+    transform: translate(calc(25vw - 100% - 16px),-50%) scale(0.9);
+  }
+
+  .selected {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .selected .card-fullname {
   font-size: 20px;
   font-weight: 700;

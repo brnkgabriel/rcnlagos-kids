@@ -1,7 +1,7 @@
 
 export interface iTeacher {
   created_at?: Date;
-  id?: string;
+  id?: string | number;
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
@@ -23,7 +23,7 @@ export interface iColor {
 
 export interface iStudent {
   created_at?: Date;
-  id?: string;
+  id?: string | number;
   firstName?: string;
   lastName?: string;
   parentsContact?: string;
@@ -36,6 +36,16 @@ export interface iStudent {
   role?: string;
   age?: string;
   duration?: string;
+}
+
+export interface iMedia {
+  created_at?: Date;
+  id?: string | number;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  mediaType?: string;
+  mediaUrl?: string;
 }
 
 export interface iCombined extends iStudent, iTeacher {}
