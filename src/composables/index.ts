@@ -37,7 +37,7 @@ export const el = (query: string, parent?: HTMLElement) => parent ? parent.query
 
 export const position = (idx: number, list: any[]) => idx === list.length - 1 ? "last" : "others"
 
-export const color = (identifier: string) => {
+export const color = (identifier: string): iColor => {
   const sum = [...identifier].reduce((acc, cur) => acc += cur.charCodeAt(0), 0)
   const keys = Object.keys(constants.colorNames)
   const idx = sum % keys.length
@@ -235,7 +235,7 @@ export const constants = {
 
 export const studentName = (student: iStudent | null) => student?.lastName ? `Hello ${student.firstName} ${student.lastName}'s parent` : 'Names'
 
-export const imgSrc = (url: string) => url ? url : '/icons/avatar.svg'
+export const imgSrc = (url: string) => url.length > 0 ? url : '/icons/avatar.svg'
 
 export const editUrl = (student: iStudent | null) => {
   if (!student) return "/student"

@@ -54,7 +54,7 @@
       <div class="card-section" id="contact">
         <div class="card-content">
           <div class="card-subtitle">PARENT'S CONTACT</div>
-          <div class="card-contact-wrapper">
+          <div class="card-contact-wrapper flex flex-col gap-y-2">
             <div class="contact">
               <a :href="'tel:' + phone(props.student.parentsContact)" class="card-contact">
                 <PhoneIcon class="w-[16px] h-[16px]" />
@@ -65,7 +65,7 @@
                 <span>{{ whatsAppNo }}</span>
               </a>
             </div>
-            <a class="contact-me text-center block mt-10" :href="'tel:' + phone(props.student.parentsContact)"
+            <a class="contact-me text-center" :href="'tel:' + phone(props.student.parentsContact)"
               :style="ctaStyle">CALL PARENT</a>
           </div>
         </div>
@@ -96,7 +96,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iDataApiOptions, iMedia, iStudent } from '../types';
+import { iColor, iDataApiOptions, iMedia, iStudent } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
   student: iStudent;
@@ -106,17 +106,22 @@ const avatarPlaceholder = "/icons/avatar.svg"
 
 const fullname = computed(() => props.student.firstName ? `${props.student.firstName} ${props.student.lastName}` : 'Firstname Surname')
 
-const coverStyle = computed(() => props.student.email ? `background-color:${color(props.student.email)[700]};` : `bg-blue-600`)
-
-const bgStyle = computed(() => props.student.email ? `background-color:${color(props.student.email)[100]};` : `bg-blue-200`)
-
-const ctaStyle = computed(() => props.student.email ? `background-color:${color(props.student.email)[600]};box-shadow:0 4px 20px -5px ${color(props.student.email)[600]}` : `bg-blue-200`)
-
 const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
 const birthday = computed(() => props.student.birthday ?? `January 1`)
 const about = computed(() => props.student.about ?? `Blessed Child`)
+// const sColor = ref<iColor>({ 100: "#dbeafe", 200: "#bfdbfe", 600: "#2563eb", 700: "#1d4ed8" })
+const sColor = computed<iColor>(() => {
+  return props.student.email 
+  ? color(props.student.email) 
+  : { 100: "#dbeafe", 200: "#bfdbfe", 600: "#2563eb", 700: "#1d4ed8" }
+})
 
-const studentRef = ref<iStudent>(props.student)
+// watch(props.student, () => sColor.value = color(props.student.email as string))
+
+
+const coverStyle = computed(() => `background-color:${sColor.value[700]};`)
+const bgStyle = computed(() => `background-color:${sColor.value[100]};`)
+const ctaStyle = computed(() => `background-color:${sColor.value[600]};box-shadow:0 4px 20px -5px ${sColor.value[600]}`) 
 
 const number = (contact: string | undefined, msg: string) => {
   if (contact && contact.length > 0)
