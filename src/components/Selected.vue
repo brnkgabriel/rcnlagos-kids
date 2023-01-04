@@ -57,11 +57,11 @@
           <div class="card-contact-wrapper flex flex-col gap-y-2">
             <div class="contact">
               <a :href="'tel:' + phone(props.student.parentsContact)" class="card-contact">
-                <PhoneIcon class="w-[16px] h-[16px]" />
+                <PhoneIcon class="w-[16px] h-[16px]" :style="iconStyle" />
                 <span>{{ phoneNo }}</span>
               </a>
               <a :href="constants.whatsappIcon(props.student)" class="card-contact">
-                <ChatBubbleLeftRightIcon class="w-[16px] h-[16px]" />
+                <ChatBubbleLeftRightIcon class="w-[16px] h-[16px]"  :style="iconStyle" />
                 <span>{{ whatsAppNo }}</span>
               </a>
             </div>
@@ -87,7 +87,7 @@
         </div>
       </div>
     </div>
-    <div class="card-buttons">
+    <div class="card-buttons" :style="bgStyle">
       <button data-section="#about" class="is-active">ABOUT</button>
       <button data-section="#notes">NOTES</button>
       <button data-section="#contact">CONTACT</button>
@@ -96,7 +96,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iColor, iDataApiOptions, iMedia, iStudent } from '../types';
+import { iColor, iMedia, iStudent } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
   student: iStudent;
@@ -118,7 +118,7 @@ const sColor = computed<iColor>(() => {
 
 // watch(props.student, () => sColor.value = color(props.student.email as string))
 
-
+const iconStyle = computed(() => `fill:${sColor.value[700]};border-color:${sColor.value[700]}`)
 const coverStyle = computed(() => `background-color:${sColor.value[700]};`)
 const bgStyle = computed(() => `background-color:${sColor.value[100]};`)
 const ctaStyle = computed(() => `background-color:${sColor.value[600]};box-shadow:0 4px 20px -5px ${sColor.value[600]}`) 
