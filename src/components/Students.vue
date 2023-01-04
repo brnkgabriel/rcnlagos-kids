@@ -1,7 +1,7 @@
 <template>
-  <div class="h-full overflow-hidden flex flex-col md:flex-row md:gap-x-2 landscape:flex-row landscape:gap-x-2">
-    <Selected v-selected :student="student" :media="media" class="md:w-1/2 landscape:w-1/2" />
-    <div class="md:h-full w-full md:w-1/2 landscape:h-full landscape:w-1/2">
+  <div class="h-full overflow-hidden flex flex-col md:flex-row md:gap-x-2 landscape:flex-row landscape:gap-x-2 portrait:flex-col">
+    <Selected v-selected :student="student" :media="media" class="md:w-1/2 landscape:w-1/2 portrait:w-full" />
+    <div class="md:h-full w-full md:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full">
       <div class="h-[24px] text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50">
         {{ students.length }} {{ pageName }}
       </div>
