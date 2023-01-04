@@ -412,6 +412,10 @@ body {
   max-height: 225px;
 }
 
+.selected .card-timeline {
+  max-height: unset;
+}
+
 .selected .card-slide {
   position: absolute;
   top: 50%;
