@@ -5,7 +5,7 @@
       <div class="h-[24px] text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50">
         {{ students.length }} {{ pageName }}
       </div>
-      <div class="flex flex-wrap gap-2 h-[100px] sm:h-[150px] md:h-students landscape:h-students overflow-y-auto overflow-x-hidden">
+      <div class="flex flex-wrap gap-2 h-[100px] sm:h-[150px] md:h-students landscape:h-students overflow-y-auto overflow-x-hidden pb-4">
         <Student v-for="(student, idx) in students" :key="idx" :student="student" @click="selectStudent(student)" />
       </div>
     </div>
@@ -54,10 +54,7 @@ watch(data, () => {
 })
 
 
-onMounted(async () => {
-  await refresh()
-  console.log("on mounted data is", data)
-})
+onMounted(async () => await refresh())
 
 </script>
 <style lang="">

@@ -110,7 +110,7 @@ const coverStyle = computed(() => props.student.email ? `background-color:${colo
 
 const bgStyle = computed(() => props.student.email ? `background-color:${color(props.student.email)[100]};` : `bg-blue-200`)
 
-const ctaStyle = computed(() => props.student.email ? `background-color:${color(props.student.email)[600]};` : `bg-blue-200`)
+const ctaStyle = computed(() => props.student.email ? `background-color:${color(props.student.email)[600]};box-shadow:0 4px 20px -5px ${color(props.student.email)[600]}` : `bg-blue-200`)
 
 const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
 const birthday = computed(() => props.student.birthday ?? `January 1`)
