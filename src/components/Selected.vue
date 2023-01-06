@@ -1,5 +1,5 @@
 <template>
-  <div class="selected" data-state="#about" :style="bgStyle">
+  <div :class="selectedComponent" data-state="#about" :style="bgStyle">
     <div class="card-header">
       <div class="card-cover" :style="coverStyle">
       </div>
@@ -19,7 +19,7 @@
       <div class="card-section" id="notes">
         <div class="card-content">
           <div class="card-subtitle">NOTES</div>
-          <div class="card-timeline">
+          <div class="card-timeline" :class="cardTimeline">
             <div class="card-item" data-year="2014">
               <div class="card-item-title">
                 <span>Front-end developer @</span>
@@ -27,7 +27,7 @@
               </div>
               <div class="card-item-desc">Disrupt stumptown retro everyday carry unicorn.</div>
             </div>
-            <div class="card-item" data-year="2016">
+            <!-- <div class="card-item" data-year="2016">
               <div class="card-item-title">
                 <span>UI Developer @</span>
                 <span>GitHub</span>
@@ -47,7 +47,7 @@
                 <span>CodePen</span>
               </div>
               <div class="card-item-desc">Responsible for the encomposing brand experience</div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@
             <div aria-label="head">GALLERY</div>
             <div aria-label="stats" class="text-xxs">1 / 2</div>
           </div>
-          <div class="card-slide-wrapper relative">
+          <div class="card-slide-wrapper relative max-h-[225px] md:max-h-full">
             <div class="controls absolute">
               <div class="prev absolute"></div>
               <div class="next absolute"></div>
@@ -87,7 +87,7 @@
         </div>
       </div>
     </div>
-    <div class="card-buttons" :style="bgStyle">
+    <div class="card-buttons flex justify-between" :style="bgStyle">
       <button data-section="#about" class="is-active">ABOUT</button>
       <button data-section="#notes">NOTES</button>
       <button data-section="#contact">CONTACT</button>
@@ -104,8 +104,9 @@ const props = defineProps<{
 }>();
 const avatarPlaceholder = "/icons/avatar.svg"
 
-const fullname = computed(() => props.student.firstName ? `${props.student.firstName} ${props.student.lastName}` : 'Firstname Surname')
+const { cardTimeline, selectedComponent } = useUi()
 
+const fullname = computed(() => props.student.firstName ? `${props.student.firstName} ${props.student.lastName}` : 'Firstname Surname')
 const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
 const birthday = computed(() => props.student.birthday ?? `January 1`)
 const about = computed(() => props.student.about ?? `Blessed Child`)

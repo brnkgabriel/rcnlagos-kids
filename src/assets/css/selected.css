@@ -54,6 +54,7 @@ body {
 
 .selected[data-state="#about"] .card-main {
   padding-top: 0;
+  height: calc(100% - 205px);
 } 
 
 .selected.is-active .card-header {
@@ -171,9 +172,7 @@ body {
   position: relative;
   flex: 1;
   display: flex;
-  padding-top: 8px;
   flex-direction: column;
-  /* height: 191px; */
 }
 
 .selected .card-subtitle {
@@ -183,10 +182,6 @@ body {
 }
 
 .selected .card-content {
-  padding: 0 16px;
-}
-
-.selected #about .card-content {
   padding: 16px;
 }
 
@@ -199,7 +194,7 @@ body {
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
   overflow-y: auto;
-  height: 105px;
+  /* height: 105px; */
 }
 
 /* .selected .card-social {
@@ -238,11 +233,11 @@ body {
 } */
 
 .selected .card-buttons {
-  display: flex;
+  /* display: flex;
   margin-top: auto;
   position: sticky;
   bottom: 0;
-  left: 0;
+  left: 0; */
 }
 
 .selected .card-buttons button {
@@ -268,8 +263,8 @@ body {
   /* background: var(--card-button-background); */
 }
 .selected .card-section {
-  height: calc(56.25vw + 20px);
-  max-height: 245px;
+  /* height: calc(56.25vw + 20px);
+  max-height: 245px; */
   display: none;
 }
 .selected .card-section#about,
@@ -295,7 +290,6 @@ body {
 .selected .card-timeline {
   margin-top: 8px;
   position: relative;
-  height: 200px;
   overflow: auto;
 }
 
@@ -403,17 +397,13 @@ body {
   height: 100%;
 }
 
-.selected .card-slide-wrapper,
-.selected .card-contact-wrapper,
-.selected .card-timeline {
+/* .selected .card-contact-wrapper,
+.selected .card-timeline, */
+.selected .card-slide-wrapper {
   position: relative;
   width: 100%;
-  height: 56.25vw;
-  max-height: 225px;
-}
-
-.selected .card-timeline {
-  max-height: unset;
+  height: 47.8125vw;
+  /* max-height: 225px; */
 }
 
 .selected .card-slide {

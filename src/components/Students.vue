@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full overflow-hidden flex flex-col md:flex-row md:gap-x-2 landscape:flex-row landscape:gap-x-2 portrait:flex-col portrait:justify-between">
+  <div :class="studentsComponent">
     <Selected v-selected :student="student" :media="media" class="md:w-1/2 landscape:w-1/2 portrait:w-full" />
     <div class="h-40% md:h-full w-full md:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full md:portrait:h-1/2">
       <div class="h-[24px] text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50">
@@ -20,7 +20,7 @@ const pageName = ref(useRoute().name)
 const students = ref<iStudent[]>([])
 const student = ref<iStudent>({})
 const media = ref<iMedia[]>([])
-const { subline } = useUi()
+const { studentsComponent } = useUi()
 
 const options: iDataApiOptions = {
   table: "students",
