@@ -74,15 +74,16 @@
         <div class="card-content">
           <div class="card-subtitle flex justify-between items-center">
             <div aria-label="head">GALLERY</div>
-            <div aria-label="stats" class="text-xxs">1 / 2</div>
+            <div aria-label="stats" class="text-xxs">1 / {{ props.media.length }}</div>
           </div>
-          <div class="card-slide-wrapper relative max-h-[225px] md:max-h-full">
+          <div class="card-slide-wrapper relative max-h-[225px] md:h-slide">
             <div class="controls absolute">
               <div class="prev absolute"></div>
               <div class="next absolute"></div>
             </div>
-            <div class="card-slide is-active" :style="slide1Style"></div>
-            <div class="card-slide" :style="slide2Style"></div>
+            <!-- <div class="card-slide is-active" :style="slide1Style"></div>
+            <div class="card-slide" :style="slide2Style"></div> -->
+            <div v-for="(picture, idx) in props.media" :key="idx" :class="slideClass(idx)" :style="slideStyle(picture)"></div>
           </div>
         </div>
       </div>
@@ -133,8 +134,11 @@ const number = (contact: string | undefined, msg: string) => {
 const phoneNo = computed(() => number(props.student.parentsContact, "Phone"))
 const whatsAppNo = computed(() => number(props.student.parentsContact, "WhatsApp"))
 
-const slide1Style = `background-image: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji.jpg?alt=media&token=23016bb5-686b-44d1-bdf0-24673f06b057);background-repeat:no-repeat;background-size:cover;background-position:center`
-const slide2Style = `background: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji_2.jpg?alt=media&token=b1563976-6568-4282-a3ed-ee458e6cb194);background-repeat:no-repeat;background-size:cover;background-position:center`
+const slideStyle = (media: iMedia) => `background-image: url(${media.mediaUrl});background-repeat:no-repeat;background-size:cover;background-position:center`
+const slideClass = (idx: number) => idx === 0 ? 'card-slide is-active' : 'card-slide'
+
+// const slide1Style = `background-image: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji.jpg?alt=media&token=23016bb5-686b-44d1-bdf0-24673f06b057);background-repeat:no-repeat;background-size:cover;background-position:center`
+// const slide2Style = `background: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji_2.jpg?alt=media&token=b1563976-6568-4282-a3ed-ee458e6cb194);background-repeat:no-repeat;background-size:cover;background-position:center`
 
 
 onUpdated(() => {

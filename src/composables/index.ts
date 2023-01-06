@@ -232,11 +232,13 @@ export const constants = {
     const num = phone(number)
     number = num.slice(1, num.length)
 
-    return `https://api.whatsapp.com/send?phone=${number}&text=Hello%20${student?.firstName}'s parent`
+    return `https://api.whatsapp.com/send?phone=${number}&text=${parentsAddress(student)}`
   }
 }
 
-export const studentName = (student: iStudent | null) => student?.lastName ? `Hello ${student.firstName} ${student.lastName}'s parent` : 'Names'
+export const parentsAddress = (student: iStudent | null) => student?.lastName ? `Hello Sir/Ma (we're contacting you with respect to ${student.firstName})` : 'Names'
+
+export const studentName = (student: iStudent | null) => student?.lastName ? `${student.firstName} ${student.lastName}` : 'Firstname Surname'
 
 export const imgSrc = (url: string) => url.length > 0 ? url : '/icons/avatar.svg'
 

@@ -38,6 +38,11 @@ export interface iStudent {
   duration?: string;
 }
 
+
+export interface iPerson extends iStudent {
+  name: string;
+}
+
 export interface iMedia {
   created_at?: Date;
   id?: string | number;

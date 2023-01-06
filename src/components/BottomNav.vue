@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center gap-x-8 bg-white">
+  <div class="flex justify-center items-center gap-x-8 bg-white z-10">
     <NuxtLink
       href="/students"
       :class="bottomNavLink">
