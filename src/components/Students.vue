@@ -1,7 +1,7 @@
 <template>
   <div :class="studentsComponent">
-    <Selected v-selected :student="student" :media="media" class="md:w-1/2 landscape:w-1/2 portrait:w-full" />
-    <div class="h-40% md:h-full w-full md:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full md:portrait:h-1/2">
+    <Selected v-selected :student="student" :media="media" class="lg:w-1/2 landscape:w-1/2 portrait:w-full" />
+    <div class="h-40% lg:h-full w-full lg:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full lg:portrait:h-1/2">
       <div class="py-2 flex justify-between items-center sticky z-10">
         <div class="text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50">
           {{ status }}
