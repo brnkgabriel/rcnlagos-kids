@@ -3,7 +3,7 @@
     <Selected v-selected :student="student" :media="media" class="lg:w-1/2 landscape:w-1/2 portrait:w-full" />
     <div class="h-40% lg:h-full w-full lg:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full lg:portrait:h-1/2">
       <div class="py-2 flex justify-between items-center sticky z-10">
-        <div class="text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50">
+        <div class="text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis">
           {{ status }}
         </div>
         <ComboBox v-if="students.length > 0" :students="students" @people="handlePeople" />

@@ -3,7 +3,7 @@
     <div class="relative">
       <div
         class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md  sm:text-sm">
-        <ComboboxInput class="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900"
+        <ComboboxInput :class="comboInput()"
             :displayValue="(person: any) => person.name"
             @change="query = $event.target.value" />
         <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -52,15 +52,6 @@ import {
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/24/solid/index'
 import { iStudent, iPerson } from '../types';
-
-// const people = [
-//   { id: 1, name: 'Wade Cooper' },
-//   { id: 2, name: 'Arlene Mccoy' },
-//   { id: 3, name: 'Devon Webb' },
-//   { id: 4, name: 'Tom Cook' },
-//   { id: 5, name: 'Tanya Fox' },
-//   { id: 6, name: 'Hellen Schmidt' },
-// ]
 
 const props = defineProps<{
   students: iStudent[];
