@@ -8,8 +8,7 @@
           <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
         </ComboboxButton>
       </div>
-      <TransitionRoot leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0"
-        @after-leave="query = ''">
+      <TransitionRoot leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
         <ComboboxOptions
           class="absolute mt-1 h-[150px] w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg sm:text-sm">
           <div v-if="filteredPeople.length === 0 && query !== ''"
@@ -56,11 +55,12 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'people', people: iPerson[]): void
+  (e: 'person', person: iPerson): void
+  (e: 'persons', person: iPerson[]): void
 }>()
 
 let people = computed(() => props.students.map((student: iStudent) => ({...student, name: studentName(student)}))) 
-let selected = ref(people.value[0])
+let selected = ref<iPerson>(people.value[0])
 let query = ref('')
 
 let filteredPeople = computed(() =>
@@ -74,6 +74,7 @@ let filteredPeople = computed(() =>
     )
 )
 
-watch(filteredPeople, () => emit("people", filteredPeople.value))
+watch(selected, () => emit("person", selected.value))
+watch(filteredPeople, () => emit("persons", filteredPeople.value))
 
 </script>

@@ -6,10 +6,10 @@
         <div class="text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis">
           {{ status }}
         </div>
-        <ComboBox v-if="students.length > 0" :students="students" @people="handlePeople" />
+        <ComboBox v-if="students.length > 0" :students="students" @persons="handlePersons" />
       </div>
-      <div class="flex flex-wrap gap-2 h-students landscape:h-students overflow-y-auto overflow-x-hidden pb-4">
-        <Student v-for="(student, idx) in students" :key="idx" :student="student" @click="selectStudent(student)" />
+      <div :class="cardListClass">
+        <Student v-for="(student, idx) in rendered" :key="idx" :student="student" @click="selectStudent(student)" />
       </div>
     </div>
   </div>
@@ -20,9 +20,10 @@ import { vSelected } from '../helpers/directives';
 
 const pageName = ref(useRoute().name)
 const students = ref<iStudent[]>([])
+const rendered = ref<iStudent[]>([])
 const student = ref<iStudent>({})
 const media = ref<iMedia[]>([])
-const { studentsComponent } = useUi()
+const { studentsComponent, studentsCardWrap } = useUi()
 
 const options: iDataApiOptions = {
   table: "students",
@@ -32,6 +33,8 @@ const options: iDataApiOptions = {
 }
 const status = computed(() => students.value.length === 0 ? 'Loading...' : `${students.value.length} ${pageName.value as string}`)
 const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
+
+const cardListClass = computed(() => students.value.length === rendered.value.length ? `${studentsCardWrap} h-students landscape:h-students` : studentsCardWrap)
 
 const selectStudent = async (selection: iStudent) => {
   student.value = { ...student.value, ...selection }
@@ -54,10 +57,16 @@ const selectStudent = async (selection: iStudent) => {
 
 watch(data, () => {
   students.value = data.value as iStudent[]
+  rendered.value = data.value as iStudent[]
 })
 
-const handlePeople = (people: iPerson[]) => {
-  console.log("emitted people are", people)
+const handlePerson = (person: iPerson) => {
+  console.log("emitted person is", person)
+  students.value = [person]
+}
+
+const handlePersons = (persons:iPerson[]) => {
+  rendered.value = persons
 }
 
 onMounted(async () => await refresh())

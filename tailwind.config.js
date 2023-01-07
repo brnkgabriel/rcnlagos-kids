@@ -12,6 +12,12 @@ module.exports = {
   ], 
   theme: {
     extend: {
+      gridTemplateColumns: {
+        'autofit': 'repeat(autofit, minmax(100px, 1fr))',
+      },
+      gridTemplateRows: {
+        'autofit': 'repeat(autofit, minmax(100px, 1fr))',
+      },
       fontSize: {
         'mammoth': ['10rem', { lineHeight: '1rem' }],
         xs: ['0.75rem', { lineHeight: '0.8rem' }],
