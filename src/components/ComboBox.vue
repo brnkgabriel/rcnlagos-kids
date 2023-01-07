@@ -50,7 +50,7 @@ import {
   ComboboxOption,
   TransitionRoot,
 } from '@headlessui/vue'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/24/solid/index'
 import { iStudent, iPerson } from '../types';
 
 // const people = [
