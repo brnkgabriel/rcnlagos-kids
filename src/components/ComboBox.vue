@@ -3,9 +3,7 @@
     <div class="relative">
       <div
         class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md  sm:text-sm">
-        <ComboboxInput :class="comboInput()"
-            :displayValue="(person: any) => person.name"
-            @change="query = $event.target.value" />
+        <ComboboxInput :class="comboInput()" :displayValue="(person: any) => person.name" @change="query = $event.target.value" />
         <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
           <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
         </ComboboxButton>

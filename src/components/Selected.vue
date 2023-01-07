@@ -70,7 +70,7 @@
           </div>
         </div>
       </div>
-      <div class="card-section" id="gallery">
+      <div class="card-section h-full" id="gallery">
         <div class="card-content">
           <div class="card-subtitle flex justify-between items-center">
             <div aria-label="head">GALLERY</div>

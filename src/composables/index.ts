@@ -408,4 +408,4 @@ export const operatingSystem = () => {
   return "unknown";
 }
 
-export const comboInput = () => operatingSystem() === "iOS" ? "w-full border-none py-2 pl-3 pr-10 text-[16px] leading-5 text-gray-900" : "w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900"
+export const comboInput = () => operatingSystem() === "iOS" ? "w-full border-none py-2 pl-3 pr-10 text-[16px] leading-5 text-gray-900 focus-visible:outline-none" : "w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus-visible:outline-none"
