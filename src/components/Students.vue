@@ -1,8 +1,7 @@
 <template>
   <div :class="studentsComponent">
-    <Selected v-selected :student="student" :media="media" class="lg:w-1/2 landscape:w-1/2 portrait:w-full" />
-    <div class="h-40% lg:h-full w-full lg:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full lg:portrait:h-1/2">
-      <div class="py-2 flex justify-between items-center sticky z-10">
+    <div class="mb-2 sm:h-full w-full sm:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full sm:portrait:h-1/2">
+      <div class="pb-2 flex justify-between items-center sticky z-10">
         <div class="text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis">
           {{ status }}
         </div>
@@ -12,6 +11,7 @@
         <Student v-for="(student, idx) in rendered" :key="idx" :student="student" @click="selectStudent(student)" />
       </div>
     </div>
+    <Selected v-selected :student="student" :media="media" class="sm:w-1/2 landscape:w-1/2 portrait:w-full" />
   </div>
 </template>
 <script setup lang="ts">
@@ -23,7 +23,7 @@ const students = ref<iStudent[]>([])
 const rendered = ref<iStudent[]>([])
 const student = ref<iStudent>({})
 const media = ref<iMedia[]>([])
-const { studentsComponent, studentsCardWrap } = useUi()
+const { studentsComponent, cardList } = useUi()
 
 const options: iDataApiOptions = {
   table: "students",
@@ -31,10 +31,11 @@ const options: iDataApiOptions = {
   value: "",
   update: ""
 }
-const status = computed(() => students.value.length === 0 ? 'Loading...' : `${students.value.length} ${pageName.value as string}`)
+
 const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
 
-const cardListClass = computed(() => students.value.length === rendered.value.length ? `${studentsCardWrap} h-students landscape:h-students` : studentsCardWrap)
+const status = computed(() => students.value.length === 0 ? 'Loading...' : `${students.value.length} ${pageName.value as string}`)
+const cardListClass = computed(() => students.value.length === rendered.value.length ? `${cardList} h-reversestudents landscape:h-full` : cardList)
 
 const selectStudent = async (selection: iStudent) => {
   student.value = { ...student.value, ...selection }

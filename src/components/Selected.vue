@@ -97,7 +97,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iColor, iMedia, iStudent } from '../types';
+import { iColor, iDataApiOptions, iMedia, iStudent } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
   student: iStudent;
@@ -119,6 +119,18 @@ const sColor = computed<iColor>(() => {
 })
 
 // watch(props.student, () => sColor.value = color(props.student.email as string))
+const options: iDataApiOptions = {
+  table: "events",
+  column: "",
+  value: "",
+  update: ""
+}
+
+// const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
+
+// watch(data, () => console.log("events are", data.value))
+
+// console.log("from selected, events are", data.value)
 
 const iconStyle = computed(() => `fill:${sColor.value[700]};border-color:${sColor.value[700]}`)
 const coverStyle = computed(() => `background-color:${sColor.value[700]};`)
