@@ -25,6 +25,8 @@ const student = ref<iStudent>({})
 const media = ref<iMedia[]>([])
 const { studentsComponent, cardList } = useUi()
 
+const { setSlides } = useGlobals()
+
 const options: iDataApiOptions = {
   table: "students",
   column: "",

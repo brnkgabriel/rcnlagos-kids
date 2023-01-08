@@ -65,7 +65,8 @@ module.exports = {
         'form': 'calc(100% - 16px)',
         'students': 'calc(100% - 24px)',
         'reversestudents': 'calc(100% - 44px)',
-        'slide': 'calc(100% - 20px) !important'
+        'slide': 'calc(100% - 20px) !important',
+        'reverseprofile': 'calc(100% - 144px)'
       },
       spacing: {
         "half": "calc(50% + 1px)"

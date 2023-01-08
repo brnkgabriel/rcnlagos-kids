@@ -1,6 +1,6 @@
 export const vSelected = {
   updated: (ele: Element) => {
-    console.log("vSelected component updated")
+    // console.log("vSelected component updated")
   },
   mounted: (ele: Element) => {
     const buttons = document.querySelectorAll(".card-buttons button");
@@ -27,7 +27,7 @@ export const vSelected = {
 
   },
   unmounted: (ele: Element) => {
-    console.log("vSelected component unmounted")
+    // console.log("vSelected component unmounted")
   }
 }
 

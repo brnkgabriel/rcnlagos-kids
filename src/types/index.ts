@@ -87,3 +87,7 @@ export interface iDataApiOptions {
   table: string;
   update?: any
 }
+
+export interface iGlobal {
+  slides: iMedia[]
+}

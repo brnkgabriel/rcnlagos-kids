@@ -27,27 +27,6 @@
               </div>
               <div class="card-item-desc">Disrupt stumptown retro everyday carry unicorn.</div>
             </div>
-            <!-- <div class="card-item" data-year="2016">
-              <div class="card-item-title">
-                <span>UI Developer @</span>
-                <span>GitHub</span>
-              </div>
-              <div class="card-item-desc">Developed new conversion funnels and disrupt.</div>
-            </div>
-            <div class="card-item" data-year="2018">
-              <div class="card-item-title">
-                <span>Illustrator @</span>
-                <span>Google</span>
-              </div>
-              <div class="card-item-desc">Onboarding illustrations for App.</div>
-            </div>
-            <div class="card-item" data-year="2020">
-              <div class="card-item-title">
-                <span>Full-Stack Developer @</span>
-                <span>CodePen</span>
-              </div>
-              <div class="card-item-desc">Responsible for the encomposing brand experience</div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -72,19 +51,7 @@
       </div>
       <div class="card-section h-full" id="gallery">
         <div class="card-content">
-          <div class="card-subtitle flex justify-between items-center">
-            <div aria-label="head">GALLERY</div>
-            <div aria-label="stats" class="text-xxs">1 / {{ props.media.length }}</div>
-          </div>
-          <div class="card-slide-wrapper relative max-h-[225px] md:h-slide">
-            <div class="controls absolute">
-              <div class="prev absolute"></div>
-              <div class="next absolute"></div>
-            </div>
-            <!-- <div class="card-slide is-active" :style="slide1Style"></div>
-            <div class="card-slide" :style="slide2Style"></div> -->
-            <div v-for="(picture, idx) in props.media" :key="idx" :class="slideClass(idx)" :style="slideStyle(picture)"></div>
-          </div>
+          <Slide :media="media" />
         </div>
       </div>
     </div>
@@ -111,26 +78,19 @@ const fullname = computed(() => props.student.firstName ? `${props.student.first
 const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
 const birthday = computed(() => props.student.birthday ?? `January 1`)
 const about = computed(() => props.student.about ?? `Blessed Child`)
-// const sColor = ref<iColor>({ 100: "#dbeafe", 200: "#bfdbfe", 600: "#2563eb", 700: "#1d4ed8" })
+
 const sColor = computed<iColor>(() => {
   return props.student.email 
   ? color(props.student.email) 
   : { 100: "#dbeafe", 200: "#bfdbfe", 600: "#2563eb", 700: "#1d4ed8" }
 })
 
-// watch(props.student, () => sColor.value = color(props.student.email as string))
 const options: iDataApiOptions = {
   table: "events",
   column: "",
   value: "",
   update: ""
 }
-
-// const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
-
-// watch(data, () => console.log("events are", data.value))
-
-// console.log("from selected, events are", data.value)
 
 const iconStyle = computed(() => `fill:${sColor.value[700]};border-color:${sColor.value[700]}`)
 const coverStyle = computed(() => `background-color:${sColor.value[700]};`)
@@ -148,14 +108,6 @@ const whatsAppNo = computed(() => number(props.student.parentsContact, "WhatsApp
 
 const slideStyle = (media: iMedia) => `background-image: url(${media.mediaUrl});background-repeat:no-repeat;background-size:cover;background-position:center`
 const slideClass = (idx: number) => idx === 0 ? 'card-slide is-active' : 'card-slide'
-
-// const slide1Style = `background-image: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji.jpg?alt=media&token=23016bb5-686b-44d1-bdf0-24673f06b057);background-repeat:no-repeat;background-size:cover;background-position:center`
-// const slide2Style = `background: url(https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/landscape%2F01_02_EriifeOgundeji_2.jpg?alt=media&token=b1563976-6568-4282-a3ed-ee458e6cb194);background-repeat:no-repeat;background-size:cover;background-position:center`
-
-
-onUpdated(() => {
-  console.log("media from onUpdated is", props.media)
-})
 </script>
 <style lang="">
   
