@@ -2,10 +2,11 @@
   <div :class="studentsComponent">
     <div class="mb-2 sm:h-full w-full sm:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full sm:portrait:h-1/2">
       <div class="pb-2 flex justify-between items-center sticky z-10">
-        <div class="text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis">
+        <ComboBox v-if="students.length > 0" :students="students" @persons="handlePersons" />
+        <div v-else></div>
+        <div class="text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis text-right">
           {{ status }}
         </div>
-        <ComboBox v-if="students.length > 0" :students="students" @persons="handlePersons" />
       </div>
       <div :class="cardListClass">
         <Student v-for="(student, idx) in rendered" :key="idx" :student="student" @click="selectStudent(student)" />
