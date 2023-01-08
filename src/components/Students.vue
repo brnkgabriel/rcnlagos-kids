@@ -57,12 +57,13 @@ const selectStudent = async (selection: iStudent) => {
   }
 }
 
-watch(data, () => {
+watch(data, async () => {
   students.value = data.value as iStudent[]
   rendered.value = data.value as iStudent[]
+  await selectStudent(rendered.value[0])
 })
 
-const handlePerson = (person: iPerson) => selectStudent(person)
+const handlePerson = async (person: iPerson) => await selectStudent(person)
 const handlePersons = (persons:iPerson[]) => rendered.value = persons
 
 onMounted(async () => await refresh())

@@ -5,7 +5,7 @@
       <div aria-label="stats" class="text-xxs">{{ num + 1 }} / {{ props.media.length }}</div>
     </div>
     <div class="card-slide-wrapper relative max-h-[225px] sm:h-slide sm:max-h-full">
-      <div class="controls absolute">
+      <div class="controls absolute" v-show="props.media.length > 1">
         <div ref="prev" class="prev absolute"></div>
         <div ref="next" class="next absolute"></div>
       </div>
