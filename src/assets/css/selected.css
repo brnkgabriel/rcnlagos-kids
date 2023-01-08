@@ -416,6 +416,7 @@ body {
   opacity: 0;
   border-radius: 4px;
   overflow: hidden;
+  transition: opacity .3s linear;
 }
 
 .selected .card-slide.is-active {
