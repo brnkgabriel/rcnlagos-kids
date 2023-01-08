@@ -31,7 +31,7 @@ export const useUi = () => {
     searchIcon: "w-[24px] h-[24px] text-white",
     dropdown: "absolute top-full right-[8px] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none capitalize overflow-hidden",
     dropdownLogout: "text-gray-700 block px-4 py-2 text-sm cursor-pointer",
-    cardList: "whitespace-nowrap overflow-y-hidden overflow-x-auto sm:flex sm:flex-wrap sm:gap-2 sm:overflow-y-auto sm:overflow-x-hidden"
+    cardList: "whitespace-nowrap overflow-y-hidden overflow-x-auto sm:flex sm:flex-wrap sm:gap-2 sm:overflow-y-auto sm:overflow-x-hidden sm:h-auto"
   }
 }
 
@@ -413,3 +413,103 @@ export const operatingSystem = () => {
 
 export const comboInput = () => operatingSystem() === "iOS" ? "w-full border-none py-2 pl-3 pr-10 text-[16px] leading-5 text-gray-900 focus-visible:outline-none" : "w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus-visible:outline-none"
 
+export const placeholderStudents = [
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration"
+  },
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration"
+  },
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration"
+  },
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration"
+  },
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration"
+  },
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration"
+  },
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration"
+  }
+]

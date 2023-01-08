@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded shadow-custom inline-block mx-1 w-[100px]  sm:m-0 align-top cursor-pointer basis-[100px] flex-grow sm:w-1/4 relative overflow-hidden">
+  <div class="bg-white rounded shadow-custom inline-block mx-1 w-[100px] sm:m-0 align-top cursor-pointer basis-[100px] flex-grow sm:w-1/4 relative overflow-hidden">
     <img
       class="w-full rounded opacity-0"
       :src="props.student.imageUrl"

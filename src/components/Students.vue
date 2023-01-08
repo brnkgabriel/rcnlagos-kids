@@ -20,8 +20,8 @@ import { vSelected } from '../helpers/directives';
 
 const pageName = ref(useRoute().name)
 const students = ref<iStudent[]>([])
-const rendered = ref<iStudent[]>([])
-const student = ref<iStudent>({})
+const rendered = ref<iStudent[]>(placeholderStudents)
+const student = ref<iStudent>(placeholderStudents[0])
 const media = ref<iMedia[]>([])
 const { studentsComponent, cardList } = useUi()
 

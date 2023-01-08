@@ -1,10 +1,10 @@
 <template>
-  <div>    
+  <div class="h-full">    
     <div class="card-subtitle flex justify-between items-center">
       <div aria-label="head">GALLERY</div>
       <div aria-label="stats" class="text-xxs">{{ num + 1 }} / {{ props.media.length }}</div>
     </div>
-    <div class="card-slide-wrapper relative max-h-[225px] md:h-slide">
+    <div class="card-slide-wrapper relative max-h-[225px] sm:h-slide sm:max-h-full">
       <div class="controls absolute">
         <div ref="prev" class="prev absolute"></div>
         <div ref="next" class="next absolute"></div>
