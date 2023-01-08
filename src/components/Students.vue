@@ -2,7 +2,7 @@
   <div :class="studentsComponent">
     <div class="mb-2 sm:h-full w-full sm:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full sm:portrait:h-1/2">
       <div class="pb-2 flex justify-between items-center sticky z-10">
-        <ComboBox v-if="students.length > 0" :students="students" @persons="handlePersons" />
+        <ComboBox v-if="students.length > 0" :students="students" @persons="handlePersons" @person="handlePerson" />
         <div v-else></div>
         <div class="text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis text-right">
           {{ status }}
@@ -26,8 +26,6 @@ const student = ref<iStudent>(placeholderStudents[0])
 const media = ref<iMedia[]>([])
 const { studentsComponent, cardList } = useUi()
 
-const { setSlides } = useGlobals()
-
 const options: iDataApiOptions = {
   table: "students",
   column: "",
@@ -41,7 +39,7 @@ const status = computed(() => students.value.length === 0 ? 'Loading...' : `${st
 const cardListClass = computed(() => students.value.length === rendered.value.length ? `${cardList} h-reversestudents landscape:h-full` : cardList)
 
 const selectStudent = async (selection: iStudent) => {
-  student.value = { ...student.value, ...selection }
+  student.value = selection
   
   const email = selection.email ?? ""
   const options: iDataApiOptions = {
@@ -64,14 +62,8 @@ watch(data, () => {
   rendered.value = data.value as iStudent[]
 })
 
-const handlePerson = (person: iPerson) => {
-  console.log("emitted person is", person)
-  students.value = [person]
-}
-
-const handlePersons = (persons:iPerson[]) => {
-  rendered.value = persons
-}
+const handlePerson = (person: iPerson) => selectStudent(person)
+const handlePersons = (persons:iPerson[]) => rendered.value = persons
 
 onMounted(async () => await refresh())
 
