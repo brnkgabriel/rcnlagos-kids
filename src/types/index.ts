@@ -96,3 +96,9 @@ export interface iDynamicObject {
   // 👇️ key         value
   [key: string]: string | number;
 }
+
+export interface iSwitch {
+  enabled: boolean;
+  left: string;
+  right: string;
+}

@@ -1,9 +1,12 @@
-import { iColor, iCombined, iDynamicObject, iGlobal, iGlobalState, iMedia, iStudent } from "../types"
+import { iColor, iCombined, iDynamicObject, iGlobal, iGlobalState, iMedia, iStudent, iSwitch } from "../types"
 
 const subline = "text-xs"
 const tiny = "text-xxxs font-bold"
 const grayText = "text-rcngray-900"
 const flexCenterCenter = "flex justify-center items-center"
+const mainline = "text-rcnblue-500 font-semibold text-sm"
+const center = "absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+const flex_center = "flex flex-col justify-center items-center"
 
 export const useUi = () => {
   return {
@@ -54,10 +57,46 @@ export const useUi = () => {
     studentsliststatus: "text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis text-right",
     studentslistcards: "whitespace-nowrap overflow-y-hidden overflow-x-auto sm:flex sm:flex-wrap sm:gap-2 sm:overflow-y-auto sm:overflow-x-hidden sm:h-auto",
     studentslistselection: "sm:w-1/2 landscape:w-1/2 portrait:w-full",
-    mainline: "text-rcnblue-500 font-semibold text-sm",
+    switchwrap: "flex gap-2 justify-center items-center capitalize h-[44px]",
+    switchcomponent: (options: iSwitch) => {
+      const common = "relative inline-flex h-6 w-11 items-center rounded-full"
+      const { enabled, left, right } = options
+      return `${common} ${enabled ? left : right}`
+    },
+    switchcomponentspan: (options: iSwitch) => {
+      const common = "inline-block h-4 w-4 transform rounded-full bg-white transition"
+      const { enabled, left, right } = options
+      return `${common} ${enabled ? left : right}`
+    },
+    tabwrap: "w-full max-w-md sm:px-0",
+    tablist: "flex space-x-1 rounded-xl bg-blue-900/20 p-1",
+    tabbuttoncolor: "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
+    tabbuttonring: "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+    tabbuttonselected: (selected: boolean) => {
+      return selected
+      ? 'bg-white shadow'
+      : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+    },
+    tabpanelcolor: "rounded-xl bg-white p-3",
+    tabpanelring: "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+    tabpanelli: "relative rounded-md p-3 hover:bg-gray-100",
+    tabpanelh3: "text-sm font-medium leading-5",
+    tabpanelinnerul: "mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500",
+    tabpanelacolor: "absolute inset-0 rounded-md",
+    tabpanelaring: "ring-blue-400 focus:z-10 focus:outline-none focus:ring-2",
+    teacherswrap: "h-full overflow-auto",
+    topnavwrap: "shadow-custom bg-white flex justify-between items-center relative",
+    topnavnotification: "rounded-full border-2 border-bglight-700 p-[2px] h-[40px] w-[40px] cursor-pointer",
+    topnavavatar: "rounded-full",
+    topnavlogo: "h-[32px]",
+    topnavsitename: `${center} ${flex_center} ${mainline} uppercase font-bold font-title`,
+    // common styles below
     texttrim: "w-full overflow-hidden whitespace-nowrap text-ellipsis",
     mainline_small: "text-rcnblue-500 font-semibold",
     subline_small: subline,
+    mainline,
+    center,
+    flex_center,
     subline,
     grayText,
     breadcrumb: grayText + " uppercase mb-1 " + tiny,
@@ -66,8 +105,6 @@ export const useUi = () => {
     bottomNavLinkIcon: flexCenterCenter + " w-[32px] h-[32px]",
     homeNavLink: "rounded-full bg-white shadow-custom p-3 w-[250px] text-center cursor-pointer text-rcnblue-500 border-2 text-xs",
     button: "rounded-full bg-rcnblue-500 shadow-custom p-3 w-full text-center cursor-pointer text-white border-2 text-xs uppercase",
-    center: "absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2",
-    flex_center: "flex flex-col justify-center items-center",
     input: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-rcnblue-500 focus:border-rcnblue-500 block w-full h-[42px] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rcnblue-500 dark:focus:border-rcnblue-500",
     studentItem: "flex flex-col flex-grow w-1/2 sm:w-1/4 overflow-hidden rounded-md shadow-custom bg-white cursor-pointer",
     studentItemOccupationIcon: "w-[16px] h-[16px]",

@@ -1,12 +1,13 @@
 <template lang="">
-  <div data-name="form-group gender" class="flex gap-2 justify-center items-center capitalize h-[44px]">
+  <div aria-label="switchwrap" data-name="form-group gender" :class="switchwrap">
     <span>{{props.left}}</span>
-    <Switch v-model="enabled" :name="props.name"
-      :class="enabled ? 'bg-pink-400' : 'bg-blue-400'"
-      class="relative inline-flex h-6 w-11 items-center rounded-full">
+    <Switch
+      v-model="enabled"
+      :name="props.name"
+      :class="switchcomponent({ enabled, left: 'bg-pink-400', right: 'bg-blue-400' })">
       <span class="sr-only">Enable notifications</span>
-      <span :class="enabled ? 'translate-x-6' : 'translate-x-1'"
-        class="inline-block h-4 w-4 transform rounded-full bg-white transition"></span>
+      <span
+        :class="switchcomponentspan({ enabled, left: 'translate-x-6', right: 'translate-x-1'})"></span>
     </Switch>
     <span>{{props.right}}</span>
   </div>
@@ -16,17 +17,24 @@ import { Switch } from "@headlessui/vue";
 
 const enabled = ref(false)
 
-watch(enabled, () => {
-  const gender = enabled.value ? props.right : props.left
-  props.value(gender)
-}) 
-
 const props = defineProps<{
   left: string;
   right: string;
   name: string;
   value: (selected: string) => void;
 }>()
+
+const {
+  switchwrap,
+  switchcomponent,
+  switchcomponentspan
+} = useUi()
+
+watch(enabled, () => {
+  const gender = enabled.value ? props.right : props.left
+  props.value(gender)
+}) 
+
 </script>
 <style lang="">
     

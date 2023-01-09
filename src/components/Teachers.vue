@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full overflow-auto">
+  <div aria-label="teacherswrap" :class="teacherswrap">
     <div v-if="teachers.length > 0" v-for="(student, idx) in teachers" :key="idx">
     {{ student.firstName }} {{ student.lastName }}
     </div>
@@ -10,6 +10,10 @@
 import { iDataApiOptions, iTeacher } from '../types';
 
 const teachers = ref<iTeacher[]>([])
+
+const {
+  teacherswrap
+} = useUi()
 
 const options: iDataApiOptions = {
   table: "teachers",
@@ -24,8 +28,6 @@ const { data, error } = await useLazyFetch(() => constants.dataApiUrl, {
 watch(data, () => {
   teachers.value = data.value as iTeacher[]
 })
-
-console.log("expecting error to be", error.value)
 </script>
 <style lang="">
   

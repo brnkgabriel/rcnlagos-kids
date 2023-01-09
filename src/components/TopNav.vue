@@ -1,24 +1,29 @@
 <template>
-  <div class="shadow-custom bg-white flex justify-between items-center relative">
+  <div :class="topnavwrap">
     <NuxtLink href="/" class="">
-      <img class="h-[32px]" src="/images/rcn-logo.png" alt="rcn logo"/>
+      <img :class="topnavlogo" src="/images/rcn-logo.png" alt="rcn logo"/>
     </NuxtLink>
-    <div aria-label="site name" :class="sitename">
+    <div aria-label="topnavsitename" :class="topnavsitename">
       <div>children</div>
       <div>department</div>
     </div>
-    <div aria-label="notification" class="rounded-full border-2 border-bglight-700 p-[2px] h-[40px] w-[40px] cursor-pointer" @click="toggleDropdown">
-      <img class="rounded-full" :src="imgSrc(props.avatar as string)" alt="avatar"/>
+    <div aria-label="topnavnotification" :class="topnavnotification" @click="toggleDropdown">
+      <img :class="topnavavatar" :src="imgSrc(props.avatar as string)" alt="avatar"/>
     </div>
     <Dropdown :user-name="userName" />
   </div>
 </template>
 <script setup lang="ts">
 
-const { mainline, center, flex_center } = useUi()
+const {
+  topnavwrap,
+  topnavnotification,
+  topnavavatar,
+  topnavlogo,
+  topnavsitename
+} = useUi()
 
 const show = ref(false)
-const sitename = ref(`${center} ${flex_center} ${mainline} uppercase font-bold font-title`)
 
 const toggleDropdown = () => {
   console.log("toggling dropdown") 
