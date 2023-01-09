@@ -1,18 +1,18 @@
 <template>
-  <div :class="studentsComponent">
-    <div class="mb-2 sm:h-full w-full sm:w-1/2 landscape:h-full landscape:w-1/2 portrait:w-full sm:portrait:h-1/2">
-      <div class="pb-2 flex justify-between items-center sticky z-10">
+  <div aria-label="studentswrap" :class="studentswrap">
+    <div aria-label="studentslist" :class="studentslist">
+      <div aria-label="studentslistfilternstatus" :class="studentslistfilternstatus">
         <ComboBox v-if="students.length > 0" :students="students" @persons="handlePersons" @person="handlePerson" />
         <div v-else></div>
-        <div class="text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis text-right">
+        <div :class="studentsliststatus">
           {{ status }}
         </div>
       </div>
-      <div :class="cardListClass">
+      <div aria-label="studentslistcards" :class="studentslistcardsclass">
         <Student v-for="(student, idx) in rendered" :key="idx" :student="student" @click="selectStudent(student)" />
       </div>
     </div>
-    <Selected v-selected :student="student" :media="media" class="sm:w-1/2 landscape:w-1/2 portrait:w-full" />
+    <Selected v-selected :student="student" :media="media" :class="studentslistselection" />
   </div>
 </template>
 <script setup lang="ts">
@@ -24,7 +24,14 @@ const students = ref<iStudent[]>([])
 const rendered = ref<iStudent[]>(placeholderStudents)
 const student = ref<iStudent>(placeholderStudents[0])
 const media = ref<iMedia[]>([])
-const { studentsComponent, cardList } = useUi()
+const {
+  studentswrap,
+  studentslist,
+  studentslistfilternstatus,
+  studentsliststatus,
+  studentslistcards,
+  studentslistselection
+} = useUi()
 
 const options: iDataApiOptions = {
   table: "students",
@@ -36,7 +43,11 @@ const options: iDataApiOptions = {
 const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
 
 const status = computed(() => students.value.length === 0 ? 'Loading...' : `${students.value.length} ${pageName.value as string}`)
-const cardListClass = computed(() => students.value.length === rendered.value.length ? `${cardList} h-reversestudents landscape:h-full` : cardList)
+const studentslistcardsclass = computed(
+  () => students.value.length === rendered.value.length
+  ? `${studentslistcards} h-reversestudents landscape:h-full`
+  : studentslistcards
+)
 
 const selectStudent = async (selection: iStudent) => {
   student.value = selection
@@ -49,12 +60,8 @@ const selectStudent = async (selection: iStudent) => {
     update: ""
   }
   const { data, error } = await useFetch(() => constants.dataApiUrl, { params: { ...options } })
-  if (data.value) {
-    media.value = data.value as iMedia[]
-  }
-  if (error.value) {
-    media.value = []
-  }
+  if (data.value) { media.value = data.value as iMedia[] }
+  if (error.value) { media.value = [] }
 }
 
 watch(data, async () => {

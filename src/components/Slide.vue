@@ -1,35 +1,45 @@
 <template>
-  <div class="h-full">    
-    <div class="card-subtitle flex justify-between items-center">
-      <div aria-label="head">GALLERY</div>
+  <div aria-label="slidewrap" class="h-full">
+    <div aria-label="slidetitlenstatus" :class="slidetitlenstatus">
+      <div aria-label="title">GALLERY</div>
       <div aria-label="stats" class="text-xxs">{{ num + 1 }} / {{ props.media.length }}</div>
     </div>
-    <div class="card-slide-wrapper relative max-h-[225px] sm:h-slide sm:max-h-full">
+    <div :class="slidebody">
       <div class="controls absolute" v-show="props.media.length > 1">
         <div ref="prev" class="prev absolute"></div>
         <div ref="next" class="next absolute"></div>
       </div>
-      <!-- <div class="card-slide is-active" :style="slide1Style"></div>
-      <div class="card-slide" :style="slide2Style"></div> -->
-      <div ref="list" v-for="(media, idx) in props.media" :key="idx" :class="slideClass(idx)" :style="slideStyle(media)" :data-idx="idx" :data-url="media.mediaUrl"></div>
+      <div
+        ref="list"
+        v-for="(media, idx) in props.media" :key="idx"
+        :class="slideClass(idx)"
+        :style="slideStyle(media.mediaUrl as string)"
+        :data-idx="idx" :data-url="media.mediaUrl"></div>
     </div>
   </div>
 </template>
-<script setup lang="ts">import { iMedia } from '../types';
+<script setup lang="ts">
+import { iMedia } from '../types';
 
 const props = defineProps<{
   media: iMedia[]
 }>();
 
-const slideStyle = (media: iMedia) => `background-image: url(${media.mediaUrl});background-repeat:no-repeat;background-size:cover;background-position:center`
+const { slidetitlenstatus, slidebody } = useUi()
+let num = ref(0)
+
+const slideStyle = (url: string) => obj2Str({
+  "background-image": `url(${url})`,
+  "background-repeat": "no-repeat",
+  "background-size": "cover",
+  "background-position": "center"
+})
 const slideClass = (idx: number) => idx === 0 ? 'card-slide is-active' : 'card-slide'
 const prev = ref<HTMLDivElement>()
 const next = ref<HTMLDivElement>()
 const list = ref<HTMLDivElement[]>([])
 
-let num = ref(0)
-
-watch(() => props.media, (media, prevMedia) => { 
+watch(() => props.media, (curr, prev) => {
   num.value = 0
   displaySlide()
 })
@@ -38,7 +48,7 @@ const handleSlideMove = (type: "prev" | "next") => {
   type === "prev" ? num.value-- : num.value++
   if (num.value < 0) num.value = props.media.length - 1
   if (num.value == props.media.length) num.value = 0
-  
+
   displaySlide()
 }
 

@@ -91,3 +91,8 @@ export interface iDataApiOptions {
 export interface iGlobal {
   slides: iMedia[]
 }
+
+export interface iDynamicObject {
+  // 👇️ key         value
+  [key: string]: string | number;
+}

@@ -14,6 +14,9 @@
         <div class="card-content">
           <div class="card-subtitle">ABOUT</div>
           <p class="card-desc">{{ about }}</p>
+          <div aria-label="last-note" class="shadow-custom bg-white rounded p-2">
+            Was taken home by Bro. Stanley
+          </div>
         </div>
       </div>
       <div class="card-section" id="notes">

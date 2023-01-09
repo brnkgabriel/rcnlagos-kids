@@ -1,33 +1,30 @@
 <template>
-  <div class="w-full">
-    <div class="mx-auto w-full max-w-md rounded-2xl bg-white p-2">
+  <div aria-label="disclosurewrap" :class="disclosurewrap">
+    <div aria-label="disclosureinnerwrap" :class="disclosureinnerwrap">
       <Disclosure v-slot="{ open }">
-        <DisclosureButton
-          class="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-rcnblue-500 hover:bg-rcnblue-200 focus:outline-none focus-visible:ring focus-visible:ring-rcnblue-100 focus-visible:ring-opacity-75">
+        <DisclosureButton :class="disclosurebutton">
           <span>You're welcome, can we meet you?</span>
-          <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-rcnblue-500" />
+          <ChevronUpIcon :class="iconClass(open)" />
         </DisclosureButton>
-        <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500">
+        <DisclosurePanel :class="disclosurepanel">
           Biodata
         </DisclosurePanel>
       </Disclosure>
       <Disclosure as="div" class="mt-2" v-slot="{ open }">
-        <DisclosureButton
-          class="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-rcnblue-500 hover:bg-rcnblue-200 focus:outline-none focus-visible:ring focus-visible:ring-rcnblue-100 focus-visible:ring-opacity-75">
+        <DisclosureButton :class="disclosurebutton">
           <span>What do you do?</span>
-          <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-rcnblue-500" />
+          <ChevronUpIcon :class="iconClass(open)" />
         </DisclosureButton>
-        <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500">
+        <DisclosurePanel :class="disclosurepanel">
           Occupation
         </DisclosurePanel>
       </Disclosure>
       <Disclosure as="div" class="mt-2" v-slot="{ open }">
-        <DisclosureButton
-          class="flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-rcnblue-500 hover:bg-rcnblue-200 focus:outline-none focus-visible:ring focus-visible:ring-rcnblue-100 focus-visible:ring-opacity-75">
+        <DisclosureButton :class="disclosurebutton">
           <span>Are you married?</span>
-          <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-rcnblue-500" />
+          <ChevronUpIcon :class="iconClass(open)" />
         </DisclosureButton>
-        <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500">
+        <DisclosurePanel :class="disclosurepanel">
           Marrital status
         </DisclosurePanel>
       </Disclosure>
@@ -35,7 +32,18 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { ChevronUpIcon } from '@heroicons/vue/24/solid/index'
+
+const {
+  disclosurewrap,
+  disclosureinnerwrap,
+  disclosurebutton,
+  disclosurepanel
+} = useUi()
+
+const iconClass = (isOpen: boolean) => isOpen 
+  ? `rotate-180 transform h-5 w-5 text-rcnblue-500` 
+  : `h-5 w-5 text-rcnblue-500`
 </script>

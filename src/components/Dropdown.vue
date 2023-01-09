@@ -1,7 +1,8 @@
 <template lang="">
   <div
     aria-label="dropdown" 
-    :class="dropdown + ' ' + hidden" role="menu"
+    :class="dropdown + ' ' + hidden"
+    role="menu"
     aria-orientation="vertical"
     aria-labelledby="menu-button"
     tabindex="-1">
@@ -12,6 +13,9 @@
 </template>
 <script setup lang="ts">
 const supabase = useSupabaseAuthClient()
+const props = defineProps<{
+  userName: any;
+}>();
 
 const { dropdown, dropdownLogout } = useUi()
 
@@ -25,10 +29,6 @@ const { show } = inject("show")
 const hidden = computed(() => show.value ? "" : "hidden")
 
 watch(show, () => console.log("hide is", show.value))
-
-const props = defineProps<{
-  userName: any;
-}>();
 
 </script>
 <style lang=""></style>
