@@ -10,4 +10,9 @@
   </div>
 </template>
 <script setup lang="ts"> 
+
+onMounted(async () => {
+  console.log("from layout catalog, screen is", screen.orientation)
+  await screen.orientation.lock("landscape-primary")
+})
 </script> 

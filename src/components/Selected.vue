@@ -14,8 +14,25 @@
         <div class="card-content">
           <div class="card-subtitle">ABOUT</div>
           <p class="card-desc">{{ about }}</p>
-          <div aria-label="last-note" class="shadow-custom bg-white rounded p-2">
-            Was taken home by Bro. Stanley
+          <div aria-label="teacherlastnote" class="shadow-custom bg-white rounded p-2 flex gap-2 relative">
+            <div aria-label="teacherdetails" class="flex flex-col gap-y-2">
+              <img class="rounded-full w-[60px]" :src="imgSrc('')" alt="avatar"/>
+              <div aria-label="teachername">Bro. Lanre</div>
+              <div aria-label="teachercontacticons" class="flex gap-2">
+                <a :href="constants.whatsappIcon({})" class="shadow-cta rounded-full">
+                  <img src="/icons/whatsapp.svg" class="w-[32px]" alt="whatsapp icon" />
+                </a>
+                <a :href="'tel:' + phone('')"
+                  class="shadow-cta rounded-full p-2 bg-rcnorange-500 w-[32px] h-[32px] flex justify-center items-center">
+                  <Icon type="phonecall" :active="true" class="w-[16px] text-white" />
+                </a>
+              </div>
+            </div>
+            <div aria-label="teachernote" class="flex flex-col gap-2">
+              <div class="font-bold">{{ student.firstName }} has gone home</div>
+              <div>her mum came to pick her</div>
+            </div>
+            <div aria-label="time" class="absolute right-[8px] bottom-[8px] text-xxs uppercase font-semibold opacity-50">6:00 pm</div>
           </div>
         </div>
       </div>

@@ -55,6 +55,7 @@ module.exports = {
         'details': 'calc(100% - 150px)',
         'listitemdetails': 'calc(100% - 120px)',
         'card': 'calc(100% - 32px)',
+        'mustfit': 'fit-content !important'
       },
       height: {
         '60%' : '60%',
