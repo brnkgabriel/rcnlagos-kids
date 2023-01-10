@@ -185,6 +185,10 @@ body {
   padding: 16px;
 }
 
+#about .card-content {
+  padding: 16px 8px;
+}
+
 .selected .card-desc {
   line-height: 1.6;
   color: var(--card-desc);
