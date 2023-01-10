@@ -293,7 +293,7 @@ body {
   overflow: auto;
 }
 
-.selected .card-timeline::after {
+/* .selected .card-timeline::after {
   background: var(--card-timeline-background);
   content: "";
   left: 42px;
@@ -301,7 +301,7 @@ body {
   top: 0;
   height: 100%;
   position: absolute;
-}
+} */
 
 .selected .card-item {
   position: relative;
@@ -315,7 +315,7 @@ body {
   padding-bottom: 5px;
 }
 
-.selected .card-item::after {
+/* .selected .card-item::after {
   content: attr(data-year);
   position: absolute;
   top: 0;
@@ -329,7 +329,7 @@ body {
   border-radius: 50%;
   color: var(--card-item-after-color);
   background: var(--card-item-after-background);
-}
+} */
 
 .selected .card-item-title {
   font-weight: 500;

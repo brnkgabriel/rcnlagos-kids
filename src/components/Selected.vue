@@ -17,7 +17,7 @@
           <div aria-label="teacherlastnote" class="shadow-custom bg-white rounded p-2 flex gap-2 relative">
             <div aria-label="teacherdetails" class="flex flex-col gap-y-2">
               <img class="rounded-full w-[60px]" :src="imgSrc('')" alt="avatar"/>
-              <div aria-label="teachername">Bro. Lanre</div>
+              <div aria-label="teachername" class="truncate w-full">Bro. Lanre</div>
               <div aria-label="teachercontacticons" class="flex gap-2">
                 <a :href="constants.whatsappIcon({})" class="shadow-cta rounded-full">
                   <img src="/icons/whatsapp.svg" class="w-[32px]" alt="whatsapp icon" />
@@ -36,17 +36,35 @@
           </div>
         </div>
       </div>
-      <div class="card-section" id="notes">
-        <div class="card-content">
+      <div class="card-section h-full" id="notes">
+        <div class="card-content h-full">
           <div class="card-subtitle">NOTES</div>
-          <div class="card-timeline" :class="cardTimeline">
+          <div class="card-timeline relative h-full" :class="cardTimeline">
             <div class="card-item" data-year="2014">
-              <div class="card-item-title">
+              <div class="card-item-title relative">
                 <span>Front-end developer @</span>
                 <span>JotForm</span>
               </div>
               <div class="card-item-desc">Disrupt stumptown retro everyday carry unicorn.</div>
+              <div aria-label="circle" :style="circleStyle"></div>
             </div>
+            <div class="card-item" data-year="2012">
+              <div class="card-item-title relative">
+                <span>Front-end developer @</span>
+                <span>JotForm</span>
+              </div>
+              <div class="card-item-desc">Disrupt stumptown retro everyday carry unicorn.</div>
+              <div aria-label="circle" :style="circleStyle"></div>
+            </div>
+            <div class="card-item" data-year="2010">
+              <div class="card-item-title relative">
+                <span>Front-end developer @</span>
+                <span>JotForm</span>
+              </div>
+              <div class="card-item-desc">Disrupt stumptown retro everyday carry unicorn.</div>
+              <div aria-label="circle" :style="circleStyle"></div>
+            </div>
+            <div aria-label="trail" :style="trailStyle"></div>
           </div>
         </div>
       </div>
@@ -84,7 +102,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iColor, iDataApiOptions, iMedia, iStudent } from '../types';
+import { iColor, iDataApiOptions, iDynamicObject, iMedia, iStudent } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
   student: iStudent;
@@ -105,17 +123,46 @@ const sColor = computed<iColor>(() => {
   : { 100: "#dbeafe", 200: "#bfdbfe", 600: "#2563eb", 700: "#1d4ed8" }
 })
 
-const options: iDataApiOptions = {
-  table: "events",
-  column: "",
-  value: "",
-  update: ""
-}
+// const options: iDataApiOptions = {
+//   table: "events",
+//   column: "",
+//   value: "",
+//   update: ""
+// }
 
-const iconStyle = computed(() => `fill:${sColor.value[700]};border-color:${sColor.value[700]}`)
-const coverStyle = computed(() => `background-color:${sColor.value[700]};`)
-const bgStyle = computed(() => `background-color:${sColor.value[100]};`)
-const ctaStyle = computed(() => `background-color:${sColor.value[600]};box-shadow:0 4px 20px -5px ${sColor.value[600]}`) 
+
+const bgObj = (val: string) => ({"background-color": val})
+ 
+
+const circleStyle = computed(() => obj2Str({
+  "position": "absolute",
+  "width": "12px",
+  "height": "12px",
+  "background": `linear-gradient(to bottom, ${sColor.value[100]} 0%, ${sColor.value[700]} 100%)`,
+  "border": `2px solid #fff`,
+  "border-radius": "50%",
+  "top": "2px",
+  "left": "37px"
+}))
+
+const trailStyle = computed(() => obj2Str({
+    "background": `linear-gradient(to top, ${sColor.value[100]} 0%, ${sColor.value[700]} 100%);`,
+    "left": "42px",
+    "width": "2px",
+    "top": "2px",
+    "height": "100%",
+    "position": "absolute"
+}))
+const iconStyle = computed(() => obj2Str({
+  "fill": sColor.value[700],
+  "border-color": sColor.value[700]
+}))
+const coverStyle = computed(() => obj2Str(bgObj(sColor.value[700])))
+const bgStyle = computed(() => obj2Str(bgObj(sColor.value[100])))
+const ctaStyle = computed(() => obj2Str({
+  ...bgObj(sColor.value[600]),
+  "box-shadow": `0 4px 20px -5px ${sColor.value[600]}`
+})) 
 
 const number = (contact: string | undefined, msg: string) => {
   if (contact && contact.length > 0)

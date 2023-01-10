@@ -89,6 +89,9 @@ let filteredPeople = computed(
 
 
 watch(selected, () => emit("person", selected.value))
-watch(filteredPeople, () => emit("persons", filteredPeople.value))
+watch(filteredPeople, () => {
+  emit("persons", filteredPeople.value)
+  console.log("filtered people are", filteredPeople.value)
+})
 
 </script>
