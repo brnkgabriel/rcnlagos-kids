@@ -46,17 +46,17 @@ export const useUi = () => {
     wfull: "w-full",
     hfull: "h-full",
     slidetitlenstatus: "card-subtitle flex justify-between items-center",
-    slidebody: "card-slide-wrapper relative max-h-[225px] md:h-slide md:max-h-full",
-    studentwrap: "bg-white rounded shadow-custom inline-block mx-1 w-[100px] md:m-0 align-top cursor-pointer basis-[100px] flex-grow md:w-1/4 relative overflow-hidden",
+    slidebody: "card-slide-wrapper relative max-h-[225px] md:h-slide md:max-h-full sm:landscape:h-slide sm:landscape:max-h-full",
+    studentwrap: "bg-white rounded shadow-custom inline-block mx-1 w-[100px] align-top cursor-pointer basis-[100px] flex-grow relative overflow-hidden md:m-0 md:w-1/4 sm:landscape:m-0 sm:landscape:w-1/4",
     studentavatar: "w-full rounded opacity-0",
     studentnamewrap: "px-1/2 py-1 flex items-center justify-center font-title w-full absolute text-white bottom-0 left-1/2 -translate-x-1/2 bg-rcngray-100",
     studentname: "w-3/4 text-center overflow-hidden text-ellipsis whitespace-nowrap",
-    studentswrap: "h-full flex flex-col md:flex-row md:gap-x-2",
-    studentslist: "mb-2 md:h-full w-full md:w-1/2",
+    studentswrap: "h-full flex flex-col md:flex-row md:gap-x-2 sm:landscape:flex-row sm:landscape:gap-x-2",
+    studentslist: "mb-2 w-full md:w-1/2 md:h-full sm:landscape:w-1/2 sm:landscape:h-full",
     studentslistfilternstatus: "pb-2 flex justify-between items-center sticky z-10",
     studentsliststatus: "text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis text-right",
-    studentslistcards: "whitespace-nowrap overflow-y-hidden overflow-x-auto md:flex md:flex-wrap md:gap-2 md:overflow-y-auto md:overflow-x-hidden md:h-auto",
-    studentslistselection: "w-full md:w-1/2",
+    studentslistcards: "whitespace-nowrap overflow-y-hidden overflow-x-auto md:flex md:flex-wrap md:gap-2 md:overflow-y-auto md:overflow-x-hidden md:h-auto sm:landscape:flex sm:landscape:flex-wrap sm:landscape:gap-2 sm:landscape:overflow-y-auto sm:landscape:overflow-x-hidden sm:landscape:h-auto",
+    studentslistselection: "w-full md:w-1/2 sm:landscape:w-1/2",
     switchwrap: "flex gap-2 justify-center items-center capitalize h-[44px]",
     switchcomponent: (options: iSwitch) => {
       const common = "relative inline-flex h-6 w-11 items-center rounded-full"
@@ -68,7 +68,7 @@ export const useUi = () => {
       const { enabled, left, right } = options
       return `${common} ${enabled ? left : right}`
     },
-    tabwrap: "w-full max-w-md md:px-0",
+    tabwrap: "w-full max-w-md md:px-0 sm:landscape:px-0",
     tablist: "flex space-x-1 rounded-xl bg-blue-900/20 p-1",
     tabbuttoncolor: "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
     tabbuttonring: "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
@@ -106,10 +106,10 @@ export const useUi = () => {
     homeNavLink: "rounded-full bg-white shadow-custom p-3 w-[250px] text-center cursor-pointer text-rcnblue-500 border-2 text-xs",
     button: "rounded-full bg-rcnblue-500 shadow-custom p-3 w-full text-center cursor-pointer text-white border-2 text-xs uppercase",
     input: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-rcnblue-500 focus:border-rcnblue-500 block w-full h-[42px] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rcnblue-500 dark:focus:border-rcnblue-500",
-    studentItem: "flex flex-col flex-grow w-1/2 md:w-1/4 overflow-hidden rounded-md shadow-custom bg-white cursor-pointer",
+    studentItem: "flex flex-col flex-grow w-1/2 overflow-hidden rounded-md shadow-custom bg-white cursor-pointer md:w-1/4 sm:landscape:w-1/4",
     studentItemOccupationIcon: "w-[16px] h-[16px]",
     cardTimeline: "",
-    selectedComponent: "selected h-reverseprofile md:h-full flex flex-col",
+    selectedComponent: "selected h-reverseprofile flex flex-col sm:landscape:h-full",
     search: "absolute w-[32px] h-[32px] right-[4px] top-half -translate-y-1/2 bg-rcnblue-500 rounded-md flex justify-center items-center cursor-pointer",
     searchIcon: "w-[24px] h-[24px] text-white",
     dropdown: "absolute top-full right-[8px] z-[100] w-fit mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none capitalize overflow-hidden",
@@ -311,11 +311,17 @@ export const constants = {
   anonymous: 'anonymous',
   globals: "globals",
   div: 'div',
+  notes: 'notes',
+  gallery: 'gallery',
+  about: 'about',
+  contact: 'contact',
   whatsappIcon: (student: iStudent | null) => {
     let number = student ? student?.parentsContact : "0"
     // @ts-ignore
     const num = phone(number)
     number = num.slice(1, num.length)
+
+    console.log("phone number from whatsapp is", number)
 
     return `https://api.whatsapp.com/send?phone=${number}&text=${parentsAddress(student)}`
   }
@@ -598,3 +604,15 @@ export const placeholderStudents = [
 
 export const obj2Str = (obj: iDynamicObject) => Object.keys(obj)
 .reduce((acc, cur) => acc + `${cur}:${obj[cur]};`, "")
+
+export const whatDeviceLandscapeIsThis = () => {
+  const width = document.body.clientWidth
+  const height = document.body.clientHeight
+
+  const min = Math.min(width, height)
+  const max = Math.max(width, height)
+
+  const ratio = Number((max / min).toFixed(1))
+
+  return ratio >= 1.8 ? "phone" : "tab"
+}

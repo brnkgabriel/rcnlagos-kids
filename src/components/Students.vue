@@ -12,7 +12,7 @@
         <Student v-for="(student, idx) in rendered" :key="idx" :student="student" @click="selectStudent(student)" />
       </div>
     </div>
-    <Selected v-selected :student="student" :media="media" :class="studentslistselection" />
+    <Selected :student="student" :media="media" :class="studentslistselection" />
   </div>
 </template>
 <script setup lang="ts">
@@ -73,7 +73,12 @@ watch(data, async () => {
 const handlePerson = async (person: iPerson) => await selectStudent(person)
 const handlePersons = (persons:iPerson[]) => rendered.value = persons
 
-onMounted(async () => await refresh())
+onMounted(async () => {
+  await refresh()
+  window.addEventListener("resize", () => {
+    console.log("what device landscape is this", whatDeviceLandscapeIsThis())
+  })
+})
 
 </script>
 <style lang="">

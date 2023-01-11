@@ -242,22 +242,26 @@ body {
   position: sticky;
   bottom: 0;
   left: 0; */
+  overflow-x: auto;
 }
 
 .selected .card-buttons button {
   flex: 1 1 auto;
   user-select: none;
   background: 0;
-  font-size: 13px;
+  font-size: 12px;
   border: 0;
   padding: 16px 8px;
   cursor: pointer;
   color: var(--card-button-font-color);
   transition: .3s;
-  font-family: Jost, sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   outline: 0;
   border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 4px;
 }
 
 .selected .card-buttons button.is-active,

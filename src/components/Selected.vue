@@ -9,7 +9,7 @@
         <h2 class="card-birthday">{{ birthday }}</h2>
       </div>
     </div>
-    <div class="card-main">
+    <div class="card-main h-smain">
       <div class="card-section is-active" id="about">
         <div class="card-content">
           <!-- <div class="card-subtitle">ABOUT</div>
@@ -19,11 +19,11 @@
               <img class="rounded-full w-[60px]" :src="imgSrc('')" alt="avatar"/>
               <div aria-label="teachername" class="truncate w-full">Bro. Lanre</div>
               <div aria-label="teachercontacticons" class="flex gap-2">
-                <a :href="constants.whatsappIcon({})" class="shadow-cta rounded-full">
+                <a :href="constants.whatsappIcon(props.student)" class="shadow-cta rounded-full">
                   <img src="/icons/whatsapp.svg" class="w-[32px]" alt="whatsapp icon" />
                 </a>
                 <a
-                  :href="'tel:' + phone('')"
+                  :href="contactNumber"
                   :style="callStyle"
                   class="shadow-cta rounded-full p-2 w-[32px] h-[32px] flex justify-center items-center">
                   <Icon type="phonecall" :active="true" class="w-[16px] text-white" />
@@ -75,7 +75,7 @@
           <div class="card-subtitle">PARENT'S CONTACT</div>
           <div class="card-contact-wrapper flex flex-col gap-y-2">
             <div class="contact">
-              <a :href="'tel:' + phone(props.student.parentsContact)" class="card-contact">
+              <a :href="contactNumber" class="card-contact">
                 <PhoneIcon class="w-[16px] h-[16px]" :style="iconStyle" />
                 <span>{{ phoneNo }}</span>
               </a>
@@ -96,15 +96,31 @@
       </div>
     </div>
     <div class="card-buttons flex justify-between" :style="bgStyle">
-      <button data-section="#about" class="is-active">ABOUT</button>
-      <button data-section="#notes">NOTES</button>
-      <button data-section="#contact">CONTACT</button>
-      <button data-section="#gallery">GALLERY</button>
+      <button data-type="btn" data-section="#about" class="is-active relative">
+        <div class="clickable absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+        <Icon :active="isAboutActive" class="w-5" type="about" />
+        <div>ABOUT</div>
+      </button>
+      <button data-type="btn" data-section="#notes" class="relative">
+        <div class="clickable absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+        <Icon :active="isNoteActive" class="w-5" type="notes" />
+        <div>NOTES</div>
+      </button>
+      <button data-type="btn" data-section="#contact" class="relative">
+        <div class="clickable absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+        <Icon :active="isContactActive" class="w-5" type="contact" />
+        <div>CONTACT</div>
+      </button>
+      <button data-type="btn" data-section="#gallery" class="relative">
+        <div class="clickable absolute w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+        <Icon :active="isGalleryActive" class="w-5" type="gallery" />
+        <div>GALLERY</div>
+      </button>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { iColor, iDataApiOptions, iDynamicObject, iMedia, iStudent } from '../types';
+import { iColor, iMedia, iStudent } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
   student: iStudent;
@@ -113,6 +129,16 @@ const props = defineProps<{
 const avatarPlaceholder = "/icons/avatar.svg"
 
 const { cardTimeline, selectedComponent } = useUi()
+
+const currentTab = ref(constants.about)
+
+const isAboutActive = computed(() => currentTab.value === constants.about)
+const isNoteActive = computed(() => currentTab.value === constants.notes)
+const isContactActive = computed(() => currentTab.value === constants.contact)
+const isGalleryActive = computed(() => currentTab.value === constants.gallery)
+
+const contactNumber = computed(() => `tel:${phone(props.student.parentsContact)}`)
+
 
 const fullname = computed(() => props.student.firstName ? `${props.student.firstName} ${props.student.lastName}` : 'Firstname Surname')
 const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
@@ -125,16 +151,7 @@ const sColor = computed<iColor>(() => {
   : { 100: "#dbeafe", 200: "#bfdbfe", 600: "#2563eb", 700: "#1d4ed8" }
 })
 
-// const options: iDataApiOptions = {
-//   table: "events",
-//   column: "",
-//   value: "",
-//   update: ""
-// }
-
-
 const bgObj = (val: string) => ({"background-color": val})
- 
 
 const circleStyle = computed(() => obj2Str({
   "position": "absolute",
@@ -178,8 +195,40 @@ const number = (contact: string | undefined, msg: string) => {
 const phoneNo = computed(() => number(props.student.parentsContact, "Phone"))
 const whatsAppNo = computed(() => number(props.student.parentsContact, "WhatsApp"))
 
-const slideStyle = (media: iMedia) => `background-image: url(${media.mediaUrl});background-repeat:no-repeat;background-size:cover;background-position:center`
-const slideClass = (idx: number) => idx === 0 ? 'card-slide is-active' : 'card-slide'
+const handleTabNavigation = () => {
+  const buttons = document.querySelectorAll(".card-buttons button");
+  const sections = document.querySelectorAll(".card-section");
+  const selected = document.querySelector(".selected");
+
+  const handleButtonClick = (btn: HTMLElement) => {
+    const sectionStr = btn.getAttribute("data-section")
+    const sectionEl = el(sectionStr as string)
+    currentTab.value = sectionStr?.substring(1, sectionStr.length) as string
+    
+    sectionStr !== "#about"
+      ? selected?.classList.add("is-active")
+      : selected?.classList.remove("is-active");
+    selected?.setAttribute("data-state", sectionStr as string);
+    sections.forEach((s) => s.classList.remove("is-active"));
+    buttons.forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    sectionEl.classList.add("is-active");
+  };
+
+  selected?.addEventListener('click', evt => {
+    const target = evt.target as HTMLElement
+    if (target.classList.contains('clickable')) {
+      const btn = target.parentElement
+      handleButtonClick(btn as HTMLElement)
+    }
+  })
+
+}
+
+onMounted(() => {
+  handleTabNavigation()
+})
+
 </script>
 <style lang="">
   

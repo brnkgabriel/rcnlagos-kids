@@ -10,6 +10,9 @@ import {
   CalendarDaysIcon as EventsIconOutline,
   WrenchScrewdriverIcon as OccupationIconOutline,
   PhoneArrowUpRightIcon as PhonecallIconOutline,
+  PencilSquareIcon as NoteIconOutline,
+  PhotoIcon as GalleryIconOutline,
+  UserCircleIcon as AboutIconOutline,
   PencilIcon as EditIconOutline,
   PowerIcon as SignoutIcon
 } from "@heroicons/vue/24/outline/index"
@@ -21,6 +24,9 @@ import {
   CalendarDaysIcon as EventsIconSolid,
   WrenchScrewdriverIcon as OccupationIconSolid,
   PhoneArrowUpRightIcon as PhonecallIconSolid,
+  PencilSquareIcon as NoteIconSolid,
+  PhotoIcon as GalleryIconSolid,
+  UserCircleIcon as AboutIconSolid,
   PencilIcon as EditIconSolid,
   MagnifyingGlassIcon as SearchIcon
 } from "@heroicons/vue/24/solid/index"
@@ -47,11 +53,23 @@ const comp = computed(() => {
     case constants.phonecall:
       icon = props.active ? PhonecallIconSolid : PhonecallIconOutline
       break
+    case constants.contact:
+      icon = props.active ? PhonecallIconSolid : PhonecallIconOutline
+      break
     case constants.edit:
       icon = props.active ? EditIconSolid : EditIconOutline
       break;
     case constants.home:
       icon = props.active ? HomeIconSolid : HomeIconOutline
+      break;
+    case constants.notes:
+      icon = props.active ? NoteIconSolid : NoteIconOutline
+      break;
+    case constants.gallery:
+      icon = props.active ? GalleryIconSolid : GalleryIconOutline
+      break;
+    case constants.about:
+      icon = props.active ? AboutIconSolid : AboutIconOutline
       break;
     case constants.search:
       icon = SearchIcon
