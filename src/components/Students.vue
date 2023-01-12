@@ -74,8 +74,8 @@ const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { param
 
 const status = computed(() => globalState.value.searchedStudents.length === 0 ? 'Loading...' : `${globalState.value.searchedStudents.length} ${pageName.value as string}`)
 const studentslistcardsclass = computed(
-  () => globalState.value.students.length === globalState.value.renderedStudents.length
-  ? `${studentslistcards} h-reversestudents`
+  () => globalState.value.searchedStudents.length === globalState.value.renderedStudents.length
+  ? `${studentslistcards} h-reversestudents landscape:h-auto`
   : studentslistcards
 )
 
