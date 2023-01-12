@@ -9,7 +9,8 @@ export default defineNuxtPlugin(nuxtApp => {
     media: [],
     notes: [],
     students: [],
-    rndStudents: [],
-    teachers: []
+    renderedStudents: [],
+    teachers: [],
+    searchedStudents: []
   }))
 })

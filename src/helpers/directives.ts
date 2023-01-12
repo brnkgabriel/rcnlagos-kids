@@ -63,11 +63,13 @@ const data: iData = {
 
 const loadMore = () => {
   const { globalState, addToRenderedStudents } = useGlobals()
-  const sLen = globalState.value.students.length
-  const rLen = globalState.value.rndStudents.length
+  const sLen = globalState.value.searchedStudents.length
+  const rLen = globalState.value.renderedStudents.length
   const sIdx = rLen
   const eIdx = sIdx + data.maxItem
-  const more = globalState.value.students.slice(sIdx, eIdx)
+  const more = globalState.value.searchedStudents.slice(sIdx, eIdx)
+  
+  console.log("inside loadMore, sLen", sLen, "rLen", rLen)
 
   rLen === sLen ? unobserveAll() : addToRenderedStudents(more)
 }
@@ -79,22 +81,19 @@ const unobserveAll = () => {
   console.log("unobserving all")
 }
 
+const initializeObserver = (ele: Element, from: string) => {
+  const options = { threshold: 1, root: ele }
+  data.observer = new IntersectionObserver(data.observation, options)
+  const last = el(`.-laststudent`, ele as HTMLElement)
+  console.log(`inside ${from} hook`)
+  if (last) data.observer.observe(last as Element)
+}
+
 export const vInfiniteScroll = {
-  updated: (ele: Element) => {
-    const options = { threshold: 1, root: ele }
-    data.observer = new IntersectionObserver(data.observation, options)
-    const last = el(`div[aria-label="studentwrap"]:last-child`, ele as HTMLElement)
-    console.log("last is", last)
-    if (last) data.observer.observe(last as Element)
-  },
-  mounted: (ele: Element) => {
-    // const options = { threshold: 1, root: ele }
-    // data.observer = new IntersectionObserver(data.observation, options)
-    // const last = el(`div[aria-label="studentwrap"]:last-child`, ele as HTMLElement)
-    // console.log("last is", last)
-    // if (last) data.observer.observe(last as Element)
-  },
+  updated: (ele: Element) => initializeObserver(ele, "updated"),
+  mounted: (ele: Element) => initializeObserver(ele, "mounted"),
   unmounted: (ele: Element) => {
+    console.log("inside unmounted hook")
     unobserveAll()
   }
 }

@@ -118,7 +118,12 @@ export interface iGlobal {
   media: iMedia[];
   notes: iNote[];
   events: iEvent[];
-  rndStudents: iStudent[];
+  renderedStudents: iStudent[];
+  searchedStudents: iStudent[];
+  
+  // todo: create a searched property in iGlobal useState variable that can be manipulated outside the students variable
+  // Adjust students as well as infinite scrolling with this searchedStudents variable
+  // searchedStudents: iStudent[];
 }
 
 export interface iDynamicObject {
