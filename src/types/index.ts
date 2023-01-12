@@ -117,7 +117,8 @@ export interface iGlobal {
   teachers: iTeacher[];
   media: iMedia[];
   notes: iNote[];
-  events: iEvent[]
+  events: iEvent[];
+  rndStudents: iStudent[];
 }
 
 export interface iDynamicObject {

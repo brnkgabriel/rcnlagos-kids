@@ -8,8 +8,13 @@
           {{ status }}
         </div>
       </div>
-      <div aria-label="studentslistcards" :class="studentslistcardsclass">
-        <Student v-for="(student, idx) in rendered" :key="idx" :student="student" @click="selectedStudent = student" />
+      <div aria-label="studentslistcards" :class="studentslistcardsclass" v-infinite-scroll>
+        <Student
+          v-for="(student, idx) in globalState.rndStudents"
+          :key="idx"
+          :student="student"
+          :class="position(idx, globalState.rndStudents)"
+          @click="selectedStudent = student" />
       </div>
     </div>
     <Selected :student="selectedStudent" :class="studentslistselection" />
@@ -17,6 +22,7 @@
 </template>
 <script setup lang="ts">
 import { iDataApiOptions, iStudent, iPerson } from '../types';
+import { vInfiniteScroll } from "~~/src/helpers/directives"
 
 const {
   studentswrap,
@@ -27,11 +33,13 @@ const {
   studentslistselection
 } = useUi()
 
-const { globalState, setStudents } = useGlobals()
+const { globalState, setStudents, setRenderedStudents } = useGlobals()
 
 const pageName = ref(useRoute().name)
 const rendered = ref<iStudent[]>(placeholderStudents)
 const selectedStudent = ref<iStudent>(placeholderStudents[0])
+
+setRenderedStudents(placeholderStudents)
 
 const options: iDataApiOptions = {
   table: "students",
@@ -45,19 +53,19 @@ const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { param
 
 const status = computed(() => globalState.value.students.length === 0 ? 'Loading...' : `${globalState.value.students.length} ${pageName.value as string}`)
 const studentslistcardsclass = computed(
-  () => globalState.value.students.length === rendered.value.length
-  ? `${studentslistcards} h-reversestudents landscape:h-full`
+  () => globalState.value.students.length === globalState.value.rndStudents.length
+  ? `${studentslistcards} h-reversestudents`
   : studentslistcards
 )
 
 watch(data, async () => {
   setStudents(data.value as iStudent[])
-  rendered.value = globalState.value.students
-  selectedStudent.value = rendered.value[0]
+  setRenderedStudents(globalState.value.students.slice(0, constants.maxItemsToLoad))
+  selectedStudent.value = globalState.value.rndStudents[0]
 })
 
 const handlePerson = async (person: iPerson) => selectedStudent.value = person
-const handlePersons = (persons:iPerson[]) => rendered.value = persons
+const handlePersons = (persons:iPerson[]) => setRenderedStudents(persons)
 
 onMounted(async () => {
   await refresh()

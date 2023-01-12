@@ -40,3 +40,61 @@ export const vLoaded = {
   mounted: (ele: Element) => loaded(ele),
   updated: (ele: Element) => loaded(ele)
 }
+
+interface iData {
+  maxItem: number;
+  observer: IntersectionObserver | null;
+  observation: (entries: IntersectionObserverEntry[]) => void
+}
+
+const data: iData = {
+  maxItem: constants.maxItemsToLoad,
+  observer: null,
+  observation: (entries: IntersectionObserverEntry[]) => {
+    console.log("entries", entries)
+    const entry = entries[0]
+    if (!entry.isIntersecting) return
+    console.log("is intersecting, load more")
+    loadMore()
+    entry.target.classList.remove("last")
+    data.observer?.unobserve(entry.target)
+  }
+}
+
+const loadMore = () => {
+  const { globalState, addToRenderedStudents } = useGlobals()
+  const sLen = globalState.value.students.length
+  const rLen = globalState.value.rndStudents.length
+  const sIdx = rLen
+  const eIdx = sIdx + data.maxItem
+  const more = globalState.value.students.slice(sIdx, eIdx)
+
+  rLen === sLen ? unobserveAll() : addToRenderedStudents(more)
+}
+
+const unobserveAll = () => {
+  const lastStudents = all(`div[aria-label="studentwrap"]:last-child`)
+  lastStudents.forEach(lastStudent => data.observer?.unobserve(lastStudent))
+  data.observer = null
+  console.log("unobserving all")
+}
+
+export const vInfiniteScroll = {
+  updated: (ele: Element) => {
+    const options = { threshold: 1, root: ele }
+    data.observer = new IntersectionObserver(data.observation, options)
+    const last = el(`div[aria-label="studentwrap"]:last-child`, ele as HTMLElement)
+    console.log("last is", last)
+    if (last) data.observer.observe(last as Element)
+  },
+  mounted: (ele: Element) => {
+    // const options = { threshold: 1, root: ele }
+    // data.observer = new IntersectionObserver(data.observation, options)
+    // const last = el(`div[aria-label="studentwrap"]:last-child`, ele as HTMLElement)
+    // console.log("last is", last)
+    // if (last) data.observer.observe(last as Element)
+  },
+  unmounted: (ele: Element) => {
+    unobserveAll()
+  }
+}
