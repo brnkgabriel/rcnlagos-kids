@@ -1,8 +1,5 @@
 <template>
-  <div class="w-full h-full">
-    <div aria-label="slides" class="relative w-full h-40% overflow-hidden">
-      <div aria-label="slide" class="h-full w-full flex items-center justify-center" :style="coverStyle"></div>
-    </div>
+  <div class="w-full sm:w-60% h-full">
     <div aria-label="bottom content" class="flex flex-col gap-y-6 h-60% justify-center items-center">
       <div aria-label="note" class="text-center">
         <div aria-label="welcome" :class="mainline">Welcome to</div>
@@ -25,7 +22,6 @@
 <script setup lang="ts">
 
 const { homeNavLink, subline_small, mainline } = useUi()
-const coverStyle = ref(`background:url('/images/kids_678x452.png') no-repeat;background-position:center;background-size:cover`)
 
 definePageMeta({
   layout: "home"

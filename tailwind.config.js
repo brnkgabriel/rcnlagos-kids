@@ -52,6 +52,8 @@ module.exports = {
         "cta": "0 2px 4px 0 rgb(0 0 0 / 20%)"
       },
       width: {
+        '60%' : '60%',
+        '40%' : '40%',
         'details': 'calc(100% - 150px)',
         'listitemdetails': 'calc(100% - 120px)',
         'card': 'calc(100% - 32px)',

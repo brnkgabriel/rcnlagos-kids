@@ -19,7 +19,8 @@ const options: iDataApiOptions = {
   table: "teachers",
   column: "",
   value: "",
-  update: ""
+  update: "",
+  foreignkey: ""
 }
 const { data, error } = await useLazyFetch(() => constants.dataApiUrl, {
   params: { ...options }
