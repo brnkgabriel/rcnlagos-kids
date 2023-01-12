@@ -72,7 +72,7 @@ const options: iDataApiOptions = {
 
 const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
 
-const status = computed(() => globalState.value.students.length === 0 ? 'Loading...' : `${globalState.value.students.length} ${pageName.value as string}`)
+const status = computed(() => globalState.value.searchedStudents.length === 0 ? 'Loading...' : `${globalState.value.searchedStudents.length} ${pageName.value as string}`)
 const studentslistcardsclass = computed(
   () => globalState.value.students.length === globalState.value.renderedStudents.length
   ? `${studentslistcards} h-reversestudents`
