@@ -91,7 +91,7 @@
       </div>
       <div class="card-section h-full" id="gallery">
         <div class="card-content">
-          <Slide :media="media" />
+          <Slide :media="(props.student.media as iMedia[])" />
         </div>
       </div>
     </div>
@@ -124,7 +124,6 @@ import { iColor, iMedia, iStudent } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
   student: iStudent;
-  media: iMedia[]
 }>();
 const avatarPlaceholder = "/icons/avatar.svg"
 

@@ -9,9 +9,10 @@ export const supabase = createClient(url, key)
 export const api = {
   // database
   getData: async (options: iDataApiOptions) => {
-    const { column, value, table } = options
+    const { column, value, table, foreignkey } = options
+    const query = foreignkey?.length === 0 ? "*" : `*, ${foreignkey}`
     const { data: res, error } = await supabase
-    .from(table).select("*")
+    .from(table).select(query)
     .eq(column, value)
 
     if (error) throw error

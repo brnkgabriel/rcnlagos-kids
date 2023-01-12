@@ -4,6 +4,11 @@ import { constants } from "../composables"
 export default defineNuxtPlugin(nuxtApp => {
   // Doing something with nuxtApp
   useState<iGlobal>(constants.globals, () => ({
-    slides: []
+    slides: [],
+    events: [],
+    media: [],
+    notes: [],
+    students: [],
+    teachers: []
   }))
 })

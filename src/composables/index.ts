@@ -1,4 +1,4 @@
-import { iColor, iCombined, iDynamicObject, iGlobal, iGlobalState, iMedia, iStudent, iSwitch } from "../types"
+import { iColor, iCombined, iDynamicObject, iEvent, iGlobal, iGlobalState, iMedia, iStudent, iSwitch, iTeacher } from "../types"
 
 const subline = "text-xs"
 const tiny = "text-xxxs font-bold"
@@ -474,7 +474,26 @@ export const useGlobals = () => {
     globalState.value.slides = value
   }
 
-  return { globalState, setSlides }
+  const setStudents = (value: iStudent[]) => {
+    globalState.value.students = value
+  }
+
+  const setTeachers = (value: iTeacher[]) => {
+    globalState.value.teachers = value
+  }
+
+  const setMedia = (value: iMedia[]) => {
+    globalState.value.media = value
+  }
+
+  const setEvents = (value: iEvent[]) => {
+    globalState.value.events = value
+  }
+
+  return {
+    globalState, setSlides, setStudents,
+    setTeachers, setMedia, setEvents
+  }
 }
 
 export const operatingSystem = () => {
@@ -502,6 +521,7 @@ export const operatingSystem = () => {
 export const comboInput = () => operatingSystem() === "iOS" ? "w-full border-none py-2 pl-3 pr-10 text-[16px] leading-5 text-gray-900 focus-visible:outline-none" : "w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus-visible:outline-none"
 
 export const placeholderStudents = [
+  
   {
     firstName: "First name",
     lastName: "Last name",
@@ -514,7 +534,8 @@ export const placeholderStudents = [
     about: "about Firstname Lastname",
     role: "role",
     age: "age",
-    duration: "duration"
+    duration: "duration",
+    media: []
   },
   {
     firstName: "First name",
@@ -528,7 +549,8 @@ export const placeholderStudents = [
     about: "about Firstname Lastname",
     role: "role",
     age: "age",
-    duration: "duration"
+    duration: "duration",
+    media: []
   },
   {
     firstName: "First name",
@@ -542,7 +564,8 @@ export const placeholderStudents = [
     about: "about Firstname Lastname",
     role: "role",
     age: "age",
-    duration: "duration"
+    duration: "duration",
+    media: []
   },
   {
     firstName: "First name",
@@ -556,7 +579,8 @@ export const placeholderStudents = [
     about: "about Firstname Lastname",
     role: "role",
     age: "age",
-    duration: "duration"
+    duration: "duration",
+    media: []
   },
   {
     firstName: "First name",
@@ -570,7 +594,8 @@ export const placeholderStudents = [
     about: "about Firstname Lastname",
     role: "role",
     age: "age",
-    duration: "duration"
+    duration: "duration",
+    media: []
   },
   {
     firstName: "First name",
@@ -584,7 +609,8 @@ export const placeholderStudents = [
     about: "about Firstname Lastname",
     role: "role",
     age: "age",
-    duration: "duration"
+    duration: "duration",
+    media: []
   },
   {
     firstName: "First name",
@@ -598,8 +624,54 @@ export const placeholderStudents = [
     about: "about Firstname Lastname",
     role: "role",
     age: "age",
-    duration: "duration"
-  }
+    duration: "duration",
+    media: []
+  },
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration",
+    media: []
+  },
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration",
+    media: []
+  },
+  {
+    firstName: "First name",
+    lastName: "Last name",
+    parentsContact: "Parent's contact",
+    gender: "gender",
+    class: "class",
+    email: "email",
+    imageUrl: "/icons/image.svg",
+    birthday: "birthday",
+    about: "about Firstname Lastname",
+    role: "role",
+    age: "age",
+    duration: "duration",
+    media: []
+  },
 ]
 
 export const obj2Str = (obj: iDynamicObject) => Object.keys(obj)

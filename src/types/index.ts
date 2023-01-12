@@ -1,7 +1,17 @@
-
-export interface iTeacher {
+interface iCommon {
   created_at?: Date;
   id?: string | number;
+}
+
+export interface iMedia extends iCommon{
+  firstName?: string;
+  lastName?: string;
+  student_email?: string;
+  mediaType?: string;
+  mediaUrl?: string;
+}
+
+export interface iTeacher extends iCommon {
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
@@ -14,14 +24,7 @@ export interface iTeacher {
   duration?: string;
 }
 
-export interface iColor {
-  100: string;
-  200: string;
-  600: string;
-  700: string;
-}
-
-export interface iStudent {
+export interface iStudent extends iCommon {
   created_at?: Date;
   id?: string | number;
   firstName?: string;
@@ -36,21 +39,40 @@ export interface iStudent {
   role?: string;
   age?: string;
   duration?: string;
+  media?: iMedia[]
 }
 
+export interface iEvent extends iCommon {
+  event_type: string;
+  event_name: string;
+  event_date: string;
+  string_id: string;
+  image_url: string;
+}
+
+export interface iNote extends iCommon {
+  student_firstname: string;
+  student_lastname: string;
+  student_email: string;
+  note_title: string;
+  note_description: string;
+  teacher_firstname: string;
+  teacher_lastname: string;
+  teacher_contact: string;
+  teacher_email: string;
+  teacher_picture: string;
+  event_string_id: string;
+}
+
+export interface iColor {
+  100: string;
+  200: string;
+  600: string;
+  700: string;
+}
 
 export interface iPerson extends iStudent {
   name: string;
-}
-
-export interface iMedia {
-  created_at?: Date;
-  id?: string | number;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  mediaType?: string;
-  mediaUrl?: string;
 }
 
 export interface iCombined extends iStudent, iTeacher {}
@@ -85,11 +107,17 @@ export interface iDataApiOptions {
   column: string;
   value: string;
   table: string;
-  update?: any
+  update?: any;
+  foreignkey: string;
 }
 
 export interface iGlobal {
-  slides: iMedia[]
+  slides: iMedia[];
+  students: iStudent[];
+  teachers: iTeacher[];
+  media: iMedia[];
+  notes: iNote[];
+  events: iEvent[]
 }
 
 export interface iDynamicObject {
