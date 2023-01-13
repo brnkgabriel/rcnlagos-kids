@@ -9,10 +9,10 @@
           </div>
         </div>
         <div aria-label="studentslistcards" :class="studentslistcardsclass" v-infinite-scroll>
-          <Student
+          <Thumbnail
             v-for="(student, idx) in globalState.renderedStudents"
             :key="idx"
-            :student="student"
+            :person="student"
             :class="position(idx, globalState.renderedStudents)"
             @click="selectedStudent = student" />
         </div>
@@ -28,10 +28,10 @@
           </div>
         </div>
         <div aria-label="studentslistcards" :class="studentslistcardsclass">
-          <Student
+          <Thumbnail
             v-for="(student, idx) in skeletonStudents"
             :key="idx"
-            :student="student"
+            :person="student"
             :class="position(idx, skeletonStudents)"
             @click="selectedStudent = student" />
         </div>
@@ -54,12 +54,9 @@ const {
 } = useUi()
 
 const { globalState, setStudents, setRenderedStudents, setSearchedStudents } = useGlobals()
-
 const pageName = ref(useRoute().name)
-
 const skeletonStudents = ref<iStudent[]>(placeholderStudents)
 const skeletonSelectedStudent = ref<iStudent>(placeholderStudents[0])
-
 const selectedStudent = ref<iStudent>({})
 
 const options: iDataApiOptions = {
@@ -82,21 +79,14 @@ const studentslistcardsclass = computed(
 watch(data, async () => {
   setStudents(data.value as iStudent[])
   setSearchedStudents(data.value as iStudent[])
-  // setRenderedAndSelected(globalState.value.searchedStudents)
   setRenderedStudents(globalState.value.searchedStudents.slice(0, constants.maxItemsToLoad))
   selectedStudent.value = globalState.value.renderedStudents[0]
 })
 
-const setRenderedAndSelected = (fullList: iStudent[]) => {
-  setRenderedStudents(fullList.slice(0, constants.maxItemsToLoad))
-  selectedStudent.value = globalState.value.renderedStudents[0]
-}
-
-
 const handlePerson = async (person: iPerson) => selectedStudent.value = person
+
 const handlePersons = (persons:iPerson[]) => {
   setSearchedStudents(persons)
-  // setRenderedAndSelected(persons)
   setRenderedStudents(globalState.value.searchedStudents.slice(0, constants.maxItemsToLoad))
   selectedStudent.value = globalState.value.renderedStudents[0]
 }

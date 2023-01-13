@@ -2,19 +2,19 @@
   <div aria-label="studentwrap" :class="studentwrap">
     <img
       :class="studentavatar"
-      :src="props.student.imageUrl"
+      :src="props.person.imageUrl"
       v-loaded
-      :alt="props.student.firstName + ' ' + props.student.lastName"/>
+      :alt="props.person.firstName + ' ' + props.person.lastName"/>
     <div aria-label="studentnamewrap" :class="studentnamewrap">
-      <span :class="studentname">{{ props.student.firstName }}</span>
+      <span :class="studentname">{{ props.person.firstName }}</span>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { iStudent } from '../types';
+import { iStudent, iTeacher } from '../types';
 import { vLoaded } from '../helpers/directives';
 const props = defineProps<{
-  student: iStudent;
+  person: iStudent | iTeacher;
 }>();
 
 const {

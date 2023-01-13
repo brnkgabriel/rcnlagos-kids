@@ -539,158 +539,7 @@ export const operatingSystem = () => {
 
 export const comboInput = () => operatingSystem() === "iOS" ? "w-full border-none py-2 pl-3 pr-10 text-[16px] leading-5 text-gray-900 focus-visible:outline-none" : "w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus-visible:outline-none"
 
-export const placeholderStudents = [
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  },
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  },
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  },
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  },
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  },
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  },
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  },
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  },
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  },
-  {
-    firstName: "First name",
-    lastName: "Last name",
-    parentsContact: "Parent's contact",
-    gender: "gender",
-    class: "class",
-    email: "email",
-    imageUrl: "/icons/image.svg",
-    birthday: "birthday",
-    about: "about Firstname Lastname",
-    role: "role",
-    age: "age",
-    duration: "duration",
-    media: []
-  }
-]
+export const num2List = (num: number) => Array.from(Array(num).keys())
 
 export const obj2Str = (obj: iDynamicObject) => Object.keys(obj)
   .reduce((acc, cur) => acc + `${cur}:${obj[cur]};`, "")
@@ -706,3 +555,20 @@ export const whatDeviceLandscapeIsThis = () => {
 
   return ratio >= 1.8 ? "phone" : "tab"
 }
+
+
+export const placeholderStudents = num2List(40).map(num => ({
+  firstName: "First name",
+  lastName: "Last name",
+  parentsContact: "Parent's contact",
+  gender: "gender",
+  class: "class",
+  email: "email",
+  imageUrl: "/icons/image.svg",
+  birthday: "birthday",
+  about: "about Firstname Lastname",
+  role: "role",
+  age: "age",
+  duration: "duration",
+  media: []
+}))

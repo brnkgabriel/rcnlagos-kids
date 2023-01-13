@@ -33,3 +33,5 @@ watch(data, () => {
 <style lang="">
   
 </style>
+
+<!-- todo refactor students component and adapt to teachers component -->
