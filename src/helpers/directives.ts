@@ -51,10 +51,8 @@ const data: iData = {
   maxItem: constants.maxItemsToLoad,
   observer: null,
   observation: (entries: IntersectionObserverEntry[]) => {
-    console.log("entries", entries)
     const entry = entries[0]
     if (!entry.isIntersecting) return
-    console.log("is intersecting, load more")
     loadMore()
     entry.target.classList.remove("last")
     data.observer?.unobserve(entry.target)
@@ -68,8 +66,6 @@ const loadMore = () => {
   const sIdx = rLen
   const eIdx = sIdx + data.maxItem
   const more = globalState.value.searchedStudents.slice(sIdx, eIdx)
-  
-  console.log("inside loadMore, sLen", sLen, "rLen", rLen)
 
   rLen === sLen ? unobserveAll() : addToRenderedStudents(more)
 }
@@ -78,22 +74,17 @@ const unobserveAll = () => {
   const lastStudents = all(`div[aria-label="studentwrap"]:last-child`)
   lastStudents.forEach(lastStudent => data.observer?.unobserve(lastStudent))
   data.observer = null
-  console.log("unobserving all")
 }
 
 const initializeObserver = (ele: Element, from: string) => {
   const options = { threshold: 1, root: ele }
   data.observer = new IntersectionObserver(data.observation, options)
   const last = el(`.-laststudent`, ele as HTMLElement)
-  console.log(`inside ${from} hook`)
   if (last) data.observer.observe(last as Element)
 }
 
 export const vInfiniteScroll = {
   updated: (ele: Element) => initializeObserver(ele, "updated"),
   mounted: (ele: Element) => initializeObserver(ele, "mounted"),
-  unmounted: (ele: Element) => {
-    console.log("inside unmounted hook")
-    unobserveAll()
-  }
+  unmounted: () => unobserveAll()
 }
