@@ -1,4 +1,5 @@
 import { iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iStudent, iSwitch, iTeacher } from "../types"
+import { Ref } from 'vue';
 
 const subline = "text-xs"
 const tiny = "text-xxxs font-bold"
@@ -579,3 +580,12 @@ export const placeholderPersons = num2List(40).map(num => ({
   duration: "duration",
   media: []
 }))
+
+export const updateThumbnailListHeight = (thumbsRef: Ref<HTMLDivElement>, listRef: Ref<HTMLDivElement>) => {
+  const fn = thumbsRef.value?.classList
+  fn?.remove("landscape:h-auto")
+  fn?.remove("landscape:h-thumbnails")
+  const thumbnailListHeight = thumbsRef.value?.getBoundingClientRect().height as number
+  const personsListHeight = listRef.value?.getBoundingClientRect().height as number - 44
+  thumbnailListHeight < personsListHeight ? fn?.add("landscape:h-auto") : fn?.add("landscape:h-thumbnails")
+}

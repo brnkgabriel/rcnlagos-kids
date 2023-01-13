@@ -43,6 +43,7 @@
 <script setup lang="ts">
 import { iDataApiOptions, iStudent, iPerson } from '../types';
 import { vInfiniteScroll } from "~~/src/helpers/directives"
+import { Ref } from 'vue';
 
 const {
   personswrap,
@@ -86,24 +87,7 @@ const handlePersons = (persons:iPerson[]) => {
   setSearchedStudents(persons)
   setRenderedStudents(globalState.value.searchedStudents.slice(0, constants.maxItemsToLoad))
   selectedStudent.value = globalState.value.renderedStudents[0]
-  updateThumbnailListHeight()
-}
-
-const updateThumbnailListHeight = () => {
-  const fn = thumbnailListRef.value?.classList
-  fn?.remove("landscape:h-auto")
-  fn?.remove("landscape:h-thumbnails")
-  // const thumbnailListHeight = getComputedStyle(thumbnailListRef.value as Element).height
-  const thumbnailListHeight = thumbnailListRef.value?.getBoundingClientRect().height as number
-  // 44 is the height of status bar, hence it's factored in
-  // const personsListHeight = getComputedStyle(personsListRef.value as Element).height
-  const personsListHeight = personsListRef.value?.getBoundingClientRect().height as number - 44
-  const isThumbnailListHeightLess = thumbnailListHeight < personsListHeight
-
-
-  console.log("thumbnailListHeight", thumbnailListHeight, "personsListHeight", personsListHeight, "isThumbnailListHeightLess", isThumbnailListHeightLess)
-
-  thumbnailListHeight < personsListHeight ? fn?.add("landscape:h-auto") : fn?.add("landscape:h-thumbnails")
+  updateThumbnailListHeight(thumbnailListRef as Ref<HTMLDivElement>, personsListRef as Ref<HTMLDivElement>)
 }
 
 onMounted(async () => {
