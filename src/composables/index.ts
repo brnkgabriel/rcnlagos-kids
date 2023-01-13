@@ -318,6 +318,8 @@ export const constants = {
   about: 'about',
   contact: 'contact',
   laststudent: '-laststudent',
+  Male: 'Male',
+  Female: 'Female',
   whatsappIcon: (student: iStudent | null) => {
     let number = student ? student?.parentsContact : "0"
     // @ts-ignore

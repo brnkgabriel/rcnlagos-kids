@@ -42,28 +42,20 @@
         <div class="card-content h-full">
           <div class="card-subtitle">NOTES</div>
           <div class="card-timeline relative h-full" :class="cardTimeline">
-            <div class="card-item" data-year="2014">
+            <div class="card-item" data-year="2023">
               <div class="card-item-title relative">
-                <span>Front-end developer @</span>
-                <span>JotForm</span>
+                <span>{{ heShe }} left with parent by </span>
+                <span>8:30 PM</span>
               </div>
-              <div class="card-item-desc">Disrupt stumptown retro everyday carry unicorn.</div>
+              <div class="card-item-desc">{{ hisHer }} mum came to pick {{ himHer }}</div>
               <div aria-label="circle" :style="circleStyle"></div>
             </div>
-            <div class="card-item" data-year="2012">
+            <div class="card-item" data-year="2022">
               <div class="card-item-title relative">
-                <span>Front-end developer @</span>
-                <span>JotForm</span>
+                <span>{{ heShe }}'s in class by </span>
+                <span>6:00 PM</span>
               </div>
-              <div class="card-item-desc">Disrupt stumptown retro everyday carry unicorn.</div>
-              <div aria-label="circle" :style="circleStyle"></div>
-            </div>
-            <div class="card-item" data-year="2010">
-              <div class="card-item-title relative">
-                <span>Front-end developer @</span>
-                <span>JotForm</span>
-              </div>
-              <div class="card-item-desc">Disrupt stumptown retro everyday carry unicorn.</div>
+              <div class="card-item-desc">{{ hisHer }} dad dropped {{ himHer }}</div>
               <div aria-label="circle" :style="circleStyle"></div>
             </div>
             <div aria-label="trail" :style="trailStyle"></div>
@@ -137,6 +129,9 @@ const isContactActive = computed(() => currentTab.value === constants.contact)
 const isGalleryActive = computed(() => currentTab.value === constants.gallery)
 const media = computed(() => (props.person.media || props.person.teachermedia as iMedia[]))
 const contactNumber = computed(() => `tel:${phone(props.person.parentsContact || props.person.phoneNumber)}`)
+const himHer = computed(() => props.person.gender === constants.Male ? "him" : "her")
+const hisHer = computed(() => props.person.gender === constants.Male ? "his" : "her")
+const heShe = computed(() => props.person.gender === constants.Male ? "he" : "she")
 
 
 const fullname = computed(() => props.person.firstName ? `${props.person.firstName} ${props.person.lastName}` : 'Firstname Surname')
@@ -161,16 +156,17 @@ const circleStyle = computed(() => obj2Str({
   "border": `2px solid #fff`,
   "border-radius": "50%",
   "top": "2px",
-  "left": "37px"
+  "left": "0px"
 }))
 
 const trailStyle = computed(() => obj2Str({
     "background": `linear-gradient(to top, ${sColor.value[100]} 0%, ${sColor.value[700]} 100%);`,
-    "left": "42px",
+    "left": "6px",
     "width": "2px",
     "top": "2px",
     "height": "100%",
-    "position": "absolute"
+    "position": "absolute",
+    "transform": "translateX(-50%)"
 }))
 const iconStyle = computed(() => obj2Str({
   "fill": sColor.value[700],
