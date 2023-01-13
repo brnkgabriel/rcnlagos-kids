@@ -1,4 +1,4 @@
-import { iColor, iCombined, iDynamicObject, iEvent, iGlobal, iGlobalState, iMedia, iStudent, iSwitch, iTeacher } from "../types"
+import { iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iStudent, iSwitch, iTeacher } from "../types"
 
 const subline = "text-xs"
 const tiny = "text-xxxs font-bold"
@@ -51,12 +51,12 @@ export const useUi = () => {
     studentavatar: "w-full rounded opacity-0",
     studentnamewrap: "px-1/2 py-1 flex items-center justify-center font-title w-full absolute text-white bottom-0 left-1/2 -translate-x-1/2 bg-rcngray-100",
     studentname: "w-3/4 text-center overflow-hidden text-ellipsis whitespace-nowrap",
-    studentswrap: "h-full flex flex-col md:flex-row md:gap-x-2 sm:landscape:flex-row sm:landscape:gap-x-2",
-    studentslist: "mb-2 w-full md:w-1/2 md:h-full sm:landscape:w-1/2 sm:landscape:h-full",
-    studentslistfilternstatus: "pb-2 flex justify-between items-center sticky z-10",
-    studentsliststatus: "text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis text-right",
-    studentslistcards: "whitespace-nowrap overflow-y-hidden overflow-x-auto md:flex md:flex-wrap md:gap-2 md:overflow-y-auto md:overflow-x-hidden md:h-reversestudents sm:landscape:flex sm:landscape:flex-wrap sm:landscape:gap-2 sm:landscape:overflow-y-auto sm:landscape:overflow-x-hidden sm:landscape:h-reversestudents",
-    studentslistselection: "w-full md:w-1/2 sm:landscape:w-1/2",
+    personswrap: "h-full flex flex-col md:flex-row md:gap-x-2 sm:landscape:flex-row sm:landscape:gap-x-2",
+    personslist: "mb-2 w-full md:w-1/2 md:h-full sm:landscape:w-1/2 sm:landscape:h-full",
+    personslistfilternstatus: "pb-2 flex justify-between items-center sticky z-10",
+    personsliststatus: "text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis text-right",
+    personslistcards: "whitespace-nowrap overflow-y-hidden overflow-x-auto md:flex md:flex-wrap md:gap-2 md:overflow-y-auto md:overflow-x-hidden md:h-reversestudents sm:landscape:flex sm:landscape:flex-wrap sm:landscape:gap-2 sm:landscape:overflow-y-auto sm:landscape:overflow-x-hidden sm:landscape:h-reversestudents",
+    personslistselection: "w-full md:w-1/2 sm:landscape:w-1/2",
     switchwrap: "flex gap-2 justify-center items-center capitalize h-[44px]",
     switchcomponent: (options: iSwitch) => {
       const common = "relative inline-flex h-6 w-11 items-center rounded-full"
@@ -100,7 +100,7 @@ export const useUi = () => {
     subline,
     grayText,
     breadcrumb: grayText + " uppercase mb-1 " + tiny,
-    logo: flexCenterCenter + " bg-white shadow-custom absolute top-[40%] left-[16px] w-[50px] h-[50px] rounded-full p-2 z-10 -translate-y-1/2",
+    logo: flexCenterCenter + " bg-white shadow-custom absolute top-[40%] left-[16px] w-[50px] h-[50px] landscape:top-[50%] landscape:left-[40%] landscape:-translate-x-1/2 rounded-full p-2 z-10 -translate-y-1/2",
     bottomNavLink: flexCenterCenter + " flex-col cursor-pointer",
     bottomNavLinkIcon: flexCenterCenter + " w-[32px] h-[32px]",
     homeNavLink: "rounded-full bg-white shadow-custom p-3 w-[250px] text-center cursor-pointer text-rcnblue-500 border-2 text-xs",
@@ -331,7 +331,7 @@ export const constants = {
 
 export const parentsAddress = (student: iStudent | null) => student?.lastName ? `Hello Sir/Ma (we're contacting you with respect to ${student.firstName})` : 'Names'
 
-export const studentName = (student: iStudent | null) => student?.lastName ? `${student.firstName} ${student.lastName}` : 'Firstname Surname'
+export const personName = (student: iStudent | iTeacher | null) => student?.lastName ? `${student.firstName} ${student.lastName}` : 'Firstname Surname'
 
 export const imgSrc = (url: string) => url.length > 0 ? url : '/icons/avatar.svg'
 
@@ -407,7 +407,7 @@ export const reorder = (list: iCombined[], type: string) => {
   }
 }
 
-export const search = (term: string, list: iCombined[]) => {
+export const search = (term: string, list: any[]) => {
   return list.filter(student => {
     return student.firstName?.toLowerCase().includes(term) ||
       student.lastName?.toLowerCase().includes(term) ||
@@ -499,6 +499,14 @@ export const useGlobals = () => {
     globalState.value.teachers = value
   }
 
+  const setRenderedTeachers = (value: iTeacher[]) => {
+    globalState.value.renderedTeachers = value
+  }
+
+  const setSearchedTeachers = (value: iTeacher[]) => {
+    globalState.value.searchedTeachers = value
+  }
+
   const setMedia = (value: iMedia[]) => {
     globalState.value.media = value
   }
@@ -511,7 +519,8 @@ export const useGlobals = () => {
     globalState, setSlides, setStudents,
     setRenderedStudents, addToRenderedStudents,
     setSearchedStudents, setTeachers, setMedia,
-    setEvents
+    setEvents, setRenderedTeachers,
+    setSearchedTeachers
   }
 }
 
@@ -557,7 +566,7 @@ export const whatDeviceLandscapeIsThis = () => {
 }
 
 
-export const placeholderStudents = num2List(40).map(num => ({
+export const placeholderPersons = num2List(40).map(num => ({
   firstName: "First name",
   lastName: "Last name",
   parentsContact: "Parent's contact",

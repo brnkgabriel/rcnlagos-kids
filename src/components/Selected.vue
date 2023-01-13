@@ -19,7 +19,7 @@
               <img class="rounded-full w-[60px]" :src="imgSrc('')" alt="avatar"/>
               <div aria-label="teachername" class="truncate w-full">Bro. Lanre</div>
               <div aria-label="teachercontacticons" class="flex gap-2">
-                <a :href="constants.whatsappIcon(props.student)" class="shadow-cta rounded-full">
+                <a :href="constants.whatsappIcon(props.person)" class="shadow-cta rounded-full">
                   <img src="/icons/whatsapp.svg" class="w-[32px]" alt="whatsapp icon" />
                 </a>
                 <a
@@ -79,19 +79,19 @@
                 <PhoneIcon class="w-[16px] h-[16px]" :style="iconStyle" />
                 <span>{{ phoneNo }}</span>
               </a>
-              <a :href="constants.whatsappIcon(props.student)" class="card-contact">
+              <a :href="constants.whatsappIcon(props.person)" class="card-contact">
                 <ChatBubbleLeftRightIcon class="w-[16px] h-[16px]"  :style="iconStyle" />
                 <span>{{ whatsAppNo }}</span>
               </a>
             </div>
-            <a class="contact-me text-center" :href="'tel:' + phone(props.student.parentsContact)"
+            <a class="contact-me text-center" :href="'tel:' + phone(props.person.parentsContact || props.person.phoneNumber)"
               :style="ctaStyle">CALL PARENT</a>
           </div>
         </div>
       </div>
       <div class="card-section h-full" id="gallery">
         <div class="card-content">
-          <Slide :media="(props.student.media as iMedia[])" />
+          <Slide v-if="media" :media="media" />
         </div>
       </div>
     </div>
@@ -120,10 +120,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iColor, iMedia, iStudent } from '../types';
+import { iColor, iMedia, iCombined } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
-  student: iStudent;
+  person: iCombined;
 }>();
 const avatarPlaceholder = "/icons/avatar.svg"
 
@@ -135,18 +135,19 @@ const isAboutActive = computed(() => currentTab.value === constants.about)
 const isNoteActive = computed(() => currentTab.value === constants.notes)
 const isContactActive = computed(() => currentTab.value === constants.contact)
 const isGalleryActive = computed(() => currentTab.value === constants.gallery)
+const media = computed(() => (props.person.media || props.person.teachermedia as iMedia[]))
+const contactNumber = computed(() => `tel:${phone(props.person.parentsContact || props.person.phoneNumber)}`)
 
-const contactNumber = computed(() => `tel:${phone(props.student.parentsContact)}`)
 
+const fullname = computed(() => props.person.firstName ? `${props.person.firstName} ${props.person.lastName}` : 'Firstname Surname')
+const avatar = computed(() => props.person.imageUrl ?? avatarPlaceholder)
+const birthday = computed(() => props.person.birthday ?? `January 1`)
+// const about = computed(() => props.person.about ?? `Blessed Child`)
 
-const fullname = computed(() => props.student.firstName ? `${props.student.firstName} ${props.student.lastName}` : 'Firstname Surname')
-const avatar = computed(() => props.student.imageUrl ?? avatarPlaceholder)
-const birthday = computed(() => props.student.birthday ?? `January 1`)
-const about = computed(() => props.student.about ?? `Blessed Child`)
 
 const sColor = computed<iColor>(() => {
-  return props.student.email 
-  ? color(props.student.email) 
+  return props.person.email 
+  ? color(props.person.email) 
   : { 100: "#dbeafe", 200: "#bfdbfe", 600: "#2563eb", 700: "#1d4ed8" }
 })
 
@@ -187,12 +188,12 @@ const callStyle = computed(() => obj2Str({
 
 const number = (contact: string | undefined, msg: string) => {
   if (contact && contact.length > 0)
-    return props.student.parentsContact
+    return props.person.parentsContact || props.person.phoneNumber
   return `${msg} number...`
 }
 
-const phoneNo = computed(() => number(props.student.parentsContact, "Phone"))
-const whatsAppNo = computed(() => number(props.student.parentsContact, "WhatsApp"))
+const phoneNo = computed(() => number(props.person.parentsContact || props.person.phoneNumber, "Phone"))
+const whatsAppNo = computed(() => number(props.person.parentsContact || props.person.phoneNumber, "WhatsApp"))
 
 const handleTabNavigation = () => {
   const buttons = document.querySelectorAll(".card-buttons button");

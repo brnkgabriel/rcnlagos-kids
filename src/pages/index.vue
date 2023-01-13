@@ -1,21 +1,19 @@
 <template>
-  <div class="w-full sm:w-60% h-full">
-    <div aria-label="bottom content" class="flex flex-col gap-y-6 h-60% justify-center items-center">
-      <div aria-label="note" class="text-center">
-        <div aria-label="welcome" :class="mainline">Welcome to</div>
-        <div aria-label="rcnlagos" :class="mainline">Remnant Christian Network Lagos</div>
-        <div aria-label="footnote" :class="subline_small">Towards the rebirth of Apostolic Christianity</div>
-      </div>
+  <div aria-label="bottom content" class="flex flex-col gap-y-6 w-full sm:w-60% h-60% sm:h-full justify-center items-center">
+    <div aria-label="note" class="text-center">
+      <div aria-label="welcome" :class="mainline">Welcome to</div>
+      <div aria-label="rcnlagos" :class="mainline">Remnant Christian Network Lagos</div>
+      <div aria-label="footnote" :class="subline_small">Towards the rebirth of Apostolic Christianity</div>
+    </div>
 
-      <div aria-label="title" class="flex flex-col text-center text-rcnblue-500 font-extrabold font-title uppercase text-3xl">
-        <div aria-label="top">children</div>
-        <div aria-label="bottom">department</div>
-      </div>
+    <div aria-label="title" class="flex flex-col text-center text-rcnblue-500 font-extrabold font-title uppercase text-3xl">
+      <div aria-label="top">children</div>
+      <div aria-label="bottom">department</div>
+    </div>
 
-      <div aria-label="navigation" class="flex flex-col justify-center items-center gap-y-2">
-        <NuxtLink href="/teachers" :class="homeNavLink">Teachers</NuxtLink>
-        <NuxtLink href="/students" :class="homeNavLink">Students</NuxtLink>
-      </div>
+    <div aria-label="navigation" class="flex flex-col justify-center items-center gap-y-2">
+      <NuxtLink href="/teachers" :class="homeNavLink">Teachers</NuxtLink>
+      <NuxtLink href="/students" :class="homeNavLink">Students</NuxtLink>
     </div>
   </div>
 </template>

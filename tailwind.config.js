@@ -67,7 +67,7 @@ module.exports = {
         'cardlistheight': 'calc(100% - 28px)',
         'form': 'calc(100% - 16px)',
         'students': 'calc(100% - 24px)',
-        'reversestudents': 'calc(100% - 44px)',
+        'thumbnails': 'calc(100% - 44px)',
         'slide': 'calc(100% - 20px) !important',
         'reverseprofile': 'calc(100% - 144px)',
         'smain': 'calc(100% - 135px)'

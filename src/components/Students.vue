@@ -1,10 +1,10 @@
 <template>
   <div class="h-full">
-    <div v-if="globalState.students.length > 0" aria-label="original studentswrap" :class="studentswrap">
-      <div aria-label="studentslist" :class="studentslist">
-        <div aria-label="studentslistfilternstatus" :class="studentslistfilternstatus">
-          <ComboBox :students="globalState.students" @persons="handlePersons" @person="handlePerson" />
-          <div :class="studentsliststatus">
+    <div v-if="globalState.students.length > 0" aria-label="original personswrap" :class="personswrap">
+      <div aria-label="personslist" :class="personslist">
+        <div aria-label="personslistfilternstatus" :class="personslistfilternstatus">
+          <ComboBox :persons="globalState.students" @persons="handlePersons" @person="handlePerson" />
+          <div :class="personsliststatus">
             {{ status }}
           </div>
         </div>
@@ -17,13 +17,13 @@
             @click="selectedStudent = student" />
         </div>
       </div>
-      <Selected :student="selectedStudent" :class="studentslistselection" />
+      <Selected :person="selectedStudent" :class="personslistselection" />
     </div>
-    <div v-else aria-label="skeleton studentswrap" :class="studentswrap">
-      <div aria-label="studentslist" :class="studentslist">
-        <div aria-label="studentslistfilternstatus" :class="studentslistfilternstatus">
+    <div v-else aria-label="skeleton personswrap" :class="personswrap">
+      <div aria-label="personslist" :class="personslist">
+        <div aria-label="personslistfilternstatus" :class="personslistfilternstatus">
           <div aria-label="combobox"></div>
-          <div :class="studentsliststatus">
+          <div :class="personsliststatus">
             Loading...
           </div>
         </div>
@@ -36,7 +36,7 @@
             @click="selectedStudent = student" />
         </div>
       </div>
-      <Selected :student="skeletonSelectedStudent" :class="studentslistselection" />
+      <Selected :person="skeletonSelectedStudent" :class="personslistselection" />
     </div>
   </div>
 </template>
@@ -45,18 +45,18 @@ import { iDataApiOptions, iStudent, iPerson } from '../types';
 import { vInfiniteScroll } from "~~/src/helpers/directives"
 
 const {
-  studentswrap,
-  studentslist,
-  studentslistfilternstatus,
-  studentsliststatus,
-  studentslistcards,
-  studentslistselection
+  personswrap,
+  personslist,
+  personslistfilternstatus,
+  personsliststatus,
+  personslistcards,
+  personslistselection
 } = useUi()
 
 const { globalState, setStudents, setRenderedStudents, setSearchedStudents } = useGlobals()
 const pageName = ref(useRoute().name)
-const skeletonStudents = ref<iStudent[]>(placeholderStudents)
-const skeletonSelectedStudent = ref<iStudent>(placeholderStudents[0])
+const skeletonStudents = ref<iStudent[]>(placeholderPersons)
+const skeletonSelectedStudent = ref<iStudent>(placeholderPersons[0])
 const selectedStudent = ref<iStudent>({})
 
 const options: iDataApiOptions = {
@@ -72,8 +72,8 @@ const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { param
 const status = computed(() => globalState.value.searchedStudents.length === 0 ? 'Loading...' : `${globalState.value.searchedStudents.length} ${pageName.value as string}`)
 const studentslistcardsclass = computed(
   () => globalState.value.searchedStudents.length === globalState.value.renderedStudents.length
-  ? `${studentslistcards} h-reversestudents landscape:h-auto`
-  : studentslistcards
+  ? `${personslistcards} h-thumbnails landscape:h-auto`
+  : personslistcards
 )
 
 watch(data, async () => {

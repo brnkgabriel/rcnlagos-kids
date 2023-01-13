@@ -43,10 +43,10 @@ import {
   TransitionRoot,
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/24/solid/index'
-import { iStudent, iPerson } from '../types';
+import { iPerson, iCombined } from '../types';
 
 const props = defineProps<{
-  students: iStudent[];
+  persons: iCombined[];
 }>();
 
 const emit = defineEmits<{
@@ -74,7 +74,7 @@ const handleActiveSpan = (isActive: boolean) => isActive
   ? `${comboboxoptionspanicon} text-white`
   : `${comboboxoptionspanicon} text-teal-600`
 
-let people = computed(() => props.students.map((student: iStudent) => ({ ...student, name: studentName(student) })))
+let people = computed(() => props.persons.map((person: iCombined) => ({ ...person, name: personName(person) })))
 let selected = ref<iPerson>(people.value[0])
 let query = ref('')
 

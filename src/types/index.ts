@@ -22,6 +22,7 @@ export interface iTeacher extends iCommon {
   role?: string;
   class?: string;
   duration?: string;
+  teachermedia?: iMedia[];
 }
 
 export interface iStudent extends iCommon {
@@ -75,8 +76,6 @@ export interface iPerson extends iStudent {
   name: string;
 }
 
-export interface iCombined extends iStudent, iTeacher {}
-
 export interface iObserver {
   pLabel: string; // parent label
   cLabel: string; // child label
@@ -113,18 +112,18 @@ export interface iDataApiOptions {
 
 export interface iGlobal {
   slides: iMedia[];
-  students: iStudent[];
-  teachers: iTeacher[];
   media: iMedia[];
   notes: iNote[];
   events: iEvent[];
+  students: iStudent[];
   renderedStudents: iStudent[];
   searchedStudents: iStudent[];
-  
-  // todo: create a searched property in iGlobal useState variable that can be manipulated outside the students variable
-  // Adjust students as well as infinite scrolling with this searchedStudents variable
-  // searchedStudents: iStudent[];
+  teachers: iTeacher[];
+  renderedTeachers: iTeacher[];
+  searchedTeachers: iTeacher[];
 }
+
+export interface iCombined extends iStudent, iTeacher {}
 
 export interface iDynamicObject {
   // 👇️ key         value
