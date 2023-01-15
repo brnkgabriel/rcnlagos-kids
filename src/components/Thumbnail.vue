@@ -17,7 +17,7 @@ const props = defineProps<{
   person: iStudent | iTeacher;
 }>();
 
-const thumbStyle = ref(obj2Str({
+const thumbStyle = computed(() => obj2Str({
   "background-image": `url(${props.person.imageUrl})`,
   "background-repeate": "no-repeat",
   "background-position": "center",

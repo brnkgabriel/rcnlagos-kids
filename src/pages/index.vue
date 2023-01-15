@@ -1,5 +1,5 @@
 <template>
-  <div aria-label="bottom content" class="flex flex-col gap-y-6 w-full sm:w-60% h-60% sm:h-full justify-center items-center">
+  <div aria-label="homelayoutbottomcontentwrap" :class="homelayoutbottomcontentwrap">
     <div aria-label="note" class="text-center">
       <div aria-label="welcome" :class="mainline">Welcome to</div>
       <div aria-label="rcnlagos" :class="mainline">Remnant Christian Network Lagos</div>
@@ -19,7 +19,7 @@
 </template>
 <script setup lang="ts">
 
-const { homeNavLink, subline_small, mainline } = useUi()
+const { homeNavLink, subline_small, mainline, homelayoutbottomcontentwrap } = useUi()
 
 definePageMeta({
   layout: "home"
