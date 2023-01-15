@@ -8,7 +8,7 @@
             {{ status }}
           </div>
         </div>
-        <div ref="thumbnailListRef" aria-label="studentslistcards" :class="personslistcards" v-infinite-scroll>
+        <div ref="thumbnailListRef" aria-label="studentslistcards" :class="personslistcards" :style="thumbnailsStyle" v-infinite-scroll>
           <Thumbnail
             v-for="(student, idx) in globalState.renderedStudents"
             :key="idx"
@@ -73,6 +73,22 @@ const options: iDataApiOptions = {
 const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
 
 const status = computed(() => globalState.value.searchedStudents.length === 0 ? 'Loading...' : `${globalState.value.searchedStudents.length} ${pageName.value as string}`)
+const width = ref(Math.round(thumbnailListRef.value?.getBoundingClientRect().width as number))
+const thumbnailsStyle = computed(() => {
+  const thumbnailLen = globalState.value.renderedStudents.length
+  let gridTemplateColumns = `repeat(${thumbnailLen}, 1fr)`
+  if (width.value >= 640 && width.value < 768)
+    gridTemplateColumns = `repeat(3, 1fr)`
+  if (width.value >= 768 && width.value < 1024)
+    gridTemplateColumns = `repeat(4, 1fr)`
+  if (width.value >= 1024)
+    gridTemplateColumns = `repeat(6, 1fr)`
+
+  // return obj2Str({
+  //   "grid-template-columns": width.value < 640 ? `repeat(${thumbnailLen}, 1fr)` : `repeat(3, 1fr)`
+  // })
+  return ""
+})
 
 watch(data, async () => {
   setStudents(data.value as iStudent[])
@@ -90,10 +106,17 @@ const handlePersons = (persons:iPerson[]) => {
   updateThumbnailListHeight(thumbnailListRef as Ref<HTMLDivElement>, personsListRef as Ref<HTMLDivElement>)
 }
 
+const thumbnHeight = () => {
+    const height = thumbnailListRef.value?.getBoundingClientRect().height
+    // console.log("what device landscape is this", whatDeviceLandscapeIsThis())
+    console.log("thumbnails height is", height)
+    return height
+}
+
 onMounted(async () => {
   await refresh()
   window.addEventListener("resize", () => {
-    console.log("what device landscape is this", whatDeviceLandscapeIsThis())
+    width.value = Math.round(thumbnailListRef.value?.getBoundingClientRect().width as number)
   })
 })
 </script>

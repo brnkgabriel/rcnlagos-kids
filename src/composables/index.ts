@@ -48,15 +48,18 @@ export const useUi = () => {
     hfull: "h-full",
     slidetitlenstatus: "card-subtitle flex justify-between items-center",
     slidebody: "card-slide-wrapper relative max-h-[225px] md:h-slide md:max-h-full sm:landscape:h-slide sm:landscape:max-h-full",
-    studentwrap: "bg-white rounded shadow-custom inline-block mx-1 w-[100px] align-top cursor-pointer basis-[100px] flex-grow relative overflow-hidden md:m-0 md:w-1/4 sm:landscape:m-0 sm:landscape:w-1/4",
+    // todo: put grid layout css in tailwindcss form
+    // thumbnailwrap: "bg-white rounded shadow-custom inline-block mx-1 w-[100px] align-top cursor-pointer basis-[100px] flex-grow relative overflow-hidden md:m-0 md:w-1/4 sm:landscape:m-0 sm:landscape:w-1/4",
+    thumbnailwrap: "bg-white rounded shadow-custom inline-block w-[100px] h-[100px] sm:w-full sm:h-full mx-1 sm:mx-0 relative cursor-pointer overflow-hidden",
     studentavatar: "w-full rounded opacity-0",
     studentnamewrap: "px-1/2 py-1 flex items-center justify-center font-title w-full absolute text-white bottom-0 left-1/2 -translate-x-1/2 bg-rcngray-100",
     studentname: "w-3/4 text-center overflow-hidden text-ellipsis whitespace-nowrap",
-    personswrap: "h-full flex flex-col md:flex-row md:gap-x-2 sm:landscape:flex-row sm:landscape:gap-x-2",
+    personswrap: "h-full flex flex-col sm:flex-row sm:gap-x-2 sm:landscape:flex-row sm:landscape:gap-x-2",
     personslist: "mb-2 w-full md:w-1/2 md:h-full sm:landscape:w-1/2 sm:landscape:h-full",
     personslistfilternstatus: "pb-2 flex justify-between items-center sticky z-10",
     personsliststatus: "text-xxs uppercase text-rcnblue-500 my-2 font-bold opacity-50 w-1/4 overflow-hidden whitespace-nowrap text-ellipsis text-right",
-    personslistcards: "whitespace-nowrap overflow-y-hidden overflow-x-auto md:flex md:flex-wrap md:gap-2 md:overflow-y-auto md:overflow-x-hidden md:h-reversestudents sm:landscape:flex sm:landscape:flex-wrap sm:landscape:gap-2 sm:landscape:overflow-y-auto sm:landscape:overflow-x-hidden landscape:h-thumbnails",
+    // personslistcards: "whitespace-nowrap overflow-y-hidden overflow-x-auto md:flex md:flex-wrap md:gap-2 md:overflow-y-auto md:overflow-x-hidden sm:landscape:flex sm:landscape:flex-wrap sm:landscape:gap-2 sm:landscape:overflow-y-auto sm:landscape:overflow-x-hidden landscape:h-thumbnails",
+    personslistcards: "whitespace-nowrap sm:grid sm:gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 sm:auto-rows-[minmax(180px,_1fr)] md:auto-rows-[minmax(150px,_1fr)] lg:auto-rows-[minmax(120px,_1fr)] overflow-x-auto overflow-y-hidden sm:overflow-x-hidden sm:overflow-y-auto h-[100px] sm:h-thumbnails",
     personslistselection: "w-full md:w-1/2 sm:landscape:w-1/2",
     switchwrap: "flex gap-2 justify-center items-center capitalize h-[44px]",
     switchcomponent: (options: iSwitch) => {
@@ -589,5 +592,7 @@ export const updateThumbnailListHeight = (thumbsRef: Ref<HTMLDivElement>, listRe
   fn?.remove("landscape:h-thumbnails")
   const thumbnailListHeight = thumbsRef.value?.getBoundingClientRect().height as number
   const personsListHeight = listRef.value?.getBoundingClientRect().height as number - 44
-  thumbnailListHeight < personsListHeight ? fn?.add("landscape:h-auto") : fn?.add("landscape:h-thumbnails")
+  const isThumbListLessThanContainer = thumbnailListHeight < personsListHeight
+  isThumbListLessThanContainer ? fn?.add("landscape:h-auto") : fn?.add("landscape:h-thumbnails")
+  console.log("thumbnail height", thumbnailListHeight, "persons height", personsListHeight, "is thumb list less than container", isThumbListLessThanContainer)
 }
