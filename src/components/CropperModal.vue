@@ -53,7 +53,7 @@
   
 <script setup lang="ts">
 import VuePictureCropper, { cropper } from "vue-picture-cropper"
-import { iUpload } from "~~/src/types/index"
+import { iUpload, iCropperOptions } from "~~/src/types/index"
 import {
   TransitionRoot,
   TransitionChild,
@@ -65,6 +65,7 @@ import {
 const props = defineProps<{
   isOpen: boolean
   imgFile: iUpload
+  options?: iCropperOptions
 }>()
 const emit = defineEmits<{
   (e: 'cropped', image: iUpload): void
@@ -82,11 +83,12 @@ const {
 
 const isOpen = ref(props.isOpen)
 
-const pcOptions = {
+const pcOptions = props.options ?? {
   viewMode: 1,
   dragMode: "crop",
   aspectRatio: 1 / 1
 }
+
 const pcBoxStyle = {
   width: "100%",
   height: "100%",

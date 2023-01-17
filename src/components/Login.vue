@@ -33,7 +33,7 @@ const slideStyle = ref(obj2Str(slideObject))
 
 const {
   mainline,
-  homeNavLink,
+  btn,
   loginwrap,
   logintopslides,
   logintopslide,
@@ -43,7 +43,7 @@ const {
   loginnavicon
 } = useUi()
 
-const loginnavlink = () => `${homeNavLink} relative cursor-pointer`
+const loginnavlink = () => `${btn} relative cursor-pointer`
 
 const signIn = async() => {
   await client.auth.signInWithOAuth({ provider: "google" })

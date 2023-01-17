@@ -12,14 +12,14 @@
     </div>
 
     <div aria-label="navigation" class="flex flex-col justify-center items-center gap-y-2">
-      <NuxtLink href="/teachers" :class="homeNavLink">Teachers</NuxtLink>
-      <NuxtLink href="/students" :class="homeNavLink">Students</NuxtLink>
+      <NuxtLink href="/teachers" :class="btn">Teachers</NuxtLink>
+      <NuxtLink href="/students" :class="btn">Students</NuxtLink>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 
-const { homeNavLink, subline_small, mainline, homelayoutbottomcontentwrap } = useUi()
+const { btn, subline_small, mainline, homelayoutbottomcontentwrap } = useUi()
 
 definePageMeta({
   layout: "home"

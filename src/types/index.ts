@@ -43,6 +43,12 @@ export interface iStudent extends iCommon {
   media?: iMedia[]
 }
 
+export interface iCropperOptions {
+  viewMode: number;
+  dragMode: string;
+  aspectRatio: number
+}
+
 export interface iEvent extends iCommon {
   event_type: string;
   event_name: string;
