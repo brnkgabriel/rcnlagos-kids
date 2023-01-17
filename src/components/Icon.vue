@@ -14,7 +14,8 @@ import {
   PhotoIcon as GalleryIconOutline,
   UserCircleIcon as AboutIconOutline,
   PencilIcon as EditIconOutline,
-  PowerIcon as SignoutIcon
+  PowerIcon as SignoutIcon,
+  UserPlusIcon as AddIconOutline
 } from "@heroicons/vue/24/outline/index"
 import {
   HomeModernIcon as HomeIconSolid,
@@ -28,7 +29,9 @@ import {
   PhotoIcon as GalleryIconSolid,
   UserCircleIcon as AboutIconSolid,
   PencilIcon as EditIconSolid,
-  MagnifyingGlassIcon as SearchIcon
+  MagnifyingGlassIcon as SearchIcon,
+  ArrowLeftIcon, ArrowRightIcon,
+  UserPlusIcon as AddIconSolid
 } from "@heroicons/vue/24/solid/index"
 
 const comp = computed(() => {
@@ -71,12 +74,21 @@ const comp = computed(() => {
     case constants.about:
       icon = props.active ? AboutIconSolid : AboutIconOutline
       break;
+    case constants.add:
+      icon = props.active ? AddIconSolid : AddIconOutline
+      break;
     case constants.search:
       icon = SearchIcon
       break;
     case constants.signout:
       icon = SignoutIcon
       break;
+    case constants.left:
+      icon = ArrowLeftIcon
+      break;
+    case constants.right:
+      icon = ArrowRightIcon;
+      break
     default:
       break;
   }

@@ -1,6 +1,14 @@
 <template>
   <div aria-label="btm-nav-wrap" :class="btmnavwrap">
     <NuxtLink
+      href="/add"
+      :class="bottomNavLink">
+      <div :class="bottomNavLinkIcon">
+        <Icon :type="constants.add" class="w-[24px] h-[24px]" :active="route.name === constants.add" />
+      </div>
+      <div :class="navClass(constants.add)">Add</div>
+    </NuxtLink>
+    <NuxtLink
       href="/students"
       :class="bottomNavLink">
       <div :class="bottomNavLinkIcon">

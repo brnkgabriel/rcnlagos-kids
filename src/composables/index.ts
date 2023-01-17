@@ -61,9 +61,9 @@ export const useUi = () => {
     // personslistcards: "whitespace-nowrap overflow-y-hidden overflow-x-auto md:flex md:flex-wrap md:gap-2 md:overflow-y-auto md:overflow-x-hidden sm:landscape:flex sm:landscape:flex-wrap sm:landscape:gap-2 sm:landscape:overflow-y-auto sm:landscape:overflow-x-hidden landscape:h-thumbnails",
     personslistcards: "whitespace-nowrap sm:grid sm:gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 sm:auto-rows-[minmax(180px,_0fr)] md:auto-rows-[minmax(150px,_0fr)] lg:auto-rows-[minmax(120px,_0fr)] overflow-x-auto overflow-y-hidden sm:overflow-x-hidden sm:overflow-y-auto h-[100px] sm:h-thumbnails",
     personslistselection: "w-full md:w-1/2 sm:landscape:w-1/2",
-    switchwrap: "flex gap-2 justify-center items-center capitalize h-[44px]",
+    switchwrap: "flex gap-2 justify-center items-center capitalize",
     homelayoutbottomcontentwrap: "flex flex-col gap-y-6 w-full sm:w-60% h-60% sm:h-full justify-center items-center",
-    numpad: "rounded-full w-[40px] h-[40px] flex items-center justify-center text-lg bg-white shadow-custom border border-gray-500",
+    numpad: "rounded-full w-[40px] h-[40px] flex items-center justify-center text-lg bg-white shadow-custom border border-gray-500 cursor-pointer",
     switchcomponent: (options: iSwitch) => {
       const common = "relative inline-flex h-6 w-11 items-center rounded-full"
       const { enabled, left, right } = options
@@ -304,11 +304,14 @@ export const constants = {
   settings: 'settings',
   teachers: 'teachers',
   students: 'students',
+  add: 'add',
   events: 'events',
   occupation: 'occupation',
   phonecall: 'phonecall',
   edit: 'edit',
   search: 'search',
+  left: 'left',
+  right: 'right',
   signout: 'signout',
   teachersItem: 'teachersItem',
   teachersList: 'teachersList',
