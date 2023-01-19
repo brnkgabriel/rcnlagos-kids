@@ -1,8 +1,8 @@
 <template>
-  <div class="h-full flex flex-col gap-y-2">
-    <div aria-label="notes">      
+  <div class="h-full flex flex-col gap-y-2 overflow-y-auto">
+    <div aria-label="notes" class="sticky left-0 top-0 z-[1] bg-rcngray-500">      
       <div :class="mainline_small" class="text-center">Add Student</div>
-      <div :class="subline_small" class="text-center">(Work in progress...)</div>
+      <div :class="subline_small" class="text-center">Fill in his/her details (Work in progress...)</div>
     </div>
     <form ref="formRef" @submit.prevent="handleSubmit"
       class="mx-auto w-full max-w-[960px] rounded bg-white grid grid-cols-1 sm:grid-cols-2 gap-2 p-4">
@@ -18,10 +18,13 @@
       </div>
       <div v-show="showImage" aria-label="avatarngender"
         class="flex justify-center gap-x-2 sm:row-start-1 sm:row-end-3 justify-self-center items-center">
-        <label for="avatar" class="relative cursor-pointer">
-          <div aria-label="icon-wrap"
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-rcngray-700 rounded-full p-1 border-rcngray-500 border-[2px] flex items-center justify-center opacity-80">
+        <label for="avatar" class="relative cursor-pointer rounded-full overflow-hidden">
+          <div v-show="!isAvatarLoading" aria-label="icon-wrap"
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-rcngray-700 p-1 border-rcngray-500 border-[2px] flex items-center justify-center opacity-80">
             <Icon type="edit" :active="true" class="text-rcngray-900 w-[12px]" />
+          </div>
+          <div v-show="isAvatarLoading" aria-label="spinloaderwrap" class="absolute z-10 w-full h-full bg-black opacity-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
+            <div aria-label="spinloader" class="w-[16px] h-[16px] border-white border-2 border-l-0 border-r-0 rounded-full spin-loader active"></div>
           </div>
           <input name="imageUrl" id="avatar" type="file" class="hidden" accept="image/*" @change="toCropImage" />
           <img class="rounded-full w-[80px] block m-auto" :src="imgSrc(imageSrc)" alt="avatar" />
@@ -38,13 +41,15 @@
         <input type="text" id="birthday" name="birthday" autocomplete="off" :class="input" placeholder="October 1, 2002"
           v-model="selected.birthday" required />
       </div>
-      <label v-show="showImage" for="galleryImg" class="relative cursor-pointer sm:col-span-2" :style="galleryStyle">
-        <div aria-label="icon-wrap"
-          class="absolute right-[8px] bottom-[8px] bg-rcngray-700 rounded-full p-1 border-rcngray-500 border-[2px] flex items-center justify-center">
+      <label v-show="showImage" for="galleryImg" class="relative cursor-pointer sm:col-span-2 overflow-hidden rounded-full" :style="galleryStyle">
+        <div v-show="!isPicImgLoading" aria-label="icon-wrap"
+          class="absolute right-[8px] bottom-[8px] bg-rcngray-700 p-1 border-rcngray-500 rounded-full border-[2px] flex items-center justify-center">
           <Icon type="edit" :active="true" class="text-rcngray-900 w-[12px]" />
         </div>
-        <input name="imageUrl" id="galleryImg" type="file" class="hidden" accept="image/*"
-          @change="toCropGalleryImage" />
+        <div v-show="isPicImgLoading" aria-label="spinloaderwrap" class="absolute z-10 w-full h-full bg-black opacity-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
+          <div aria-label="spinloader" class="w-[16px] h-[16px] border-white border-2 border-l-0 border-r-0 rounded-full spin-loader active"></div>
+        </div>
+        <input name="imageUrl" id="galleryImg" type="file" class="hidden" accept="image/*" @change="toCropGalleryImage" />
       </label>
       <button type="submit" :class="btn"
         class="justify-self-center col-start-1 col-end-2 sm:col-end-3 items-center">submit</button>
@@ -56,15 +61,18 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iStudent, iUpload } from "~~/src/types/index"
+import { iMedia, iPerson, iStudent, iUpload } from "~~/src/types/index"
 import { Ref } from "vue";
-import CropperModal from "~~/src/components/CropperModal.vue";
+import CropperModal from "~~/src/components/CropperModal.vue"; 
 
 const { input, btn, subline, mainline_small, subline_small } = useUi()
 const formRef = ref()
 const selected = ref<iStudent>({})
 const imageSrc = computed(() => selected.value.imageUrl ?? '')
 const galleryImg = ref('/icons/avatar.svg')
+const media = ref<iMedia>({})
+const isAvatarLoading = ref(false)
+const isPicImgLoading = ref(false)
 
 const galleryStyle = computed(() => obj2Str({
   "background-image": `url(${galleryImg.value})`,
@@ -108,7 +116,7 @@ const galleryImgFile: Ref<iUpload> = ref({
 const handleGender = (value: string) => {
   console.log("from update page, gender is", value)
   selected.value.gender = value
-}
+} 
 
 const onCrop = async (toUpload: iUpload) => {
 
@@ -121,7 +129,8 @@ const onCrop = async (toUpload: iUpload) => {
       body: toUpload
     }
     const { data } = await useFetch(constants.imageUploadApiUrl, fetchOptions)
-    console.log("data from server", data.value)
+    const url = constants.pictureUrl(data.value as string)
+    console.log("url from server", url)
   } catch (error) {
     console.log(error)
   }
@@ -138,7 +147,17 @@ const onGalleryCrop = async (toUpload: iUpload) => {
       body: toUpload
     }
     const { data } = await useFetch(constants.imageUploadApiUrl, fetchOptions)
-    console.log("data from server", data.value)
+    const url = constants.pictureUrl(data.value as string)
+
+    media.value = {
+      firstName: selected.value.firstName,
+      lastName: selected.value.lastName,
+      student_email: studentEmail(selected.value as iPerson),
+      mediaType: "picture",
+      mediaUrl: url
+    }
+    
+    console.log("media from server", media.value)
   } catch (error) {
     console.log(error)
   }
@@ -150,15 +169,21 @@ const onGalleryOpened = (flag: boolean) => isGalleryOpen.value = flag
 const toCropImage = async (evt: Event) => {
   const target = evt.target as HTMLInputElement
 
+  isAvatarLoading.value = true
   if (target.files) {
     const fileObj = target.files[0]
-    const file = await getBase64(fileObj) as string
+    const type = fileObj.type
+    const extension = type.split('/')[1]
+    const compressed = await handleImageCompression(fileObj)
+    // const file = await getBase64(fileObj) as string
+    const file = await getBase64(compressed as File) as string
+    isAvatarLoading.value = false
     isOpen.value = true
     imgFile.value = {
       file,
-      name: fileObj.name,
+      name: `${id(personName(selected.value), '-')}.${extension}`,
       path: id(personName(selected.value), '-'),
-      type: fileObj.type
+      type
     }
   }
 }
@@ -166,15 +191,21 @@ const toCropImage = async (evt: Event) => {
 const toCropGalleryImage = async (evt: Event) => {
   const target = evt.target as HTMLInputElement
 
+  isPicImgLoading.value = true
   if (target.files) {
     const fileObj = target.files[0]
-    const file = await getBase64(fileObj) as string
+    const type = fileObj.type
+    const extension = type.split('/')[1]
+    const compressed = await handleImageCompression(fileObj)
+    // const file = await getBase64(fileObj) as string
+    const file = await getBase64(compressed as File) as string
+    isPicImgLoading.value = false
     isGalleryOpen.value = true
     galleryImgFile.value = {
       file,
-      name: fileObj.name,
-      path: id(personName(selected.value), '-'),
-      type: fileObj.type
+      name: `${id(personName(selected.value), '-')}.${extension}`,
+      path: `${id(personName(selected.value), '-')}/landscape`,
+      type
     }
   }
 }

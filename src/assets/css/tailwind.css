@@ -35,3 +35,13 @@ body {
 @keyframes pop {
   50%  {transform: scale(1.2);}
 }
+
+.spin-loader.active {
+  animation: spin-loader .3s infinite linear;
+}
+
+@keyframes spin-loader {
+  100% {
+    transform: rotate(360deg);
+  }
+}

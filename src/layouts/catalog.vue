@@ -6,7 +6,7 @@
       <!-- <Register v-if="false" /> -->
       <slot v-if="true"></slot>
     </div>
-    <BottomNav class="h-[56px] w-full p-2" />
+    <BottomNav class="h-[56px] w-full" />
   </div>
 </template>
 <script setup lang="ts"> 

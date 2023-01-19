@@ -1,5 +1,6 @@
-import { iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iStudent, iSwitch, iTeacher } from "../types"
+import { iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iPerson, iStudent, iSwitch, iTeacher } from "../types"
 import { Ref } from 'vue';
+import imageCompression from "browser-image-compression"
 
 const subline = "text-xs"
 const tiny = "text-xxxs font-bold"
@@ -11,7 +12,7 @@ const flex_center = "flex flex-col justify-center items-center"
 
 export const useUi = () => {
   return {
-    btmnavwrap: "flex justify-center items-center gap-x-8 bg-white z-10",
+    btmnavwrap: "grid grid-cols-4 gap-x-2 bg-white z-10",
     comboinputwrap: "relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md md:text-sm",
     combobutton: "absolute inset-y-0 right-0 flex items-center pr-2",
     chevronupdownicon: "h-5 w-5 text-gray-400",
@@ -604,3 +605,25 @@ export const updateThumbnailListHeight = (thumbsRef: Ref<HTMLDivElement>, listRe
   isThumbListLessThanContainer ? fn?.add("landscape:h-auto") : fn?.add("landscape:h-thumbnails")
   console.log("thumbnail height", thumbnailListHeight, "persons height", personsListHeight, "is thumb list less than container", isThumbListLessThanContainer)
 }
+
+export const handleImageCompression = async (file: File) => {
+  console.log('originalFile instanceof Blob', file instanceof Blob)
+  console.log(`originalFile size ${file.size / 1024 / 1024} MB`)
+  const options =  {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true
+    }
+  try {
+    const compressedFile = await imageCompression(file, options)
+    console.log('compressedFile instanceof Blob', compressedFile instanceof Blob)
+    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`)
+    return compressedFile
+    // console.log("compressedFile", compressedFile)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export const studentEmail = (person: iPerson) => `${person.firstName?.toLowerCase().trim()}.${person.lastName?.toLowerCase().trim()}@rcnlagos.com`
