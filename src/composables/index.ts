@@ -112,7 +112,7 @@ export const useUi = () => {
     bottomNavLinkIcon: flexCenterCenter + " w-[32px] h-[32px]",
     btn: "rounded-full bg-white shadow-custom py-3 px-6 w-fit text-center cursor-pointer text-rcnblue-500 border-2 text-xs",
     // button: "rounded-full bg-rcnblue-500 shadow-custom p-3 w-full text-center cursor-pointer text-white border-2 text-xs uppercase",
-    input: "bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-rcnblue-500 focus:border-rcnblue-500 block w-full h-[42px] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rcnblue-500 dark:focus:border-rcnblue-500",
+    input: `bg-white border border-gray-300 text-base text-gray-900 rounded-lg focus:ring-rcnblue-500 focus:border-rcnblue-500 block w-full h-[42px] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rcnblue-500 dark:focus:border-rcnblue-500`,
     studentItem: "flex flex-col flex-grow w-1/2 overflow-hidden rounded-md shadow-custom bg-white cursor-pointer md:w-1/4 sm:landscape:w-1/4",
     studentItemOccupationIcon: "w-[16px] h-[16px]",
     cardTimeline: "",
