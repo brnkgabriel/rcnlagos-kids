@@ -1,6 +1,6 @@
 <template>
   <div class="text-sm flex flex-col gap-y-4">
-    <Switch left="parent" right="admin" name="authType" :value="value" />
+    <SwitchComp left="parent" right="admin" name="authType" :value="value" />
     <div>
       <div aria-label="pin" class="text-center">
         <div class="capitalize">enter passcode</div>

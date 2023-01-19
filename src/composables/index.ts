@@ -142,6 +142,8 @@ export const color = (identifier: string): iColor => {
 export const constants = {
   dataApiUrl: "/api/g-data",
   imageUploadApiUrl: "/api/p-image",
+  pictures: "pictures",
+  pictureUrl: (path: string) => `https://fmbpeassqdggauozaiad.supabase.co/storage/v1/object/public/pictures/${path}`,
   colorNames: {
     slate: {
       100: "#f1f5f9",
@@ -309,6 +311,7 @@ export const constants = {
   occupation: 'occupation',
   phonecall: 'phonecall',
   edit: 'edit',
+  upload: 'upload',
   search: 'search',
   left: 'left',
   right: 'right',

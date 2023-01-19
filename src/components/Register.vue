@@ -15,7 +15,7 @@
           <input name="imageFile" id="avatar" type="file" class="hidden" accept="image/*" @change="toCropImage" />
           <img class="rounded-full w-[80px]" :src="imgSrc(selected.imageUrl as string)" alt="avatar" />
         </label>
-        <Switch left="male" right="female" :value="handleGender" name="gender" :class="subline" />
+        <SwitchComp left="male" right="female" :value="handleGender" name="gender" :class="subline" />
       </div>
       <div aria-label="names" class="flex justify-between items-center gap-x-2">
         <div class="flex flex-col justify-start w-full">
@@ -49,7 +49,7 @@
         <input type="text" id="birthday" name="birthday" autocomplete="off" :class="input" placeholder="October 1"
           v-model="selected.birthday" required />
       </div>
-      <button type="submit" :class="button">submit</button>
+      <button type="submit" :class="btn">submit</button>
     </form>
     <CropperModal v-if="isOpen" :is-open="isOpen" :img-file="imgFile" @cropped="onCrop" @opened="onOpened" />
 
@@ -60,7 +60,7 @@ import { iStudent, iUpload } from "~~/src/types/index"
 import { Ref } from "vue";
 import CropperModal from "~~/components/CropperModal.vue";
 
-const { input, button, subline, mainline_small, subline_small } = useUi()
+const { input, btn, subline, mainline_small, subline_small } = useUi()
 const formRef = ref()
 const selected = ref<iStudent>({})
 
@@ -106,7 +106,7 @@ const toCropImage = async (evt: Event) => {
     imgFile.value = {
       file,
       name: fileObj.name,
-      path: id(studentName(selected.value), '-'),
+      path: id(personName(selected.value), '-'),
       type: fileObj.type
     }
   }

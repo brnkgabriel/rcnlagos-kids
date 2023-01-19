@@ -30,12 +30,14 @@ const {
   switchcomponentspan
 } = useUi()
 
-watch(enabled, () => {
+const setGender = () => {
+  console.log("enabled value is", enabled.value)
   const gender = enabled.value ? props.right : props.left
   props.value(gender)
-}) 
+}
 
-</script>
-<style lang="">
-    
-</style>
+setGender()
+
+watch(enabled, () => setGender()) 
+
+</script> 
