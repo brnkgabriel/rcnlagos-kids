@@ -41,7 +41,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iDataApiOptions, iStudent, iPerson } from '../types';
+import { iDataApiOptions, iStudent, iPerson, iAuthType, iDynamicObject } from '../types';
 import { vInfiniteScroll } from "~~/src/helpers/directives"
 import { Ref } from 'vue';
 
@@ -62,13 +62,33 @@ const selectedStudent = ref<iStudent>({})
 const thumbnailListRef = ref<HTMLDivElement>()
 const personsListRef = ref<HTMLDivElement>()
 
+// todo: considering removing authType from globalState
+// const column = globalState.value.authType.key === constants.parent ? "parentsContact" : ""
+// const value = globalState.value.authType.key === constants.parent ? globalState.value.authType.value : ""
+
+const userCookie = useCookie("user")
+const pieces = userCookie.value?.split("|")
+const obj = pieces?.reduce((acc: iDynamicObject, cur: string) => {
+  const props = cur.split("=")
+  acc[props[0]] = props[1]
+  return acc
+}, {})
+
+const authType = obj as unknown as iAuthType
+
+const column = authType.key === constants.parent ? "parentsContact" : ""
+const value = authType.key === constants.parent ? authType.value : ""
+
+// const column = globalState.value.authType.key === constants.parent ? "parentsContact" : ""
+// const value = globalState.value.authType.key === constants.parent ? globalState.value.authType.value : ""
+
 const options: iDataApiOptions = {
   table: "students",
-  column: "",
-  value: "",
+  column,
+  value,
   update: "",
   foreignkey: "media(*)"
-}
+} 
 
 const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
 

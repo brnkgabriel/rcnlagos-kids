@@ -13,7 +13,7 @@
 
     <div aria-label="navigation" class="flex flex-col justify-center items-center gap-y-2">
       <NuxtLink href="/teachers" :class="btn">Teachers</NuxtLink>
-      <NuxtLink href="/students" :class="btn">Students</NuxtLink>
+      <a href="/students" :class="btn">Students</a>
     </div>
   </div>
 </template>

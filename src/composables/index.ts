@@ -1,4 +1,4 @@
-import { iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iPerson, iStudent, iSwitch, iTeacher } from "../types"
+import { iAuthType, iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iPerson, iStudent, iSwitch, iTeacher, iUser } from "../types"
 import { Ref } from 'vue';
 import imageCompression from "browser-image-compression"
 
@@ -310,7 +310,7 @@ export const constants = {
   settings: 'settings',
   teachers: 'teachers',
   students: 'students',
-  parents: 'parents',
+  parent: 'parent',
   admin: 'admin',
   delete: 'delete',
   forward: 'forward',
@@ -516,6 +516,14 @@ export const useGlobals = () => {
     ]
   }
 
+  const setAuthType = (authType: iAuthType) => {
+    globalState.value.authType = authType
+  }
+
+  const setUser = (user: iUser) => {
+    globalState.value.user = user
+  }
+
   const setTeachers = (value: iTeacher[]) => {
     globalState.value.teachers = value
   }
@@ -540,8 +548,8 @@ export const useGlobals = () => {
     globalState, setSlides, setStudents,
     setRenderedStudents, addToRenderedStudents,
     setSearchedStudents, setTeachers, setMedia,
-    setEvents, setRenderedTeachers,
-    setSearchedTeachers
+    setEvents, setRenderedTeachers, setUser,
+    setSearchedTeachers, setAuthType
   }
 }
 

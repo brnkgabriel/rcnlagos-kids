@@ -21,6 +21,8 @@ const { dropdown, dropdownLogout } = useUi()
 
 const signOut = async () => {
   await supabase.auth.signOut()
+  const userCookie = useCookie("user")
+  userCookie.value = null
   navigateTo("/")
 }
 // @ts-ignore

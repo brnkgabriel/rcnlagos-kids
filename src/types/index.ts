@@ -11,10 +11,10 @@ export interface iMedia extends iCommon{
   mediaUrl?: string;
 }
 
-export interface iAuth {
-  parent: string;
-  admin: string;
-}
+// export interface iAuth {
+//   parent: string;
+//   admin: string;
+// }
 
 export interface iTeacher extends iCommon {
   firstName?: string;
@@ -121,6 +121,16 @@ export interface iDataApiOptions {
   foreignkey: string;
 }
 
+export interface iAuthType {
+  key: string,
+  value: string;
+}
+
+export interface iUser {
+  email: string;
+  data: iDynamicObject
+}
+
 export interface iGlobal {
   slides: iMedia[];
   media: iMedia[];
@@ -132,6 +142,8 @@ export interface iGlobal {
   teachers: iTeacher[];
   renderedTeachers: iTeacher[];
   searchedTeachers: iTeacher[];
+  user: iUser
+  authType: iAuthType
 }
 
 export interface iCombined extends iStudent, iTeacher {}

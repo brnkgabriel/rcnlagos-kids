@@ -6,7 +6,7 @@
       <img :src="avatar" alt="avatar" class="card-avatar" />
       <div class="card-identity">
         <h1 class="card-fullname">{{ fullname }}</h1>
-        <h2 class="card-birthday">{{ birthday }}</h2>
+        <h2 class="card-birthday">{{ props.person.class ?? birthday }}</h2>
       </div>
     </div>
     <div class="card-main h-smain">
@@ -14,7 +14,7 @@
         <div class="card-content">
           <!-- <div class="card-subtitle">ABOUT</div>
           <p class="card-desc">{{ about }}</p> -->
-          <div aria-label="teacherlastnote" class="shadow-custom bg-white rounded p-2 flex gap-2 relative text-xs">
+          <div v-if="props.person.parentsContact" aria-label="teacherlastnote" class="shadow-custom bg-white rounded p-2 flex gap-2 relative text-xs">
             <div aria-label="teacherdetails" class="flex flex-col gap-y-1">
               <img class="rounded-full w-[60px]" :src="imgSrc('')" alt="avatar"/>
               <div aria-label="teachername" class="truncate w-full">Bro. Lanre</div>
@@ -41,7 +41,7 @@
       <div class="card-section h-full" id="notes">
         <div class="card-content h-full">
           <div class="card-subtitle">NOTES</div>
-          <div class="card-timeline relative h-full" :class="cardTimeline">
+          <div v-if="props.person.parentsContact" class="card-timeline relative h-full" :class="cardTimeline">
             <div class="card-item" data-year="2023">
               <div class="card-item-title relative">
                 <span>{{ heShe }} left with parent by </span>
@@ -64,7 +64,7 @@
       </div>
       <div class="card-section" id="contact">
         <div class="card-content">
-          <div class="card-subtitle">PARENT'S CONTACT</div>
+          <div class="card-subtitle">{{ props.person.parentsContact ? "PARENT'S CONTACT" : "CONTACT" }}</div>
           <div class="card-contact-wrapper flex flex-col gap-y-2">
             <div class="contact">
               <a :href="contactNumber" class="card-contact">

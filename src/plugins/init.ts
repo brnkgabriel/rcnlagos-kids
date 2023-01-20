@@ -13,6 +13,14 @@ export default defineNuxtPlugin(nuxtApp => {
     searchedStudents: [],
     teachers: [],
     renderedTeachers: [],
-    searchedTeachers: []
+    searchedTeachers: [],
+    user: {
+      data: {},
+      email: ""
+    },
+    authType: {
+      key: "",
+      value: ""
+    }
   }))
 })

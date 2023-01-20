@@ -48,6 +48,8 @@ const navClass = (type: string) => route.name === type
   
 const signOut = async () => {
   await supabase.auth.signOut()
+  const userCookie = useCookie("user")
+  userCookie.value = null
   navigateTo("/")
 }
 </script>
