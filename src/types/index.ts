@@ -11,6 +11,11 @@ export interface iMedia extends iCommon{
   mediaUrl?: string;
 }
 
+export interface iAuth {
+  parent: string;
+  admin: string;
+}
+
 export interface iTeacher extends iCommon {
   firstName?: string;
   lastName?: string;
