@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500|Jost:400,500,600&display=swap");
 
 :root {
   --card-desc: #636b6f;
@@ -24,19 +23,6 @@
   margin: 0;
   padding: 0;
 }
-/* 
-body {
-  color: #2b2c48;
-  font-family: Jost, Poppins, sans-serif;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  min-height: 100vh;
-  padding: 16px;
-  padding-top: 64px;
-  background-color: #aaa;
-} */
 
 .selected {
   background-color: #aaa;
@@ -151,11 +137,11 @@ body {
 }
 
 .selected .card-fullname {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 1.1em;
+  font-weight: 500;
   text-align: center;
   white-space: nowrap;
-  font-family: Jost;
+  letter-spacing: .5px;
 }
 
 .selected .card-birthday {
@@ -178,7 +164,6 @@ body {
 .selected .card-subtitle {
   font-weight: 700;
   font-size: 13px;
-  font-family: Jost;
 }
 
 .selected .card-content {
@@ -394,7 +379,6 @@ body {
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  font-family: Jost, sans-serif;
   transition: .3s;
   box-shadow: var(--box-shadow)
 }
