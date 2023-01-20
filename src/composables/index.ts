@@ -54,7 +54,7 @@ export const useUi = () => {
     // thumbnailwrap: "bg-white rounded shadow-custom inline-block mx-1 w-[100px] align-top cursor-pointer basis-[100px] flex-grow relative overflow-hidden md:m-0 md:w-1/4 sm:landscape:m-0 sm:landscape:w-1/4",
     thumbnailwrap: "bg-white rounded shadow-custom inline-block w-[100px] h-[100px] sm:w-full sm:h-full mx-1 sm:mx-0 relative cursor-pointer overflow-hidden",
     studentavatar: "w-full rounded opacity-0",
-    studentnamewrap: "px-1/2 py-1 flex items-center justify-center font-title w-full absolute text-white bottom-0 left-1/2 -translate-x-1/2 bg-rcngray-100",
+    studentnamewrap: "px-1/2 py-1 flex items-center justify-center font-body w-full absolute text-white bottom-0 left-1/2 -translate-x-1/2 bg-rcngray-100",
     studentname: "w-3/4 text-center overflow-hidden text-ellipsis whitespace-nowrap",
     personswrap: "h-full flex flex-col sm:flex-row sm:gap-x-2 sm:landscape:flex-row sm:landscape:gap-x-2",
     personslist: "mb-2 w-full md:w-1/2 md:h-full sm:landscape:w-1/2 sm:landscape:h-full",
@@ -97,7 +97,7 @@ export const useUi = () => {
     topnavnotification: "rounded-full border-2 border-bglight-700 p-[2px] h-[40px] w-[40px] cursor-pointer",
     topnavavatar: "rounded-full",
     topnavlogo: "h-[32px]",
-    topnavsitename: `${center} ${flex_center} ${mainline} uppercase font-bold font-title`,
+    topnavsitename: `${center} ${flex_center} ${mainline} uppercase font-bold font-body`,
     // common styles below
     texttrim: "w-full overflow-hidden whitespace-nowrap text-ellipsis",
     mainline_small: "text-rcnblue-500 font-semibold",

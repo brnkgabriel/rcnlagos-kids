@@ -6,7 +6,7 @@
       <div aria-label="footnote" :class="subline_small">Towards the rebirth of Apostolic Christianity</div>
     </div>
 
-    <div aria-label="title" class="flex flex-col text-center text-rcnblue-500 font-extrabold font-title uppercase text-3xl">
+    <div aria-label="title" class="flex flex-col text-center text-rcnblue-500 font-extrabold font-body uppercase text-3xl">
       <div aria-label="top">children</div>
       <div aria-label="bottom">department</div>
     </div>
