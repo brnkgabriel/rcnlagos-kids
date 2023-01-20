@@ -312,6 +312,8 @@ export const constants = {
   students: 'students',
   parents: 'parents',
   admin: 'admin',
+  delete: 'delete',
+  forward: 'forward',
   add: 'add',
   events: 'events',
   occupation: 'occupation',

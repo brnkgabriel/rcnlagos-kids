@@ -1,12 +1,12 @@
 <template>
   <div class="text-sm flex flex-col gap-y-4">
     <SwitchComp left="parent" right="admin" name="authType" :value="value" />
-    <input type="text" :placeholder="(placeholderRef as string)" :class="input" class="pointer-events-none" />
+    <input type="text" :placeholder="(placeholderRef as string)" :class="input" class="pointer-events-none" :value="inputfield" />
     <div class="grid grid-cols-3 grid-rows-4 gap-2 items-center justify-items-center w-[152px] mx-auto">
       <div v-for="(num, idx) in 10" @click="handleClick" :key="idx" :class="cellClass(idx)" :data-num="(num).toString().slice(-1)">{{ (num).toString().slice(-1) }}
       </div>
-      <Icon @click="handleClick" :type="constants.left" :active="true" :class="iconClass('col-start-1 col-end-1 row-start-4 row-end-4 p-2')" />
-      <Icon @click="handleClick" :type="constants.right" :active="true" :class="iconClass('col-start-3 col-end-3 row-start-4 row-end-4 p-2')" />
+      <div :class="iconClass('col-start-1 col-end-1 row-start-4 row-end-4 p-2')" data-num="delete"><Icon @click="handleClick" :type="constants.left" :active="true" /></div>
+      <div :class="iconClass('col-start-3 col-end-3 row-start-4 row-end-4 p-2')" data-num="forward"><Icon @click="handleClick" :type="constants.right" :active="true" /></div>
     </div>
 
   </div>
@@ -22,6 +22,8 @@ const map: iDynamicObject = {
   admin: "Enter pin"
 }
 
+const inputfield = ref("")
+
 const value = (selected: string) => switchRef.value = selected
 const placeholderRef = computed(() => map[switchRef.value])
 
@@ -30,8 +32,23 @@ const iconClass = (pos: string) => `${numpad} ${pos}`
 
 const handleClick = (evt: Event) => {
   const target = evt.target as HTMLElement
+  const parent = target.parentElement
   target.classList.add("pop")
   setTimeout(() => target.classList.remove("pop"), 150);
+  const targetNum = target.getAttribute("data-num")
+  const parentNum = parent?.getAttribute("data-num")
+
+  targetNum && (inputfield.value += targetNum)
+
+  if (parentNum) {
+    switch (parentNum) {
+      case constants.delete:
+        inputfield.value = inputfield.value.substring(0, inputfield.value.length - 1)
+        break;
+      case constants.forward:
+        break;
+    }
+  }
 }
 </script>
 <style lang="">
