@@ -5,8 +5,14 @@
     <div class="grid grid-cols-3 grid-rows-4 gap-2 items-center justify-items-center w-[152px] mx-auto">
       <div v-for="(num, idx) in 10" @click="handleClick" :key="idx" :class="cellClass(idx)" :data-num="(num).toString().slice(-1)">{{ (num).toString().slice(-1) }}
       </div>
-      <div :class="iconClass('col-start-1 col-end-1 row-start-4 row-end-4 p-2 relative')" data-num="delete"  @click="handleClick"><Icon :type="constants.left" :active="true" /></div>
-      <div :class="iconClass('col-start-3 col-end-3 row-start-4 row-end-4 p-2 relative')" data-num="forward" @click="handleClick"><Icon :type="constants.right" :active="true" /></div>
+      <div :class="iconClass('col-start-1 col-end-1 row-start-4 row-end-4 p-2 relative')" data-num="delete">
+        <div @click="handleClick" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"></div>
+        <Icon :type="constants.left" :active="true" />
+      </div>
+      <div :class="iconClass('col-start-3 col-end-3 row-start-4 row-end-4 p-2 relative')" data-num="forward">
+        <div @click="handleClick" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"></div>
+        <Icon :type="constants.right" :active="true" />
+      </div>
     </div>
 
   </div>
@@ -30,22 +36,26 @@ const placeholderRef = computed(() => map[switchRef.value])
 const cellClass = (idx: number) => `${numpad} ${(idx === 9) && 'col-start-2 col-end-2'}`
 const iconClass = (pos: string) => `${numpad} ${pos}`
 
+const pop = (target: HTMLElement) => {
+  target.classList.add("pop")
+  setTimeout(() => target.classList.remove("pop"), 150);
+}
+
 const handleClick = (evt: Event) => {
   const target = evt.target as HTMLElement
   const parent = target.parentElement
-  target.classList.add("pop")
-  setTimeout(() => target.classList.remove("pop"), 150);
   const targetNum = target.getAttribute("data-num")
   const parentNum = parent?.getAttribute("data-num")
+
+  pop(target)
 
   targetNum && (inputfield.value += targetNum)
 
   if (parentNum) {
+    pop(parent as HTMLElement)
     switch (parentNum) {
       case constants.delete:
-        console.log("clicking delete")
-        if (inputfield.value.length > 0)
-          inputfield.value = inputfield.value.substring(0, inputfield.value.length - 1)
+        inputfield.value = inputfield.value.substring(0, inputfield.value.length - 1)
         break;
       case constants.forward:
         break;
