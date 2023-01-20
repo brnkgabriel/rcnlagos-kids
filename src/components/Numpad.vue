@@ -44,7 +44,8 @@ const handleClick = (evt: Event) => {
     switch (parentNum) {
       case constants.delete:
         console.log("clicking delete")
-        inputfield.value = inputfield.value.substring(0, inputfield.value.length - 1)
+        if (inputfield.value.length > 0)
+          inputfield.value = inputfield.value.substring(0, inputfield.value.length - 1)
         break;
       case constants.forward:
         break;
