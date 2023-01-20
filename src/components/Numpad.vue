@@ -5,8 +5,8 @@
     <div class="grid grid-cols-3 grid-rows-4 gap-2 items-center justify-items-center w-[152px] mx-auto">
       <div v-for="(num, idx) in 10" @click="handleClick" :key="idx" :class="cellClass(idx)" :data-num="(num).toString().slice(-1)">{{ (num).toString().slice(-1) }}
       </div>
-      <div :class="iconClass('col-start-1 col-end-1 row-start-4 row-end-4 p-2')" data-num="delete"><Icon @click="handleClick" :type="constants.left" :active="true" /></div>
-      <div :class="iconClass('col-start-3 col-end-3 row-start-4 row-end-4 p-2')" data-num="forward"><Icon @click="handleClick" :type="constants.right" :active="true" /></div>
+      <div :class="iconClass('col-start-1 col-end-1 row-start-4 row-end-4 p-2 relative')" data-num="delete"  @click="handleClick"><Icon :type="constants.left" :active="true" /></div>
+      <div :class="iconClass('col-start-3 col-end-3 row-start-4 row-end-4 p-2 relative')" data-num="forward" @click="handleClick"><Icon :type="constants.right" :active="true" /></div>
     </div>
 
   </div>
@@ -43,6 +43,7 @@ const handleClick = (evt: Event) => {
   if (parentNum) {
     switch (parentNum) {
       case constants.delete:
+        console.log("clicking delete")
         inputfield.value = inputfield.value.substring(0, inputfield.value.length - 1)
         break;
       case constants.forward:
