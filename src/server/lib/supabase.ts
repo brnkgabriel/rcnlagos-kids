@@ -18,9 +18,11 @@ export const api = {
     if (error) throw error
     return res
   },
-  addData: async (table: string, data: any) => {
+  addData: async (options: iDataApiOptions, data: any) => {
+    const { table } = options
     const { data: res, error } = await supabase
     .from(table).insert(data)
+    console.log("from add data, table is", table, "response is", res)
     
     if (error) throw error
     return res

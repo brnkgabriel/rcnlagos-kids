@@ -76,7 +76,7 @@
                 <span>{{ whatsAppNo }}</span>
               </a>
             </div>
-            <a class="contact-me text-center" :href="'tel:' + phone(props.person.parentsContact || props.person.phoneNumber)"
+            <a class="contact-me text-center" :href="'tel:' + phone(props.person?.parentsContact || props.person?.phoneNumber)"
               :style="ctaStyle">CALL PARENT</a>
           </div>
         </div>
@@ -127,22 +127,22 @@ const isAboutActive = computed(() => currentTab.value === constants.about)
 const isNoteActive = computed(() => currentTab.value === constants.notes)
 const isContactActive = computed(() => currentTab.value === constants.contact)
 const isGalleryActive = computed(() => currentTab.value === constants.gallery)
-const media = computed(() => (props.person.media || props.person.teachermedia as iMedia[]))
-const contactNumber = computed(() => `tel:${phone(props.person.parentsContact || props.person.phoneNumber)}`)
-const himHer = computed(() => props.person.gender === constants.Male ? "him" : "her")
-const hisHer = computed(() => props.person.gender === constants.Male ? "his" : "her")
-const heShe = computed(() => props.person.gender === constants.Male ? "he" : "she")
+const media = computed(() => (props.person?.media || props.person?.teachermedia as iMedia[]))
+const contactNumber = computed(() => `tel:${phone(props.person?.parentsContact || props.person?.phoneNumber)}`)
+const himHer = computed(() => props.person?.gender === constants.Male ? "him" : "her")
+const hisHer = computed(() => props.person?.gender === constants.Male ? "his" : "her")
+const heShe = computed(() => props.person?.gender === constants.Male ? "he" : "she")
 
 
-const fullname = computed(() => props.person.firstName ? `${props.person.firstName} ${props.person.lastName}` : 'Firstname Surname')
-const avatar = computed(() => props.person.imageUrl ?? avatarPlaceholder)
-const birthday = computed(() => props.person.birthday ?? `January 1`)
-// const about = computed(() => props.person.about ?? `Blessed Child`)
+const fullname = computed(() => props.person?.firstName ? `${props.person?.firstName} ${props.person?.lastName}` : 'Firstname Surname')
+const avatar = computed(() => props.person?.imageUrl ?? avatarPlaceholder)
+const birthday = computed(() => props.person?.birthday ?? `January 1`)
+// const about = computed(() => props.person?.about ?? `Blessed Child`)
 
 
 const sColor = computed<iColor>(() => {
-  return props.person.email 
-  ? color(props.person.email) 
+  return props.person?.email 
+  ? color(props.person?.email) 
   : { 100: "#dbeafe", 200: "#bfdbfe", 600: "#2563eb", 700: "#1d4ed8" }
 })
 
@@ -184,12 +184,12 @@ const callStyle = computed(() => obj2Str({
 
 const number = (contact: string | undefined, msg: string) => {
   if (contact && contact.length > 0)
-    return props.person.parentsContact || props.person.phoneNumber
+    return props.person?.parentsContact || props.person?.phoneNumber
   return `${msg} number...`
 }
 
-const phoneNo = computed(() => number(props.person.parentsContact || props.person.phoneNumber, "Phone"))
-const whatsAppNo = computed(() => number(props.person.parentsContact || props.person.phoneNumber, "WhatsApp"))
+const phoneNo = computed(() => number(props.person?.parentsContact || props.person?.phoneNumber, "Phone"))
+const whatsAppNo = computed(() => number(props.person?.parentsContact || props.person?.phoneNumber, "WhatsApp"))
 
 const handleTabNavigation = () => {
   const buttons = document.querySelectorAll(".card-buttons button");

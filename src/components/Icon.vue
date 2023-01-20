@@ -33,7 +33,8 @@ import {
   MagnifyingGlassIcon as SearchIcon,
   ArrowLeftIcon, ArrowRightIcon,
   UserPlusIcon as AddIconSolid,
-  ArrowUpOnSquareStackIcon as UploadIconSolid
+  ArrowUpOnSquareStackIcon as UploadIconSolid,
+  CheckIcon
 } from "@heroicons/vue/24/solid/index"
 
 const comp = computed(() => {
@@ -84,6 +85,9 @@ const comp = computed(() => {
       break;
     case constants.search:
       icon = SearchIcon
+      break;
+    case constants.check:
+      icon = CheckIcon
       break;
     case constants.signout:
       icon = SignoutIcon

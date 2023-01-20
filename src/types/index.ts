@@ -6,7 +6,7 @@ interface iCommon {
 export interface iMedia extends iCommon{
   firstName?: string;
   lastName?: string;
-  student_email?: string;
+  email?: string;
   mediaType?: string;
   mediaUrl?: string;
 }
@@ -37,7 +37,7 @@ export interface iStudent extends iCommon {
   imageUrl?: string;
   birthday?: string;
   about?: string;
-  role?: string;
+  type?: string;
   age?: string;
   duration?: string;
   media?: iMedia[]

@@ -1,6 +1,6 @@
 import { H3Event, getQuery } from "h3"
 import { api } from "../lib/supabase"
-import { iStudent, iDataApiOptions } from "~~/src/types"
+import { iDataApiOptions } from "~~/src/types"
 
 export default defineEventHandler(async (event: H3Event) => {
   try {

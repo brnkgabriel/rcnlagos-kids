@@ -9,6 +9,7 @@ const flexCenterCenter = "flex justify-center items-center"
 const mainline = "text-rcnblue-500 font-semibold text-sm"
 const center = "absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
 const flex_center = "flex flex-col justify-center items-center"
+const btn = "rounded-full bg-white shadow-custom py-3 px-6 w-fit text-center cursor-pointer text-rcnblue-500 border-2 text-xs"
 
 export const useUi = () => {
   return {
@@ -110,7 +111,8 @@ export const useUi = () => {
     logo: flexCenterCenter + " bg-white shadow-custom absolute top-[40%] left-[16px] w-[50px] h-[50px] landscape:top-[50%] landscape:left-[40%] landscape:-translate-x-1/2 rounded-full p-2 z-10 -translate-y-1/2",
     bottomNavLink: flexCenterCenter + " flex-col cursor-pointer",
     bottomNavLinkIcon: flexCenterCenter + " w-[32px] h-[32px]",
-    btn: "rounded-full bg-white shadow-custom py-3 px-6 w-fit text-center cursor-pointer text-rcnblue-500 border-2 text-xs",
+    btn,
+    submitbtn: `${btn} flex justify-center justify-self-center col-start-1 col-end-2 sm:col-end-3 items-center capitalize gap-x-2`,
     // button: "rounded-full bg-rcnblue-500 shadow-custom p-3 w-full text-center cursor-pointer text-white border-2 text-xs uppercase",
     input: `bg-white border border-gray-300 text-base text-gray-900 rounded-lg focus:ring-rcnblue-500 focus:border-rcnblue-500 block w-full h-[42px] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-rcnblue-500 dark:focus:border-rcnblue-500`,
     studentItem: "flex flex-col flex-grow w-1/2 overflow-hidden rounded-md shadow-custom bg-white cursor-pointer md:w-1/4 sm:landscape:w-1/4",
@@ -143,6 +145,7 @@ export const color = (identifier: string): iColor => {
 export const constants = {
   dataApiUrl: "/api/g-data",
   imageUploadApiUrl: "/api/p-image",
+  dataPostApiUrl: "/api/p-data",
   pictures: "pictures",
   pictureUrl: (path: string) => `https://fmbpeassqdggauozaiad.supabase.co/storage/v1/object/public/pictures/${path}`,
   colorNames: {
@@ -314,6 +317,7 @@ export const constants = {
   edit: 'edit',
   upload: 'upload',
   search: 'search',
+  check: 'check',
   left: 'left',
   right: 'right',
   signout: 'signout',
