@@ -26,16 +26,18 @@ const getUserData = async () => {
     update: "",
     foreignkey: ""
   }
-  const { data } = await useLazyFetch(constants.dataApiUrl, { params: { ...options } })
+  const { data } = await useFetch(constants.dataApiUrl, { params: { ...options } })
   const obj = data.value as iDynamicObject
   let teacher:iTeacher = {}
+  console.log("data.value", data.value, "obj", obj)
   if (obj[0]) {
     teacher = obj[0] as iTeacher
   }
 
   if (!obj[0]) {
     teacher = {
-      email: user.value?.email
+      email: user.value?.email,
+      type: "Parent"
     }
   }
 

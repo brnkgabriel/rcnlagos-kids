@@ -14,7 +14,7 @@
             :key="idx"
             :person="student"
             :class="position(idx, globalState.renderedStudents)"
-            @click="selectedStudent = student" />
+            @click="handleClick(student)" />
         </div>
       </div>
       <Selected :person="selectedStudent" :class="personslistselection" />
@@ -54,7 +54,7 @@ const {
   personslistselection
 } = useUi()
 
-const { globalState, setStudents, setRenderedStudents, setSearchedStudents } = useGlobals()
+const { globalState, setStudents, setRenderedStudents, setSearchedStudents, setSelectedStudent } = useGlobals()
 const pageName = ref(useRoute().name)
 const skeletonStudents = ref<iStudent[]>(placeholderPersons)
 const skeletonSelectedStudent = ref<iStudent>(placeholderPersons[0])
@@ -115,9 +115,18 @@ watch(data, async () => {
   setSearchedStudents(data.value as iStudent[])
   setRenderedStudents(globalState.value.searchedStudents.slice(0, constants.maxItemsToLoad))
   selectedStudent.value = globalState.value.renderedStudents[0]
+  setSelectedStudent(globalState.value.renderedStudents[0])
 })
 
-const handlePerson = async (person: iPerson) => selectedStudent.value = person
+const handleClick = (student: iStudent) => {
+  selectedStudent.value = student
+  setSelectedStudent(student)
+}
+
+const handlePerson = async (person: iPerson) => {
+  selectedStudent.value = person
+  setSelectedStudent(person)
+}
 
 const handlePersons = (persons:iPerson[]) => {
   setSearchedStudents(persons)

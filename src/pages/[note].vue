@@ -1,6 +1,6 @@
 <template>
   <div> 
-    note page
+    <Note />
   </div>
 </template>
 <script setup lang="ts"> 

@@ -143,6 +143,7 @@ export interface iGlobal {
   media: iMedia[];
   notes: iNote[];
   events: iEvent[];
+  selectedStudent: iStudent;
   students: iStudent[];
   renderedStudents: iStudent[];
   searchedStudents: iStudent[];

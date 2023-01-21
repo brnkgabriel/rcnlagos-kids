@@ -498,6 +498,10 @@ export const useGlobals = () => {
     globalState.value.slides = value
   }
 
+  const setSelectedStudent = (value: iStudent) => {
+    globalState.value.selectedStudent = value
+  }
+
   const setStudents = (value: iStudent[]) => {
     globalState.value.students = value
   }
@@ -563,7 +567,7 @@ export const useGlobals = () => {
     setSearchedStudents, setTeachers, setMedia,
     setEvents, setRenderedTeachers, setUser,
     setSearchedTeachers, setAuthType, setEmail,
-    setRoute, setUserData
+    setRoute, setUserData, setSelectedStudent
   }
 }
 

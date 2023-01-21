@@ -58,7 +58,7 @@
         <input name="imageUrl" id="galleryImg" type="file" class="hidden" accept="image/*"
           @change="toCropGalleryImage" />
       </label>
-      <button type="submit" :class="submitbtn">
+      <button type="submit" :class="submitBtnClass">
       
         <div>submit</div>
         <div aria-label="spinloader"  v-if="!ready"

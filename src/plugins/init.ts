@@ -8,6 +8,9 @@ export default defineNuxtPlugin(nuxtApp => {
     events: [],
     media: [],
     notes: [],
+    selectedStudent: {
+
+    },
     students: [],
     renderedStudents: [],
     searchedStudents: [],
