@@ -40,7 +40,10 @@
       </div>
       <div class="card-section h-full" id="notes">
         <div class="card-content h-full">
-          <div class="card-subtitle">NOTES</div>
+          <div class="card-subtitle flex justify-between items-center">
+            <div>NOTES</div>
+            <NuxtLink :href="'/'+id(personName(props.person), '-')" :class="btn" v-if="isATeacher && props.person.parentsContact">Add</NuxtLink>
+          </div>
           <div v-if="props.person.parentsContact" class="card-timeline relative h-full" :class="cardTimeline">
             <div class="card-item" data-year="2023">
               <div class="card-item-title relative">
@@ -112,14 +115,17 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iColor, iMedia, iCombined } from '../types';
+import { iColor, iMedia, iCombined, iPerson } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
   person: iCombined;
 }>();
 const avatarPlaceholder = "/icons/avatar.svg"
 
-const { cardTimeline, selectedComponent } = useUi()
+const { cardTimeline, selectedComponent, btn } = useUi()
+const { globalState } = useGlobals()
+
+const isATeacher = isTeacher(globalState.value.user.data as iPerson)
 
 const currentTab = ref(constants.about)
 
