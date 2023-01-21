@@ -1,4 +1,4 @@
-import { iAuthType, iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iPerson, iStudent, iSwitch, iTeacher, iUser } from "../types"
+import { iAuthType, iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iPerson, iRoute, iStudent, iSwitch, iTeacher, iUser } from "../types"
 import { Ref } from 'vue';
 import imageCompression from "browser-image-compression"
 
@@ -13,7 +13,7 @@ const btn = "rounded-full bg-white shadow-custom py-3 px-6 w-fit text-center cur
 
 export const useUi = () => {
   return {
-    btmnavwrap: "grid grid-cols-4 gap-x-2 bg-white z-10",
+    btmnavwrap: "grid gap-x-2 bg-white z-10 w-full max-w-md",
     comboinputwrap: "relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md md:text-sm",
     combobutton: "absolute inset-y-0 right-0 flex items-center pr-2",
     chevronupdownicon: "h-5 w-5 text-gray-400",
@@ -45,7 +45,7 @@ export const useUi = () => {
     loginbottomcontent: "flex flex-col gap-y-2 h-60% justify-center items-center",
     logintitle: "text-center text-rcnblue-500 px-4",
     loginnavigation: "flex flex-col justify-center items-center gap-y-2 capitalize",
-    loginnavicon: "w-[24px] absolute top-1/2 left-[8px] -translate-y-1/2",
+    loginnavicon: "w-[20px] absolute top-1/2 left-[8px] -translate-y-1/2",
     wfull: "w-full",
     hfull: "h-full",
     slidetitlenstatus: "card-subtitle flex justify-between items-center",
@@ -309,6 +309,7 @@ export const constants = {
   home: 'home',
   settings: 'settings',
   teachers: 'teachers',
+  teacher: 'Teacher',
   students: 'students',
   parent: 'parent',
   admin: 'admin',
@@ -524,6 +525,14 @@ export const useGlobals = () => {
     globalState.value.user = user
   }
 
+  const setEmail = (email: string) => {
+    globalState.value.user.email = email
+  }
+
+  const setUserData = (data: iTeacher) => {
+    globalState.value.user.data = data
+  }
+
   const setTeachers = (value: iTeacher[]) => {
     globalState.value.teachers = value
   }
@@ -542,6 +551,10 @@ export const useGlobals = () => {
 
   const setEvents = (value: iEvent[]) => {
     globalState.value.events = value
+  } 
+
+  const setRoute = (route: iRoute) => {
+    globalState.value.route = route
   }
 
   return {
@@ -549,7 +562,8 @@ export const useGlobals = () => {
     setRenderedStudents, addToRenderedStudents,
     setSearchedStudents, setTeachers, setMedia,
     setEvents, setRenderedTeachers, setUser,
-    setSearchedTeachers, setAuthType
+    setSearchedTeachers, setAuthType, setEmail,
+    setRoute, setUserData
   }
 }
 
@@ -643,3 +657,5 @@ export const handleImageCompression = async (file: File) => {
 
 
 export const studentEmail = (person: iPerson) => `${person.firstName?.toLowerCase().trim()}.${person.lastName?.toLowerCase().trim()}@rcnlagos.com`
+
+export const isTeacher = (teacher: iPerson) => teacher.type === constants.teacher

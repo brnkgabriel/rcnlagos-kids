@@ -1,6 +1,7 @@
 <template>
-  <div aria-label="btm-nav-wrap" :class="btmnavwrap">
+  <div aria-label="btmnavwrap" :class="btmnavwrapclass">
     <NuxtLink
+      v-if="isATeacher"
       href="/add"
       :class="bottomNavLink">
       <div :class="bottomNavLinkIcon">
@@ -35,9 +36,19 @@
   </div>
 </template>
 <script setup lang="ts">
+import { iPerson } from '../types';
+
 
 // data / var
 const { btmnavwrap, subline_small, bottomNavLink, bottomNavLinkIcon } = useUi()
+const { globalState } = useGlobals()
+
+const isATeacher = isTeacher(globalState.value.user.data as iPerson)
+
+let btmnavwrapclass = btmnavwrap
+
+btmnavwrapclass += isATeacher ? " grid-cols-4" : " grid-cols-3"
+
 const route = useRoute()
 const supabase = useSupabaseAuthClient()
 

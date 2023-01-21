@@ -21,6 +21,10 @@ export default defineNuxtPlugin(nuxtApp => {
     authType: {
       key: "",
       value: ""
+    },
+    route: {
+      fromRoute: "",
+      toRoute: ""
     }
   }))
 })

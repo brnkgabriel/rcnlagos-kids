@@ -27,10 +27,10 @@
 <script setup lang="ts">
 
 import { Ref } from "vue";
-import { iDynamicObject, iAuthType, iDataApiOptions } from "~~/src/types/index"
+import { iDynamicObject, iAuthType, iDataApiOptions, iTeacher } from "~~/src/types/index"
 
 const { numpad, input } = useUi()
-const { setAuthType, globalState } = useGlobals()
+const { setAuthType, globalState, setUserData } = useGlobals()
 
 const switchRef = ref(constants.parent)
 const map: iDynamicObject = {
@@ -140,6 +140,7 @@ const handleParentPhoneNumber = async (authT: iAuthType) => {
     handleError("No student with your phone number")
   }
 }
+
 </script>
 <style lang="">
   

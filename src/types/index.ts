@@ -27,6 +27,8 @@ export interface iTeacher extends iCommon {
   role?: string;
   class?: string;
   duration?: string;
+  email?: string;
+  type?: string;
   teachermedia?: iMedia[];
 }
 
@@ -128,7 +130,12 @@ export interface iAuthType {
 
 export interface iUser {
   email: string;
-  data: iDynamicObject
+  data: iTeacher
+}
+
+export interface iRoute {
+  fromRoute: string;
+  toRoute: string;
 }
 
 export interface iGlobal {
@@ -142,8 +149,9 @@ export interface iGlobal {
   teachers: iTeacher[];
   renderedTeachers: iTeacher[];
   searchedTeachers: iTeacher[];
-  user: iUser
-  authType: iAuthType
+  user: iUser;
+  authType: iAuthType;
+  route: iRoute
 }
 
 export interface iCombined extends iStudent, iTeacher {}

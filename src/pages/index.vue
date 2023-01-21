@@ -20,6 +20,16 @@
 <script setup lang="ts">
 
 const { btn, subline_small, mainline, homelayoutbottomcontentwrap } = useUi()
+const { globalState } = useGlobals()
+const user = useSupabaseUser()
+
+watch(user, () => {
+  const { fromRoute, toRoute } = globalState.value.route
+  console.log("from homepage user, route is", globalState.value.route)
+
+  if (fromRoute === "" && toRoute === "") navigateTo("/students")
+  // else if (user.value) navigateTo(globalState.value.route.toRoute)
+})
 
 definePageMeta({
   layout: "home"
