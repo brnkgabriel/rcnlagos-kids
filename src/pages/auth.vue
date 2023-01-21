@@ -10,7 +10,7 @@
 <script setup lang="ts">
 
 const { homelayoutbottomcontentwrap, btn, loginnavicon } = useUi()
-const loginnavlink = () => `${btn} relative cursor-pointer gap-x-4 flex items-center justify-center w-[150px]`
+const loginnavlink = () => `${btn.replace("w-fit", "")} relative cursor-pointer gap-x-4 flex items-center justify-center w-[150px]`
 
 const { globalState, setEmail } = useGlobals()
 const client = useSupabaseClient()
