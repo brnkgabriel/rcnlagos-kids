@@ -132,15 +132,13 @@ const galleryImgFile: Ref<iUpload> = ref({
   type: ""
 })
 
-const handleGender = (value: string) => {
-  console.log("from update page, gender is", value)
+const handleGender = (value: string) => { 
   selected.value.gender = value
 }
 
 const onCrop = async (toUpload: iUpload) => {
 
-  selected.value.imageUrl = toUpload.file
-  console.log("data from client", toUpload)
+  selected.value.imageUrl = toUpload.file 
   try {
     const fetchOptions = {
       headers: { "Content-type": "multipart/form-data" },
@@ -149,8 +147,7 @@ const onCrop = async (toUpload: iUpload) => {
     }
     const { data } = await useFetch(constants.imageUploadApiUrl, fetchOptions)
     const url = constants.pictureUrl(data.value as string)
-    selected.value.imageUrl = url
-    console.log("url from server", url)
+    selected.value.imageUrl = url 
   } catch (error) {
     console.log(error)
   }
@@ -158,8 +155,7 @@ const onCrop = async (toUpload: iUpload) => {
 
 const onGalleryCrop = async (toUpload: iUpload) => {
   galleryImg.value = toUpload.file
-
-  console.log("data from client", toUpload)
+ 
   // isPicImgSending.value = true
   try {
     const fetchOptions = {
@@ -177,9 +173,7 @@ const onGalleryCrop = async (toUpload: iUpload) => {
       mediaType: "picture",
       mediaUrl: url
     }
-
-    // isPicImgSending.value = false
-    console.log("media from server", media.value)
+ 
   } catch (error) {
     // isPicImgSending.value = false
     console.log(error)
@@ -273,9 +267,7 @@ const handleSubmit = async (evt: Event) => {
     }
     const sRes = await useFetch(constants.dataPostApiUrl, studentOptions)
     const mRes = await useFetch(constants.dataPostApiUrl, mediaOptions)
-
-    console.log("student response", sRes.error.value)
-    console.log("media response", mRes.error.value)
+ 
     canSubmit.value = true
     
     navigateTo('/students')

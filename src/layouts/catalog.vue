@@ -29,7 +29,7 @@ const getUserData = async () => {
   const { data } = await useFetch(constants.dataApiUrl, { params: { ...options } })
   const obj = data.value as iDynamicObject
   let teacher:iTeacher = {}
-  console.log("data.value", data.value, "obj", obj)
+  
   if (obj[0]) {
     teacher = obj[0] as iTeacher
   }
@@ -40,8 +40,6 @@ const getUserData = async () => {
       type: "Parent"
     }
   }
-
-  console.log("teacher", teacher)
 
   setUserData(teacher)
 }

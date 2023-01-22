@@ -45,7 +45,8 @@ export interface iStudent extends iCommon {
   type?: string;
   age?: string;
   duration?: string;
-  media?: iMedia[]
+  media?: iMedia[],
+  notes?: iNote[]
 }
 
 export interface iCropperOptions {

@@ -17,7 +17,7 @@
             @click="handleClick(student)" />
         </div>
       </div>
-      <Selected :notes="notes" :person="selectedStudent" :class="personslistselection" />
+      <Selected :person="selectedStudent" :class="personslistselection" />
     </div>
     <div v-else aria-label="skeleton personswrap" :class="personswrap">
       <div aria-label="personslist" :class="personslist">
@@ -36,7 +36,7 @@
             @click="selectedStudent = student" />
         </div>
       </div>
-      <Selected :notes="skeletonNotes" :person="skeletonSelectedStudent" :class="personslistselection" />
+      <Selected :person="skeletonSelectedStudent" :class="personslistselection" />
     </div>
   </div>
 </template>
@@ -58,15 +58,9 @@ const { globalState, setStudents, setRenderedStudents, setSearchedStudents, setS
 const pageName = ref(useRoute().name)
 const skeletonStudents = ref<iStudent[]>(placeholderPersons)
 const skeletonSelectedStudent = ref<iStudent>(placeholderPersons[0])
-const skeletonNotes = ref<iNote[]>([])
 const selectedStudent = ref<iStudent>({})
 const thumbnailListRef = ref<HTMLDivElement>()
 const personsListRef = ref<HTMLDivElement>()
-const notes = ref<iNote[]>([])
-
-// todo: considering removing authType from globalState
-// const column = globalState.value.authType.key === constants.parent ? "parentsContact" : ""
-// const value = globalState.value.authType.key === constants.parent ? globalState.value.authType.value : ""
 
 const userCookie = useCookie("user")
 const pieces = userCookie.value?.split("|")
@@ -81,15 +75,12 @@ const authType = obj as unknown as iAuthType
 const column = authType.key === constants.parent ? "parentsContact" : ""
 const value = authType.key === constants.parent ? authType.value : ""
 
-// const column = globalState.value.authType.key === constants.parent ? "parentsContact" : ""
-// const value = globalState.value.authType.key === constants.parent ? globalState.value.authType.value : ""
-
 const options: iDataApiOptions = {
   table: "students",
   column,
   value,
   update: "",
-  foreignkey: "media(*)"
+  foreignkey: "*, media(*), notes(*)"
 } 
 
 const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
@@ -118,32 +109,11 @@ watch(data, async () => {
   setRenderedStudents(globalState.value.searchedStudents.slice(0, constants.maxItemsToLoad))
   selectedStudent.value = globalState.value.renderedStudents[0]
   setSelectedStudent(globalState.value.renderedStudents[0])
-  await retrieveNote()
 })
 
 const handleClick = async (student: iStudent) => {
   selectedStudent.value = student
   setSelectedStudent(student)
-  await retrieveNote()
-}
-
-
-const retrieveNote = async () => {
-  const options: iDataApiOptions = {
-    table: "notes",
-    column: "student_email",
-    value: selectedStudent.value.email as string,
-    update: "",
-    foreignkey: ""
-  }
-  const { data } = await useFetch(constants.dataApiUrl, { params: { ...options } })
-  
-  notes.value = data.value as unknown as iNote[]
-
-  const obj = data.value as iDynamicObject
-  if (obj?.error) {
-    console.log("unsuccessfully retrieved data. There is error", obj.error)
-  }
 }
 
 const handlePerson = async (person: iPerson) => {

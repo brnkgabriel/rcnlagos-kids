@@ -70,8 +70,7 @@ watch(data, () => {
     .map((event: iEvent) => `${event.event_type} (${event.event_date})`)
 })
 
-const handleLocation = (location: string) => {
-  console.log("handling Location, location is", location)
+const handleLocation = (location: string) => { 
   note.value.note_title = location
 }
 

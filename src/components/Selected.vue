@@ -12,8 +12,6 @@
     <div class="card-main h-smain">
       <div class="card-section is-active" id="about">
         <div class="card-content">
-          <!-- <div class="card-subtitle">ABOUT</div>
-          <p class="card-desc">{{ about }}</p> -->
           <NoteCard v-if="noteExists" :s-color="sColor" :person="props.person" :note="sortNotes(notes)[0]" />
         </div>
       </div>
@@ -25,22 +23,6 @@
           </div>
           <div v-if="props.person.parentsContact" class="card-timeline relative h-full" :class="cardTimeline">
             <TimelinePiece v-for="(note, idx) in notes" :key="idx" :note="note" :person="person" :s-color="sColor" />
-            <!-- <div class="card-item" data-year="2023">
-              <div class="card-item-title relative">
-                <span>{{ heShe }} left with parent by </span>
-                <span>8:30 PM</span>
-              </div>
-              <div class="card-item-desc">{{ hisHer }} mum came to pick {{ himHer }}</div>
-              <div aria-label="circle" :style="circleStyle"></div>
-            </div>
-            <div class="card-item" data-year="2022">
-              <div class="card-item-title relative">
-                <span>{{ heShe }}'s in class by </span>
-                <span>6:00 PM</span>
-              </div>
-              <div class="card-item-desc">{{ hisHer }} dad dropped {{ himHer }}</div>
-              <div aria-label="circle" :style="circleStyle"></div>
-            </div> -->
             <div aria-label="trail" :style="trailStyle"></div>
           </div>
         </div>
@@ -99,7 +81,7 @@ import { iColor, iMedia, iCombined, iPerson, iNote } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
   person: iCombined;
-  notes: iNote[]
+  // notes: iNote[]
 }>();
 const avatarPlaceholder = "/icons/avatar.svg"
 
@@ -107,17 +89,16 @@ const { cardTimeline, selectedComponent, btn } = useUi()
 const { globalState } = useGlobals()
 
 const isATeacher = isTeacher(globalState.value.user.data as iPerson)
-const noteExists = computed(() => props.notes && props.notes.length > 0)
 
 const currentTab = ref(constants.about)
-
-watch(() => props.notes, () => console.log("notes are", props.notes))
 
 const isAboutActive = computed(() => currentTab.value === constants.about)
 const isNoteActive = computed(() => currentTab.value === constants.notes)
 const isContactActive = computed(() => currentTab.value === constants.contact)
 const isGalleryActive = computed(() => currentTab.value === constants.gallery)
 const media = computed(() => (props.person?.media || props.person?.teachermedia as iMedia[]))
+const notes = computed(() => (props.person.notes as iNote[]))
+const noteExists = computed(() => notes.value && notes.value.length > 0)
 const contactNumber = computed(() => `tel:${phone(props.person?.parentsContact || props.person?.phoneNumber)}`)
 
 

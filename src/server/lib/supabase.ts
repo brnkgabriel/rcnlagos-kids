@@ -10,7 +10,7 @@ export const api = {
   // database
   getData: async (options: iDataApiOptions) => {
     const { column, value, table, foreignkey } = options
-    const query = foreignkey?.length === 0 ? "*" : `*, ${foreignkey}`
+    const query = foreignkey?.length === 0 ? "*" : `${foreignkey}`
     const { data: res, error } = await supabase
     .from(table).select(query)
     .eq(column, value)
