@@ -1,9 +1,9 @@
 interface iCommon {
-  created_at?: Date;
+  created_at?: string;
   id?: string | number;
 }
 
-export interface iMedia extends iCommon{
+export interface iMedia extends iCommon {
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -21,7 +21,7 @@ export interface iTeacher extends iCommon {
   lastName?: string;
   phoneNumber?: string;
   gender?: string;
-  imageUrl?: string; 
+  imageUrl?: string;
   birthday?: string;
   about?: string;
   role?: string;
@@ -33,8 +33,6 @@ export interface iTeacher extends iCommon {
 }
 
 export interface iStudent extends iCommon {
-  created_at?: Date;
-  id?: string | number;
   firstName?: string;
   lastName?: string;
   parentsContact?: string;
@@ -155,7 +153,7 @@ export interface iGlobal {
   route: iRoute
 }
 
-export interface iCombined extends iStudent, iTeacher {}
+export interface iCombined extends iStudent, iTeacher { }
 
 export interface iDynamicObject {
   // 👇️ key         value
@@ -166,4 +164,10 @@ export interface iSwitch {
   enabled: boolean;
   left: string;
   right: string;
+}
+
+export interface iNoteDetail {
+  note_title: string;
+  note_description: string;
+  event_string_id: string;
 }

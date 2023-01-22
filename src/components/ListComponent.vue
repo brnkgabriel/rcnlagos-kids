@@ -68,7 +68,7 @@ const liClass = (isActive: boolean) => isActive
 const spanClass = (isSelected: boolean) => isSelected
   ? 'font-medium' : 'font-normal'
 
-const selectedItem = ref(props.list[0])
+const selectedItem = ref("Select from the list...")
 
 watch(selectedItem, () => emit("selected", selectedItem.value))
 </script>

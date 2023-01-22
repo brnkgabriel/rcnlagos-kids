@@ -17,7 +17,7 @@
             @click="selectedTeacher = teacher" />
         </div>
       </div>
-      <Selected :person="selectedTeacher" :class="personslistselection" />
+      <Selected :notes="skeletonNotes" :person="selectedTeacher" :class="personslistselection" />
     </div>
     <div v-else aria-label="skeleton personswrap" :class="personswrap">
       <div aria-label="personslist" :class="personslist">
@@ -36,12 +36,12 @@
             @click="selectedTeacher = teacher" />
         </div>
       </div>
-      <Selected :person="skeletonSelectedTeacher" :class="personslistselection" />
+      <Selected :notes="skeletonNotes" :person="skeletonSelectedTeacher" :class="personslistselection" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { iDataApiOptions, iPerson, iTeacher } from '../types';
+import { iDataApiOptions, iNote, iPerson, iTeacher } from '../types';
 import { vInfiniteScroll } from "~~/src/helpers/directives"
 import { Ref } from 'vue';
 
@@ -58,6 +58,7 @@ const { globalState, setTeachers, setRenderedTeachers, setSearchedTeachers } = u
 const pageName = ref(useRoute().name)
 const skeletonTeachers = ref<iTeacher[]>(placeholderPersons)
 const skeletonSelectedTeacher = ref<iTeacher>(placeholderPersons[0])
+const skeletonNotes = ref<iNote[]>([])
 const selectedTeacher = ref<iTeacher>({})
 const thumbnailListRef = ref<HTMLDivElement>()
 const personsListRef = ref<HTMLDivElement>()
@@ -75,7 +76,6 @@ const { data, refresh } = await useLazyFetch(() => constants.dataApiUrl, { param
 const status = computed(() => globalState.value.searchedTeachers.length === 0 ? 'Loading...' : `${globalState.value.searchedTeachers.length} ${pageName.value as string}`)
 
 watch(data, async () => {
-  console.log("data.value from teachers", data.value)
   setTeachers(data.value as iTeacher[])
   setSearchedTeachers(data.value as iTeacher[])
   setRenderedTeachers(globalState.value.searchedTeachers.slice(0, constants.maxItemsToLoad))

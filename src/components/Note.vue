@@ -1,21 +1,25 @@
 <template>
-  <div class="grid grid-cols-1 items-center justify-start gap-y-2 rounded bg-white w-full p-4">
+  <div class="rounded bg-white w-full p-4 flex flex-col gap-y-2 mx-auto max-w-sm">
     <div aria-label="info" class="mb-4">Add a note for {{ globalState.selectedStudent.firstName }}</div>
 
-    <div class="flex flex-col justify-start w-full">
-      <label for="detailednote" :class="subline_small">Where is the child?</label>
-      <ListComponent :list="location" @selected="handleLocation" />
-    </div>
+    <div class="grid grid-cols-1 gap-y-4">  
+      <div class="flex flex-col justify-start w-full">
+        <label for="detailednote" :class="subline_small">Where is the child?</label>
+        <ListComponent :list="location" @selected="handleLocation" />
+      </div>
 
-    <div class="flex flex-col justify-start w-full">
-      <label for="detailednote" :class="subline_small">What church program is this?</label>
-      <ListComponent :list="events" @selected="handleEvents" />
+      <div class="flex flex-col justify-start w-full">
+        <label for="detailednote" :class="subline_small">What church program is this?</label>
+        <ListComponent :list="events" @selected="handleEvents" />
+      </div>
+      <div class="flex flex-col justify-start w-full">
+        <label for="detailednote" :class="subline_small">Detailed note</label>
+        <input :class="input" v-model="note.note_description" type="text" id="detailednote" />
+      </div>
+
     </div>
-    <div class="flex flex-col justify-start w-full">
-      <label for="detailednote" :class="subline_small">Detailed note</label>
-      <input :class="input" v-model="note.note_description" type="text" id="detailednote" />
-    </div>
-    <button type="submit" :class="submitBtnClass" @click="submitNote">
+    <div v-if="isSubmitted" :class="subline_small">Note successfully submitted...</div>
+    <button v-if="!isSubmitted" type="submit" :class="submitBtnClass" @click="submitNote">
       <div>submit</div>
       <div aria-label="spinloader" v-if="!ready"
         class="w-[16px] h-[16px] border-black border-2 border-l-0 border-r-0 rounded-full spin-loader active"></div>
@@ -24,33 +28,47 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iNote } from '../types';
+import { iDataApiOptions, iDynamicObject, iEvent, iNote, iNoteDetail } from '../types';
 
 
 const { input, subline_small, submitbtn } = useUi()
 const { globalState } = useGlobals()
 
-interface iNoteDetail {
-  note_title: string;
-  note_description: string;
-  event_string_id: string;
-}
-
-const events = [
-  "Threshing Floor (January 21, 2022)"
-]
+const events = ref([
+  'Threshing Floor (January 21, 2022)'
+])
 
 const location = [
   'In class',
   'Has gone home',
 ]
+
+
 const note = ref<iNoteDetail>({
   note_description: "",
   note_title: location[0],
-  event_string_id: events[0]
+  event_string_id: events.value[0]
 })
-const ready = computed(() => note.value.note_description.length > 0)
+
+const isSubmitting = ref(false)
+const isSubmitted = ref(false)
+const ready = computed(() => note.value.note_description.length > 0 && !isSubmitting.value)
 const submitBtnClass = computed(() => `${submitbtn} ${ready.value === false ? "pointer-events-none bg-rcngray-700 opacity-50" : ""}`)
+
+const options: iDataApiOptions = {
+  table: "events",
+  column: "",
+  value: "",
+  update: "",
+  foreignkey: ""
+}
+
+const { data } = await useLazyFetch(() => constants.dataApiUrl, { params: { ...options } })
+
+watch(data, () => {
+  events.value = (data.value as iEvent[])
+    .map((event: iEvent) => `${event.event_type} (${event.event_date})`)
+})
 
 const handleLocation = (location: string) => {
   console.log("handling Location, location is", location)
@@ -58,7 +76,6 @@ const handleLocation = (location: string) => {
 }
 
 const handleEvents = (event: string) => {
-  console.log("handling Events, event is", event)
   note.value.event_string_id = event
 }
 
@@ -78,21 +95,33 @@ const submitNote = async () => {
   }
 
   preppedNote = { ...preppedNote, ...note.value }
-  // const options = {
-  //   headers: { "Content-type": "multipart/form-data" },
-  //   method: 'POST',
-  //   body: preppedNote,
-  //   params: {
-  //     table: "notes",
-  //     column: "",
-  //     value: "",
-  //     update: "",
-  //     foreignkey: ""
-  //   }
-  // }
-  // const sRes = await useFetch(constants.dataPostApiUrl, options)
 
+  isSubmitting.value = true
+  const options = {
+    headers: { "Content-type": "multipart/form-data" },
+    method: 'POST',
+    body: preppedNote,
+    params: {
+      table: "notes",
+      column: "",
+      value: "",
+      update: "",
+      foreignkey: ""
+    }
+  }
 
-  console.log("prepped note", preppedNote)
+  const { data } = await useFetch(constants.dataPostApiUrl, options)
+
+  isSubmitting.value = false
+  const obj = data.value as iDynamicObject
+  if (obj.error) {
+    console.log("unsuccessfully saved data. There is error")
+  } else {
+    console.log("successfully saved data")
+    isSubmitted.value = true
+    setTimeout(() => {
+      navigateTo("/students")
+    }, 1000);
+  }
 }
 </script>

@@ -14,28 +14,7 @@
         <div class="card-content">
           <!-- <div class="card-subtitle">ABOUT</div>
           <p class="card-desc">{{ about }}</p> -->
-          <div v-if="props.person.parentsContact" aria-label="teacherlastnote" class="shadow-custom bg-white rounded p-2 flex gap-2 relative text-xs">
-            <div aria-label="teacherdetails" class="flex flex-col gap-y-1">
-              <img class="rounded-full w-[60px]" :src="imgSrc('')" alt="avatar"/>
-              <div aria-label="teachername" class="truncate w-full">Bro. Lanre</div>
-              <div aria-label="teachercontacticons" class="flex gap-2">
-                <a :href="constants.whatsappIcon(props.person)" class="shadow-cta rounded-full">
-                  <img src="/icons/whatsapp.svg" class="w-[32px]" alt="whatsapp icon" />
-                </a>
-                <a
-                  :href="contactNumber"
-                  :style="callStyle"
-                  class="shadow-cta rounded-full p-2 w-[32px] h-[32px] flex justify-center items-center">
-                  <Icon type="phonecall" :active="true" class="w-[16px] text-white" />
-                </a>
-              </div>
-            </div>
-            <div aria-label="teachernote" class="flex flex-col gap-2">
-              <div class="font-bold w-full truncate">Has gone home</div>
-              <div>her mum came to pick her</div>
-            </div>
-            <div aria-label="time" class="absolute right-[8px] bottom-0 text-xxs uppercase font-semibold opacity-50">6:00 pm</div>
-          </div>
+          <NoteCard v-if="noteExists" :s-color="sColor" :person="props.person" :note="sortNotes(notes)[0]" />
         </div>
       </div>
       <div class="card-section h-full" id="notes">
@@ -115,10 +94,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { iColor, iMedia, iCombined, iPerson } from '../types';
+import { iColor, iMedia, iCombined, iPerson, iNote } from '../types';
 import { PhoneIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/solid/index'
 const props = defineProps<{
   person: iCombined;
+  notes: iNote[]
 }>();
 const avatarPlaceholder = "/icons/avatar.svg"
 
@@ -126,8 +106,11 @@ const { cardTimeline, selectedComponent, btn } = useUi()
 const { globalState } = useGlobals()
 
 const isATeacher = isTeacher(globalState.value.user.data as iPerson)
+const noteExists = computed(() => props.notes && props.notes.length > 0)
 
 const currentTab = ref(constants.about)
+
+watch(() => props.notes, () => console.log("notes are", props.notes))
 
 const isAboutActive = computed(() => currentTab.value === constants.about)
 const isNoteActive = computed(() => currentTab.value === constants.notes)
@@ -183,9 +166,6 @@ const bgStyle = computed(() => obj2Str(bgObj(sColor.value[100])))
 const ctaStyle = computed(() => obj2Str({
   ...bgObj(sColor.value[600]),
   "box-shadow": `0 4px 20px -5px ${sColor.value[600]}`
-}))
-const callStyle = computed(() => obj2Str({
-  "background-color": sColor.value[700]
 }))
 
 const number = (contact: string | undefined, msg: string) => {

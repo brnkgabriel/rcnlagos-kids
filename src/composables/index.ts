@@ -1,4 +1,4 @@
-import { iAuthType, iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iPerson, iRoute, iStudent, iSwitch, iTeacher, iUser } from "../types"
+import { iAuthType, iColor, iCombined, iDynamicObject, iEvent, iGlobal, iMedia, iNote, iPerson, iRoute, iStudent, iSwitch, iTeacher, iUser } from "../types"
 import { Ref } from 'vue';
 import imageCompression from "browser-image-compression"
 
@@ -341,17 +341,16 @@ export const constants = {
   laststudent: '-laststudent',
   Male: 'Male',
   Female: 'Female',
-  whatsappIcon: (student: iStudent | null) => {
-    let number = student ? student?.parentsContact : "0"
+  whatsappIcon: (person: iCombined) => {
+    let number = person.parentsContact ?? person.phoneNumber
     // @ts-ignore
     const num = phone(number)
     number = num.slice(1, num.length)
 
-    return `https://api.whatsapp.com/send?phone=${number}&text=${parentsAddress(student)}`
+    return `https://api.whatsapp.com/send?phone=${number}&text=Hello`
   }
 }
 
-export const parentsAddress = (student: iStudent | null) => student?.lastName ? `Hello Sir/Ma (we're contacting you with respect to ${student.firstName})` : 'Names'
 
 export const personName = (student: iStudent | iTeacher | null) => student?.lastName ? `${student.firstName} ${student.lastName}` : 'Firstname Surname'
 
@@ -384,6 +383,19 @@ const startAndEndTimes = (item: iCombined, type: string) => {
   const eTime = sTime + duration
   return { sTime, eTime }
 }
+
+export const formatDate = (str: string) => {
+  const date = new Date(str)
+  var mnth = date.toLocaleDateString("en-US", { month: 'short' })
+  var day = date.toLocaleDateString("en-US", { weekday: 'short' })
+  return `${day} ${mnth} ${date.getDate()}, ${date.toLocaleTimeString()}`
+}
+
+export const sortNotes = (notes: iNote[]) => notes.sort((a: iNote, b: iNote) => {
+  const aDate = +new Date(a.created_at as string)
+  const bDate = +new Date(b.created_at as string)
+  return bDate - aDate
+})
 
 export const reorder = (list: iCombined[], type: string) => {
   let prev = null

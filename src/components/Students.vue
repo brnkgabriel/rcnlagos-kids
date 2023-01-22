@@ -17,7 +17,7 @@
             @click="handleClick(student)" />
         </div>
       </div>
-      <Selected :person="selectedStudent" :class="personslistselection" />
+      <Selected :notes="notes" :person="selectedStudent" :class="personslistselection" />
     </div>
     <div v-else aria-label="skeleton personswrap" :class="personswrap">
       <div aria-label="personslist" :class="personslist">
@@ -36,12 +36,12 @@
             @click="selectedStudent = student" />
         </div>
       </div>
-      <Selected :person="skeletonSelectedStudent" :class="personslistselection" />
+      <Selected :notes="skeletonNotes" :person="skeletonSelectedStudent" :class="personslistselection" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { iDataApiOptions, iStudent, iPerson, iAuthType, iDynamicObject } from '../types';
+import { iDataApiOptions, iStudent, iPerson, iAuthType, iDynamicObject, iNote } from '../types';
 import { vInfiniteScroll } from "~~/src/helpers/directives"
 import { Ref } from 'vue';
 
@@ -58,9 +58,11 @@ const { globalState, setStudents, setRenderedStudents, setSearchedStudents, setS
 const pageName = ref(useRoute().name)
 const skeletonStudents = ref<iStudent[]>(placeholderPersons)
 const skeletonSelectedStudent = ref<iStudent>(placeholderPersons[0])
+const skeletonNotes = ref<iNote[]>([])
 const selectedStudent = ref<iStudent>({})
 const thumbnailListRef = ref<HTMLDivElement>()
 const personsListRef = ref<HTMLDivElement>()
+const notes = ref<iNote[]>([])
 
 // todo: considering removing authType from globalState
 // const column = globalState.value.authType.key === constants.parent ? "parentsContact" : ""
@@ -116,11 +118,32 @@ watch(data, async () => {
   setRenderedStudents(globalState.value.searchedStudents.slice(0, constants.maxItemsToLoad))
   selectedStudent.value = globalState.value.renderedStudents[0]
   setSelectedStudent(globalState.value.renderedStudents[0])
+  await retrieveNote()
 })
 
-const handleClick = (student: iStudent) => {
+const handleClick = async (student: iStudent) => {
   selectedStudent.value = student
   setSelectedStudent(student)
+  await retrieveNote()
+}
+
+
+const retrieveNote = async () => {
+  const options: iDataApiOptions = {
+    table: "notes",
+    column: "student_email",
+    value: selectedStudent.value.email as string,
+    update: "",
+    foreignkey: ""
+  }
+  const { data } = await useFetch(constants.dataApiUrl, { params: { ...options } })
+  
+  notes.value = data.value as unknown as iNote[]
+
+  const obj = data.value as iDynamicObject
+  if (obj?.error) {
+    console.log("unsuccessfully retrieved data. There is error", obj.error)
+  }
 }
 
 const handlePerson = async (person: iPerson) => {
