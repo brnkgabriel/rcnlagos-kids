@@ -24,7 +24,8 @@
             <NuxtLink :href="'/'+id(personName(props.person), '-')" :class="btn" v-if="isATeacher && props.person.parentsContact">Add</NuxtLink>
           </div>
           <div v-if="props.person.parentsContact" class="card-timeline relative h-full" :class="cardTimeline">
-            <div class="card-item" data-year="2023">
+            <TimelinePiece v-for="(note, idx) in notes" :key="idx" :note="note" :person="person" :s-color="sColor" />
+            <!-- <div class="card-item" data-year="2023">
               <div class="card-item-title relative">
                 <span>{{ heShe }} left with parent by </span>
                 <span>8:30 PM</span>
@@ -39,7 +40,7 @@
               </div>
               <div class="card-item-desc">{{ hisHer }} dad dropped {{ himHer }}</div>
               <div aria-label="circle" :style="circleStyle"></div>
-            </div>
+            </div> -->
             <div aria-label="trail" :style="trailStyle"></div>
           </div>
         </div>
@@ -137,16 +138,7 @@ const sColor = computed<iColor>(() => {
 
 const bgObj = (val: string) => ({"background-color": val})
 
-const circleStyle = computed(() => obj2Str({
-  "position": "absolute",
-  "width": "12px",
-  "height": "12px",
-  "background": `linear-gradient(to bottom, ${sColor.value[100]} 0%, ${sColor.value[700]} 100%)`,
-  "border": `2px solid #fff`,
-  "border-radius": "50%",
-  "top": "2px",
-  "left": "0px"
-}))
+
 
 const trailStyle = computed(() => obj2Str({
     "background": `linear-gradient(to top, ${sColor.value[100]} 0%, ${sColor.value[700]} 100%);`,
