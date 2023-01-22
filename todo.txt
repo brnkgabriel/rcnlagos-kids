@@ -1,3 +1,5 @@
 - after email sign in, user should enter access pin, parents will enter phone number
 
 {"firstName":"Bunmi","lastName":"Adejuyigbe","email":"ayokunade@gmail.com","role":"Head of Department","birthday":"January 21","duration":"1440","class":"0 - 10+","phoneNumber":"08023180928","imageUrl":"https://firebasestorage.googleapis.com/v0/b/rcnlagos-children-department.appspot.com/o/sis-bunmi.png?alt=media&token=f905274e-bbba-4c41-915f-cbb4c499685d","type":"Teacher"}
+
+// todo: remains edit & delete features for teachers

@@ -59,8 +59,8 @@
                 <span>{{ whatsAppNo }}</span>
               </a>
             </div>
-            <a class="contact-me text-center" :href="'tel:' + phone(props.person?.parentsContact || props.person?.phoneNumber)"
-              :style="ctaStyle">CALL PARENT</a>
+            <a class="contact-me text-center uppercase" :href="'tel:' + phone(props.person?.parentsContact || props.person?.phoneNumber)"
+              :style="ctaStyle">{{ callTxt }}</a>
           </div>
         </div>
       </div>
@@ -119,15 +119,12 @@ const isContactActive = computed(() => currentTab.value === constants.contact)
 const isGalleryActive = computed(() => currentTab.value === constants.gallery)
 const media = computed(() => (props.person?.media || props.person?.teachermedia as iMedia[]))
 const contactNumber = computed(() => `tel:${phone(props.person?.parentsContact || props.person?.phoneNumber)}`)
-const himHer = computed(() => props.person?.gender === constants.Male ? "him" : "her")
-const hisHer = computed(() => props.person?.gender === constants.Male ? "his" : "her")
-const heShe = computed(() => props.person?.gender === constants.Male ? "he" : "she")
 
 
 const fullname = computed(() => props.person?.firstName ? `${props.person?.firstName} ${props.person?.lastName}` : 'Firstname Surname')
 const avatar = computed(() => props.person?.imageUrl ?? avatarPlaceholder)
 const birthday = computed(() => props.person?.birthday ?? `January 1`)
-// const about = computed(() => props.person?.about ?? `Blessed Child`)
+const callTxt = computed(() => props.person?.parentsContact ? `Call Parent` : 'Call Teacher')
 
 
 const sColor = computed<iColor>(() => {
