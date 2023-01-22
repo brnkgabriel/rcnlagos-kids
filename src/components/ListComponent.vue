@@ -1,9 +1,9 @@
 <template>
-    <Listbox v-model="selectedcategory">
+    <Listbox v-model="selectedItem">
       <div aria-label="listinnerwrap" :class="listinnerwrap">
         <ListboxButton :class="listbutton">
           <span aria-label="listspantruncate" :class="listspantruncate">
-            {{ selectedcategory.name }}
+            {{ selectedItem }}
           </span>
           <span :class="listiconspan">
             <ChevronUpDownIcon :class="listicon" aria-hidden="true" />
@@ -14,11 +14,11 @@
           leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100"
           leave-to-class="opacity-0">
           <ListboxOptions :class="listboxoptions">
-            <ListboxOption v-slot="{ active, selected }" v-for="category in categories" :key="category.name" :value="category"
+            <ListboxOption v-slot="{ active, selected }" v-for="item in props.list" :key="item" :value="item"
               as="template">
               <li :class="[liClass(active), listboxoptionli]">
                 <span :class="[ spanClass(selected), listspantruncate ]">
-                  {{ category.name }}
+                  {{ item }}
                 </span>
                 <span
                   aria-label="listboxoptionspan"
@@ -42,8 +42,12 @@ import {
   ListboxOption,
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/24/solid/index'
+
 const emit = defineEmits<{
   (e: 'selected', selection: string): void
+}>()
+const props = defineProps<{
+  list: string[]
 }>()
 
 const {
@@ -64,12 +68,7 @@ const liClass = (isActive: boolean) => isActive
 const spanClass = (isSelected: boolean) => isSelected
   ? 'font-medium' : 'font-normal'
 
-const categories = [
-  { name: 'Single' },
-  { name: 'Married' },
-  { name: 'Engaged' },
-]
-const selectedcategory = ref(categories[0])
+const selectedItem = ref(props.list[0])
 
-watch(selectedcategory, () => emit("selected", selectedcategory.value.name))
+watch(selectedItem, () => emit("selected", selectedItem.value))
 </script>

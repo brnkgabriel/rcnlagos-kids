@@ -1,10 +1,19 @@
 <template>
-  <div class="flex flex-col items-center justify-start gap-y-2 rounded bg-white w-full p-4">
+  <div class="grid grid-cols-1 items-center justify-start gap-y-2 rounded bg-white w-full p-4">
     <div aria-label="info" class="mb-4">Add a note for {{ globalState.selectedStudent.firstName }}</div>
-    <SwitchComp left="is in class" right="has gone home" :value="handleNote" name="note" :class="subline" />
-    <div class="w-full">
-      <div aria-label="more info" :class="subline_small" class="text-center">*More details</div>
-      <input :class="input" v-model="note.note_description" type="text" />
+
+    <div class="flex flex-col justify-start w-full">
+      <label for="detailednote" :class="subline_small">Where is the child?</label>
+      <ListComponent :list="location" @selected="handleLocation" />
+    </div>
+
+    <div class="flex flex-col justify-start w-full">
+      <label for="detailednote" :class="subline_small">What church program is this?</label>
+      <ListComponent :list="events" @selected="handleEvents" />
+    </div>
+    <div class="flex flex-col justify-start w-full">
+      <label for="detailednote" :class="subline_small">Detailed note</label>
+      <input :class="input" v-model="note.note_description" type="text" id="detailednote" />
     </div>
     <button type="submit" :class="submitBtnClass" @click="submitNote">
       <div>submit</div>
@@ -18,25 +27,39 @@
 import { iNote } from '../types';
 
 
-const { subline, input, btn, subline_small, submitbtn } = useUi()
+const { input, subline_small, submitbtn } = useUi()
 const { globalState } = useGlobals()
 
 interface iNoteDetail {
   note_title: string;
   note_description: string;
+  event_string_id: string;
 }
 
+const events = [
+  "Threshing Floor (January 21, 2022)"
+]
+
+const location = [
+  'In class',
+  'Has gone home',
+]
 const note = ref<iNoteDetail>({
   note_description: "",
-  note_title: ""
+  note_title: location[0],
+  event_string_id: events[0]
 })
 const ready = computed(() => note.value.note_description.length > 0)
-console.log("readi is", ready.value)
 const submitBtnClass = computed(() => `${submitbtn} ${ready.value === false ? "pointer-events-none bg-rcngray-700 opacity-50" : ""}`)
 
-const handleNote = (value: string) => {
-  console.log("from update page, gender is", value)
-  note.value.note_title = value
+const handleLocation = (location: string) => {
+  console.log("handling Location, location is", location)
+  note.value.note_title = location
+}
+
+const handleEvents = (event: string) => {
+  console.log("handling Events, event is", event)
+  note.value.event_string_id = event
 }
 
 const submitNote = async () => {
@@ -51,7 +74,7 @@ const submitNote = async () => {
     teacher_contact: globalState.value.user.data.phoneNumber as string,
     teacher_email: globalState.value.user.data.email as string,
     teacher_picture: globalState.value.user.data.imageUrl as string,
-    event_string_id: "Threshing Floor (January 22, 2022)",
+    event_string_id: "",
   }
 
   preppedNote = { ...preppedNote, ...note.value }

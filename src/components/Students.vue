@@ -135,13 +135,6 @@ const handlePersons = (persons:iPerson[]) => {
   updateThumbnailListHeight(thumbnailListRef as Ref<HTMLDivElement>, personsListRef as Ref<HTMLDivElement>)
 }
 
-const thumbnHeight = () => {
-    const height = thumbnailListRef.value?.getBoundingClientRect().height
-    // console.log("what device landscape is this", whatDeviceLandscapeIsThis())
-    console.log("thumbnails height is", height)
-    return height
-}
-
 onMounted(async () => {
   await refresh()
   window.addEventListener("resize", () => {
